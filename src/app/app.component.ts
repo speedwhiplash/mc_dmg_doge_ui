@@ -8,10 +8,9 @@ import { HttpClient } from '@angular/common/http';
 })
 export class AppComponent {
   title = 'mc-dmg-dogui';
-  content = ''
+  content: { message: string } = {message: ''}
 
   constructor(private httpClient: HttpClient) {
-    httpClient.get('/api', <any>{responseType: 'text'})
-      .subscribe((content: any) => this.content = new DOMParser().parseFromString(content, 'text/html')?.body?.innerHTML)
+    httpClient.get('/api').subscribe((content: any) => this.content = content)
   }
 }
