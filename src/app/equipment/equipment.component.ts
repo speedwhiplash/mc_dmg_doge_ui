@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { AllEquipment } from '../interfaces';
+import { BuildService } from '../build.service';
 
 @Component({
   selector: 'app-equipment',
@@ -8,17 +9,21 @@ import { AllEquipment } from '../interfaces';
   styleUrls: ['./equipment.component.scss']
 })
 export class EquipmentComponent implements OnInit {
-  equipment: AllEquipment;
+  equipment: AllEquipment = this.buildService.equipment;
 
-  constructor(private httpClient: HttpClient) {
+  constructor(
+    private buildService: BuildService,
+    private httpClient: HttpClient
+  ) {
     this.refresh();
   }
 
   ngOnInit(): void {
+    this.equipment = this.buildService.equipment;
   }
 
   refresh() {
-    this.httpClient.get('/api/equipment').subscribe((equipment: AllEquipment) => this.equipment = equipment);
+    this.buildService.getEquipment().subscribe(equipment => this.equipment = equipment);
   }
 
   update() {

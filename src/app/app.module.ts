@@ -5,11 +5,13 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
 import { EquipmentComponent } from './equipment/equipment.component';
+import { BuildDetailsComponent } from './build-details/build-details.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    EquipmentComponent
+    EquipmentComponent,
+    BuildDetailsComponent
   ],
   imports: [
     AppRoutingModule,
