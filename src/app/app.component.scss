@@ -1,2 +1,14 @@
-//@use "node_modules/@material/top-app-bar/mdc-top-app-bar";
-//@use "node_modules/@material/icon-button/mdc-icon-button";
+#header-logo {
+  height: 30px;
+  &:hover {
+    position:absolute;
+    top:10px;
+    left: 20px;
+    height:400px;
+    padding:20px;
+    border: 3px solid black;
+    border-radius: 8px;
+    background: white;
+    z-index: 1;
+  }
+}

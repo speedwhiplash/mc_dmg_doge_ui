@@ -1,4 +1,8 @@
-<h2>Equipment</h2>
+<h2>Equipment
+  <button class="btn-sm" (click)="update()">update cache</button>
+  &nbsp;
+  <button class="btn-sm" (click)="refresh()">refresh</button>
+</h2>
 <ul class="list-group">
   <li class="list-group-item">Helmets: {{ equipment?.helmets.length }}</li>
   <li class="list-group-item">Chestplates: {{ equipment?.chestplates.length }}</li>
