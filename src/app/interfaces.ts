@@ -1,16 +1,16 @@
 export interface AllEquipment {
   boots: Array<Boots>;
-  chestplates: Array<Chestplate>;
-  helmets: Array<Helmet>;
+  chestplate: Array<Chestplate>;
+  helmet: Array<Helmet>;
   leggings: Array<Leggings>;
-  offhands: Array<Offhand>;
+  offhand: Array<Offhand>;
 }
 
 export interface Build {
   boots: Boots;
   chestplate: Chestplate;
   helmet: Helmet;
-  legging: Leggings;
+  leggings: Leggings;
   offhand: Offhand;
 }
 
@@ -18,12 +18,34 @@ export interface BuildIndex {
   boots: number;
   chestplate: number;
   helmet: number;
-  legging: number;
+  leggings: number;
   offhand: number;
 }
 
-export interface PlayerStats {
+export enum EquipmentFields {
+  Armor = 'Armor',
+  'Armor Percent' = 'Armor Percent',
+// Curses: Array<string>;
+  Damage = 'Damage',
+  'Damage Absorbed' = 'Damage Absorbed',
+  Evasion = 'Evasion',
+  Health = 'Health',
+  'Health Percent' = 'Health Percent',
+  'Hits Taken' = 'Hits Taken',
+  Name = 'Name',
+  Place = 'Place',
+  Protection = 'Protection',
+  Regeneration = 'Regeneration',
+// Slot: Slots;
+  Tier = 'Tier',
+  Toughness = 'Toughness',
+  'Toughness Percent' = 'Toughness Percent',
+  'Type' = 'Type'
+}
 
+export type BestOverallBuildFields = {
+  //TODO: Itemize this
+  [key in EquipmentFields]?: number;
 }
 
 export enum Tiers {
@@ -42,21 +64,12 @@ export enum Tiers {
   'Epic' = 'Epic'
 }
 
-export interface Equipment {
-  Armor: number;
-  'Armor Percent': number;
-  // Curses: Array<string>;
-  Evasion: number;
-  Health: number;
-  'Health Percent': number;
-  Place: string;
-  Name: string;
-  Regeneration: number;
-  // Slot: Slots;
-  Tier: Tiers;
-  Toughness: number;
-  'Toughness Percent': number;
-  Type: string;
+export type Player = {
+  [index in EquipmentFields]: number | string
+}
+
+export type Equipment = {
+  [key in EquipmentFields]?: number | string;
 }
 
 export interface Offhand extends Equipment {
@@ -76,4 +89,30 @@ export interface Leggings extends Armor {
 }
 
 export interface Boots extends Armor {
+}
+
+export interface BobPostBodyType {
+  scenario:{
+    Damage: number;
+    'Hits Taken': number;
+    'Damage Absorbed': number;
+  },
+  player:{
+    Armor: number;
+    'Armor Percent': number;
+    Health: number;
+    'Health Percent': number;
+    Toughness: number;
+    'Toughness Percent': number;
+  },
+  mainhand:{
+    Armor: number;
+    'Armor Percent': number;
+    Evasion: number;
+    Regeneration: number;
+    Health: number;
+    'Health Percent': number;
+    Toughness: number;
+    'Toughness Percent': number;
+  }
 }

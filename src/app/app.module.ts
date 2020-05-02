@@ -6,12 +6,14 @@ import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
 import { EquipmentComponent } from './equipment/equipment.component';
 import { BuildDetailsComponent } from './build-details/build-details.component';
+import { CompareAllFormComponent } from './compare-all-form/compare-all-form.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     EquipmentComponent,
-    BuildDetailsComponent
+    BuildDetailsComponent,
+    CompareAllFormComponent
   ],
   imports: [
     AppRoutingModule,

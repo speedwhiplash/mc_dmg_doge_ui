@@ -4,9 +4,9 @@
   <button class="btn-sm" (click)="refresh()">refresh</button>
 </h2>
 <ul class="list-group">
-  <li class="list-group-item">Helmets: {{ equipment?.helmets.length }}</li>
-  <li class="list-group-item">Chestplates: {{ equipment?.chestplates.length }}</li>
-  <li class="list-group-item">Leggings: {{ equipment?.leggings.length }}</li>
-  <li class="list-group-item">Boots: {{ equipment?.boots.length }}</li>
-  <li class="list-group-item">Offhands: {{ equipment?.offhands.length }}</li>
+  <li class="list-group-item">Helmets: {{ (equipment | async)?.helmet.length }}</li>
+  <li class="list-group-item">Chestplates: {{ (equipment | async)?.chestplate.length }}</li>
+  <li class="list-group-item">Leggings: {{ (equipment | async)?.leggings.length }}</li>
+  <li class="list-group-item">Boots: {{ (equipment | async)?.boots.length }}</li>
+  <li class="list-group-item">Offhands: {{ (equipment | async)?.offhand.length }}</li>
 </ul>
