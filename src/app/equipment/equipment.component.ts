@@ -11,7 +11,8 @@ import { BuildService } from '../build.service';
 })
 export class EquipmentComponent implements OnInit, OnDestroy {
   equipment = this.buildService.equipment$;
-  private isAlive: false
+  isLoading = false;
+  private isAlive = true;
 
   constructor(
     private buildService: BuildService,
@@ -27,7 +28,13 @@ export class EquipmentComponent implements OnInit, OnDestroy {
   }
 
   update() {
-    this.httpClient.get('/api/update-stats').pipe(takeWhile(() => this.isAlive)).subscribe()
+    this.isLoading = true;
+    this.httpClient.get('/api/update-stats')
+      .pipe(takeWhile(() => this.isAlive))
+      .subscribe(() => {
+        this.refresh();
+        this.isLoading = false;
+      })
   }
 
   public ngOnDestroy(): void {
