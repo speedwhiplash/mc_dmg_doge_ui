@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { BobPostBodyType, EquipmentFields } from '../interfaces';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { BobPostBodyType, BuildIndex, EquipmentFields } from '../interfaces';
 import { HttpClient } from '@angular/common/http';
 
 @Component({
@@ -8,10 +8,12 @@ import { HttpClient } from '@angular/common/http';
   styleUrls: ['./compare-all-form.component.scss']
 })
 export class CompareAllFormComponent implements OnInit {
+  @Output('bestBuild') bestBuild = new EventEmitter<BuildIndex>();
   equipmentFields = EquipmentFields;
+  isLoading = false;
+  mainhandInputs = {};
   playerInputs = {};
   scenarioInputs = {};
-  mainhandInputs = {};
 
   constructor(private httpClient: HttpClient) {
     this.scenarioInputs[EquipmentFields.Damage] = 30;
@@ -39,12 +41,17 @@ export class CompareAllFormComponent implements OnInit {
   }
 
   submit() {
+    this.isLoading = true;
     const bob = this.assembleBob();
-    this.httpClient.post('/api/bestOverallBuild', bob).subscribe();
+
+    this.httpClient.post('/api/bestOverallBuild', bob).subscribe((response: BuildIndex) => {
+      this.isLoading = false;
+      this.bestBuild.emit(<any>response)
+    });
   }
 
   private assembleBob() {
-    let bob = {scenario:{}, player:{}, mainhand:{}} as BobPostBodyType;
+    let bob = {scenario: {}, player: {}, mainhand: {}} as BobPostBodyType;
     bob.scenario[EquipmentFields.Damage] = this.scenarioInputs[EquipmentFields.Damage];
     bob.scenario[EquipmentFields['Hits Taken']] = this.scenarioInputs[EquipmentFields['Hits Taken']];
     bob.scenario[EquipmentFields['Damage Absorbed']] = this.scenarioInputs[EquipmentFields['Damage Absorbed']];

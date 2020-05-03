@@ -1,5 +1,25 @@
+@import "../node_modules/bootswatch/dist/slate/variables";
 @import "../node_modules/bootstrap/scss/bootstrap.scss";
+@import "../node_modules/bootswatch/dist/slate/bootswatch";
+
 
 app-equipment {
   display: block;
+}
+
+footer {
+  height: 50px;
+}
+
+/** Bootstrap / BootSwatch overrides */
+.form-control {
+  height: 2em;
+}
+
+.col-form-label {
+  padding-top: 0.25rem;
+}
+
+nav .nav-link.active {
+  font-weight: bold;
 }

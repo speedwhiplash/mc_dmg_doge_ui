@@ -1,0 +1,56 @@
+<form>
+  <h2>Get Score ({{score}})</h2>
+  <div class="form-group row">
+    <label for="helmet" class="col-sm-2 col-form-label">Helmet</label>
+    <div class="col-sm-10">
+      <select id="helmet" class="form-control">
+        <option selected>Choose...</option>
+        <option *ngFor="let helm of (equipment$ | async).helmet; index as i;" [value]="i">{{helm.Name}}</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <label for="chest" class="col-sm-2 col-form-label">Chestplate</label>
+    <div class="col-sm-10">
+      <select id="chest" #chest class="form-control" (change)="build.chestplate = +chest.value">
+        <option selected>Choose...</option>
+        <option *ngFor="let chest of (equipment$ | async).chestplate; index as i;" [value]="i">{{chest.Name}}</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <label for="legs" class="col-sm-2 col-form-label">Leggings</label>
+    <div class="col-sm-10">
+      <select id="legs" class="form-control">
+        <option selected>Choose...</option>
+        <option *ngFor="let leg of (equipment$ | async).leggings; index as i;" [value]="i">{{leg.Name}}</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <label for="boot" class="col-sm-2 col-form-label">Boots</label>
+    <div class="col-sm-10">
+      <select id="boot" class="form-control">
+        <option selected>Choose...</option>
+        <option *ngFor="let boot of (equipment$ | async).boots; index as i;" [value]="i">{{boot.Name}}</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <label for="off" class="col-sm-2 col-form-label">Offhand</label>
+    <div class="col-sm-10">
+      <select id="off" class="form-control">
+        <option selected>Choose...</option>
+        <option *ngFor="let off of (equipment$ | async).offhand; index as i;" [value]="i">{{off.Name}}</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <button type="button" (click)="submit()">Submit</button>
+  </div>
+</form>
