@@ -1,8 +1,10 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { takeWhile } from 'rxjs/operators';
 
 import { BuildService } from '../build.service';
+import { Slots } from '../interfaces';
+import { MatAccordion } from '@angular/material/expansion';
 
 @Component({
   selector: 'app-equipment',
@@ -10,8 +12,12 @@ import { BuildService } from '../build.service';
   styleUrls: ['./equipment.component.scss']
 })
 export class EquipmentComponent implements OnInit, OnDestroy {
+  @ViewChild('equipmentTable') equipmentTable: MatAccordion;
   equipment = this.buildService.equipment$;
+  isExpanded = false;
   isLoading = false;
+  slots = Object.keys(Slots);
+  slotNames = Object.keys(Slots).map(slot => Slots[slot])
   private isAlive = true;
 
   constructor(
@@ -23,8 +29,8 @@ export class EquipmentComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
   }
 
-  refresh() {
-    this.buildService.getEquipment().subscribe();
+  expandAll() {
+    this.equipmentTable.openAll()
   }
 
   update() {
@@ -32,8 +38,7 @@ export class EquipmentComponent implements OnInit, OnDestroy {
     this.httpClient.get('/api/update-stats')
       .pipe(takeWhile(() => this.isAlive))
       .subscribe(() => {
-        this.refresh();
-        this.isLoading = false;
+        this.buildService.getEquipment().subscribe(() => this.isLoading = false);
       })
   }
 

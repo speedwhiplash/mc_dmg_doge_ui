@@ -20,6 +20,11 @@ footer {
   padding-top: 0.25rem;
 }
 
-nav .nav-link.active {
+.table th {
+  white-space: nowrap;
+}
+
+/** Material overrides */
+.mat-expansion-panel-header-title {
   font-weight: bold;
 }

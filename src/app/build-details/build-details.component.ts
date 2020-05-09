@@ -26,10 +26,6 @@ export class BuildDetailsComponent implements OnInit, OnDestroy {
     })
   }
 
-  compare() {
-    this.httpClient.post('/api/compare', {}).pipe(takeWhile(() => this.isAlive)).subscribe()
-  }
-
   refresh() {
     this.build = this.buildService.getBuild({
       boots: 0,

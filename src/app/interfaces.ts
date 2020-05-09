@@ -22,6 +22,14 @@ export interface BuildIndex {
   offhand: number;
 }
 
+export enum Slots {
+  boots = 'Boots',
+  chestplate = 'Chestplates',
+  helmet = 'Helmets',
+  leggings = 'leggings',
+  offhand = 'Offhands'
+}
+
 export enum EquipmentFields {
   Armor = 'Armor',
   'Armor Percent' = 'Armor Percent',
@@ -92,12 +100,12 @@ export interface Boots extends Armor {
 }
 
 export interface BobPostBodyType {
-  scenario:{
+  scenario: {
     Damage: number;
     'Hits Taken': number;
     'Damage Absorbed': number;
   },
-  player:{
+  player: {
     Armor: number;
     'Armor Percent': number;
     Health: number;
@@ -105,7 +113,7 @@ export interface BobPostBodyType {
     Toughness: number;
     'Toughness Percent': number;
   },
-  mainhand:{
+  mainhand: {
     Armor: number;
     'Armor Percent': number;
     Evasion: number;
