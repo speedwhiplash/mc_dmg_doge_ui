@@ -8,21 +8,30 @@
   <div class="form-row">
     <div class="col-lg-4 mb-3">
       <label for="sDamage">Damage</label>
-      <input type="number" class="form-control" id="sDamage" #sDamage [min]="0"
-        (keyup)="scenarioInputs.Damage = +sDamage.value"
-        [value]="scenarioInputs.Damage">
+      <div class="input-group input-group-sm">
+        <input type="number" class="form-control" id="sDamage" #sDamage [min]="0"
+          (keyup)="scenarioInputs.Damage = +sDamage.value"
+          [value]="scenarioInputs.Damage">
+      </div>
     </div>
     <div class="col-lg-4 mb-3">
       <label for="sHits">Hits Taken</label>
-      <input type="number" class="form-control" id="sHits" #sHits [min]="1"
-        (keyup)="scenarioInputs['Hits Taken'] = +sHits.value"
-        [value]="scenarioInputs['Hits Taken']">
+      <div class="input-group input-group-sm">
+        <input type="number" class="form-control" id="sHits" #sHits [min]="1"
+          (keyup)="scenarioInputs['Hits Taken'] = +sHits.value"
+          [value]="scenarioInputs['Hits Taken']">
+      </div>
     </div>
     <div class="col-lg-4 mb-3">
-      <label for="sDa">Damage Absorbed %</label>
-      <input type="number" class="form-control" id="sDa" #sDa [min]="0" [max]="100"
-        (keyup)="scenarioInputs['Damage Absorbed'] = +sDa.value"
-        [value]="scenarioInputs['Damage Absorbed']">
+      <label for="sDa">Damage Absorbed</label>
+      <div class="input-group input-group-sm">
+        <input type="number" class="form-control" id="sDa" #sDa [min]="0" [max]="100"
+          (keyup)="scenarioInputs['Damage Absorbed'] = +sDa.value"
+          [value]="scenarioInputs['Damage Absorbed']">
+        <div class="input-group-append">
+          <span class="input-group-text">%</span>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -30,44 +39,64 @@
   <div class="form-row">
     <div class="col-lg-6 mb-3">
       <label for="pA">Armor</label>
-      <input type="number" class="form-control" id="pA" #pA [min]="0"
-        (keyup)="playerInputs.Armor = +pA.value"
-        [value]="playerInputs.Armor">
+      <div class="input-group input-group-sm">
+        <input type="number" class="form-control" id="pA" #pA [min]="0"
+          (keyup)="playerInputs.Armor = +pA.value"
+          [value]="playerInputs.Armor">
+      </div>
     </div>
     <div class="col-lg-6 mb-3">
-      <label for="pAp">Armor %</label>
-      <input type="number" class="form-control" id="pAp" #pAp [min]="0" [max]="100"
-        (keyup)="playerInputs['Armor Percent'] = +pAp.value"
-        [value]="playerInputs['Armor Percent']">
+      <label for="pAp">Armor Percent</label>
+      <div class="input-group input-group-sm">
+        <input type="number" class="form-control" id="pAp" #pAp [min]="0" [max]="100"
+          (keyup)="playerInputs['Armor Percent'] = +pAp.value"
+          [value]="playerInputs['Armor Percent']">
+        <div class="input-group-append">
+          <span class="input-group-text">%</span>
+        </div>
+      </div>
     </div>
   </div>
   <div class="form-row">
     <div class="col-lg-6 mb-3">
       <label for="pT">Toughness</label>
-      <input type="number" class="form-control" id="pT" #pT [min]="0"
-        (keyup)="playerInputs.Toughness = +pT.value"
-        [value]="playerInputs.Toughness">
+      <div class="input-group input-group-sm">
+        <input type="number" class="form-control" id="pT" #pT [min]="0"
+          (keyup)="playerInputs.Toughness = +pT.value"
+          [value]="playerInputs.Toughness">
+      </div>
     </div>
     <div class="col-lg-6 mb-3">
-      <label for="pTp">Toughness %</label>
-      <input type="number" class="form-control" id="pTp" #pTp [min]="0" [max]="100"
-        (keyup)="playerInputs['Toughness Percent'] = +pTp.value"
-        [value]="playerInputs['Toughness Percent']">
+      <label for="pTp">Toughness Percent</label>
+      <div class="input-group input-group-sm">
+        <input type="number" class="form-control" id="pTp" #pTp [min]="0" [max]="100"
+          (keyup)="playerInputs['Toughness Percent'] = +pTp.value"
+          [value]="playerInputs['Toughness Percent']">
+        <div class="input-group-append">
+          <span class="input-group-text">%</span>
+        </div>
+      </div>
     </div>
   </div>
-
   <div class="form-row">
     <div class="col-lg-6 mb-3">
       <label for="pH">Health</label>
-      <input type="number" class="form-control" id="pH" #pH [min]="1"
-        (keyup)="playerInputs.Health = +pH.value"
-        [value]="playerInputs.Health">
+      <div class="input-group input-group-sm">
+        <input type="number" class="form-control" id="pH" #pH [min]="1"
+          (keyup)="playerInputs.Health = +pH.value"
+          [value]="playerInputs.Health">
+      </div>
     </div>
     <div class="col-lg-6 mb-3">
-      <label for="pHp">Health %</label>
-      <input type="number" class="form-control" id="pHp" #pHp [min]="0" [max]="100"
-        (keyup)="playerInputs['Health Percent'] = +pHp.value"
-        [value]="playerInputs['Health Percent']">
+      <label for="pHp">Health Percent</label>
+      <div class="input-group input-group-sm">
+        <input type="number" class="form-control" id="pHp" #pHp [min]="0" [max]="100"
+          (keyup)="playerInputs['Health Percent'] = +pHp.value"
+          [value]="playerInputs['Health Percent']">
+        <div class="input-group-append">
+          <span class="input-group-text">%</span>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -75,64 +104,90 @@
   <div class="form-row">
     <div class="col-lg-6 mb-3">
       <label for="mA">Armor</label>
-      <input type="number" class="form-control" id="mA" #mA [min]="0"
-        (keyup)="mainhandInputs.Armor = +mA.value"
-        [value]="mainhandInputs.Armor">
+      <div class="input-group input-group-sm">
+        <input type="number" class="form-control" id="mA" #mA [min]="0"
+          (keyup)="mainhandInputs.Armor = +mA.value"
+          [value]="mainhandInputs.Armor">
+      </div>
     </div>
     <div class="col-lg-6 mb-3">
-      <label for="mAp">Armor %</label>
-      <input type="number" class="form-control" id="mAp" #mAp [min]="0" [max]="100"
-        (keyup)="mainhandInputs['Armor Percent'] = +mAp.value"
-        [value]="mainhandInputs['Armor Percent']">
+      <label for="mAp">Armor Percent</label>
+      <div class="input-group input-group-sm">
+        <input type="number" class="form-control" id="mAp" #mAp [min]="0" [max]="100"
+          (keyup)="mainhandInputs['Armor Percent'] = +mAp.value"
+          [value]="mainhandInputs['Armor Percent']">
+        <div class="input-group-append">
+          <span class="input-group-text">%</span>
+        </div>
+      </div>
     </div>
   </div>
   <div class="form-row">
     <div class="col-lg-6 mb-3">
       <label for="mT">Toughness</label>
-      <input type="number" class="form-control" id="mT" #mT [min]="0"
-        (keyup)="mainhandInputs.Toughness = +mT.value"
-        [value]="mainhandInputs.Toughness">
+      <div class="input-group input-group-sm">
+        <input type="number" class="form-control" id="mT" #mT [min]="0"
+          (keyup)="mainhandInputs.Toughness = +mT.value"
+          [value]="mainhandInputs.Toughness">
+      </div>
     </div>
     <div class="col-lg-6 mb-3">
-      <label for="mTp">Toughness %</label>
-      <input type="number" class="form-control" id="mTp" #mTp [min]="0" [max]="100"
-        (keyup)="mainhandInputs['Toughness Percent'] = +mTp.value"
-        [value]="mainhandInputs['Toughness Percent']">
+      <label for="mTp">Toughness Percent</label>
+      <div class="input-group input-group-sm">
+        <input type="number" class="form-control" id="mTp" #mTp [min]="0" [max]="100"
+          (keyup)="mainhandInputs['Toughness Percent'] = +mTp.value"
+          [value]="mainhandInputs['Toughness Percent']">
+        <div class="input-group-append">
+          <span class="input-group-text">%</span>
+        </div>
+      </div>
     </div>
   </div>
 
   <div class="form-row">
     <div class="col-lg-6 mb-3">
       <label for="mE">Evasion</label>
-      <input type="number" class="form-control" id="mE" #mE [min]="0"
-        (keyup)="mainhandInputs.Evasion = +mE.value"
-        [value]="mainhandInputs.Evasion">
+      <div class="input-group input-group-sm">
+        <input type="number" class="form-control" id="mE" #mE [min]="0"
+          (keyup)="mainhandInputs.Evasion = +mE.value"
+          [value]="mainhandInputs.Evasion">
+      </div>
     </div>
     <div class="col-lg-6 mb-3">
       <label for="mR">Regeneration</label>
-      <input type="number" class="form-control" id="mR" #mR [min]="0"
-        (keyup)="mainhandInputs.Regeneration = +mR.value"
-        [value]="mainhandInputs.Regeneration">
+      <div class="input-group input-group-sm">
+        <input type="number" class="form-control" id="mR" #mR [min]="0"
+          (keyup)="mainhandInputs.Regeneration = +mR.value"
+          [value]="mainhandInputs.Regeneration">
+      </div>
     </div>
   </div>
 
   <div class="form-row">
     <div class="col-lg-6 mb-3">
       <label for="mH">Health</label>
-      <input type="number" class="form-control" id="mH" #pH [min]="0"
-        (keyup)="mainhandInputs.Health = +pH.value"
-        [value]="mainhandInputs.Health">
+      <div class="input-group input-group-sm">
+        <input type="number" class="form-control" id="mH" #pH [min]="0"
+          (keyup)="mainhandInputs.Health = +pH.value"
+          [value]="mainhandInputs.Health">
+      </div>
     </div>
     <div class="col-lg-6 mb-3">
-      <label for="mHp">Health %</label>
-      <input type="number" class="form-control" id="mHp" #mHp [min]="0" [max]="100"
-        (keyup)="mainhandInputs['Health Percent'] = +mHp.value"
-        [value]="mainhandInputs['Health Percent']">
+      <label for="mHp">Health Percent</label>
+      <div class="input-group input-group-sm">
+        <input type="number" class="form-control" id="mHp" #mHp [min]="0" [max]="100"
+          (keyup)="mainhandInputs['Health Percent'] = +mHp.value"
+          [value]="mainhandInputs['Health Percent']">
+        <div class="input-group-append">
+          <span class="input-group-text">%</span>
+        </div>
+      </div>
     </div>
   </div>
   <div>
     <button type="button" (click)="submit()" class="btn-secondary btn" [disabled]="isLoading">
       <span *ngIf="isLoading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-      Submit</button>
+      Submit
+    </button>
   </div>
 </form>
