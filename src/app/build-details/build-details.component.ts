@@ -11,6 +11,7 @@ import { BuildService } from '../build.service';
   styleUrls: ['./build-details.component.scss']
 })
 export class BuildDetailsComponent implements OnInit, OnDestroy {
+  builds: { [key: number]: Build[] };
   build: Build;
   private isAlive = true;
 
@@ -27,6 +28,7 @@ export class BuildDetailsComponent implements OnInit, OnDestroy {
   }
 
   refresh() {
+    this.builds = {};
     this.build = this.buildService.getBuild({
       boots: 0,
       helmet: 0,

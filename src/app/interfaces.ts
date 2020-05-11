@@ -1,17 +1,17 @@
 export interface AllEquipment {
-  boots: Array<Boots>;
-  chestplate: Array<Chestplate>;
-  helmet: Array<Helmet>;
-  leggings: Array<Leggings>;
-  offhand: Array<Offhand>;
+  boots: Array<IBoots>;
+  chestplate: Array<IChestplate>;
+  helmet: Array<IHelmet>;
+  leggings: Array<ILeggings>;
+  offhand: Array<IOffhand>;
 }
 
 export interface Build {
-  boots: Boots;
-  chestplate: Chestplate;
-  helmet: Helmet;
-  leggings: Leggings;
-  offhand: Offhand;
+  boots: IBoots;
+  chestplate: IChestplate;
+  helmet: IHelmet;
+  leggings: ILeggings;
+  offhand: IOffhand;
 }
 
 export interface BuildIndex {
@@ -26,34 +26,52 @@ export enum Slots {
   boots = 'Boots',
   chestplate = 'Chestplates',
   helmet = 'Helmets',
-  leggings = 'leggings',
+  leggings = 'Leggings',
   offhand = 'Offhands'
 }
 
-export enum EquipmentFields {
+export interface IScenarioInputs {
+  Damage: number;
+  'Hits Taken': number;
+  'Damage Absorbed': number;
+}
+
+export enum PlayerFields {
   Armor = 'Armor',
   'Armor Percent' = 'Armor Percent',
-// Curses: Array<string>;
+  Health = 'Health',
+  'Health Percent' = 'Health Percent',
+  Toughness = 'Toughness',
+  'Toughness Percent' = 'Toughness Percent',
+}
+
+export type PlayerInputsType = {
+  [index in PlayerFields]: number
+}
+
+export enum DefenceFields {
+  Protection = 'Protection',
+}
+
+export enum HandheldFields {
+  Armor = 'Armor',
+  'Armor Percent' = 'Armor Percent',
   Damage = 'Damage',
   'Damage Absorbed' = 'Damage Absorbed',
   Evasion = 'Evasion',
   Health = 'Health',
   'Health Percent' = 'Health Percent',
-  'Hits Taken' = 'Hits Taken',
-  Name = 'Name',
-  Place = 'Place',
-  Protection = 'Protection',
   Regeneration = 'Regeneration',
-// Slot: Slots;
-  Tier = 'Tier',
   Toughness = 'Toughness',
   'Toughness Percent' = 'Toughness Percent',
-  'Type' = 'Type'
 }
 
-export type BestOverallBuildFields = {
-  //TODO: Itemize this
-  [key in EquipmentFields]?: number;
+export type HandheldType = {
+  [index in HandheldFields]: number;
+}
+
+export interface DefenceInputsType extends HandheldType {
+  Protection: number;
 }
 
 export enum Tiers {
@@ -72,55 +90,26 @@ export enum Tiers {
   'Epic' = 'Epic'
 }
 
-export type Player = {
-  [index in EquipmentFields]: number | string
+export interface IOffhand extends HandheldType {
 }
 
-export type Equipment = {
-  [key in EquipmentFields]?: number | string;
+export interface IArmor extends DefenceInputsType {
 }
 
-export interface Offhand extends Equipment {
+export interface IHelmet extends DefenceInputsType {
 }
 
-export interface Armor extends Equipment {
-  protection: number;
+export interface IChestplate extends DefenceInputsType {
 }
 
-export interface Helmet extends Armor {
+export interface ILeggings extends DefenceInputsType {
 }
 
-export interface Chestplate extends Armor {
+export interface IBoots extends DefenceInputsType {
 }
 
-export interface Leggings extends Armor {
-}
-
-export interface Boots extends Armor {
-}
-
-export interface BobPostBodyType {
-  scenario: {
-    Damage: number;
-    'Hits Taken': number;
-    'Damage Absorbed': number;
-  },
-  player: {
-    Armor: number;
-    'Armor Percent': number;
-    Health: number;
-    'Health Percent': number;
-    Toughness: number;
-    'Toughness Percent': number;
-  },
-  mainhand: {
-    Armor: number;
-    'Armor Percent': number;
-    Evasion: number;
-    Regeneration: number;
-    Health: number;
-    'Health Percent': number;
-    Toughness: number;
-    'Toughness Percent': number;
-  }
+export interface IBobInputs {
+  scenario: IScenarioInputs;
+  player: PlayerInputsType;
+  mainhand: DefenceInputsType;
 }

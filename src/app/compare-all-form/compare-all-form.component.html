@@ -9,20 +9,20 @@
     <div class="col-lg-4 mb-3">
       <label for="sDamage">Damage</label>
       <input type="number" class="form-control" id="sDamage" #sDamage [min]="0"
-        (keyup)="scenarioInputs[equipmentFields.Damage] = sDamage.value"
-        [value]="scenarioInputs[equipmentFields.Damage]">
+        (keyup)="scenarioInputs.Damage = +sDamage.value"
+        [value]="scenarioInputs.Damage">
     </div>
     <div class="col-lg-4 mb-3">
       <label for="sHits">Hits Taken</label>
       <input type="number" class="form-control" id="sHits" #sHits [min]="1"
-        (keyup)="scenarioInputs[equipmentFields['Hits Taken']] = sHits.value"
-        [value]="scenarioInputs[equipmentFields['Hits Taken']]">
+        (keyup)="scenarioInputs['Hits Taken'] = +sHits.value"
+        [value]="scenarioInputs['Hits Taken']">
     </div>
     <div class="col-lg-4 mb-3">
       <label for="sDa">Damage Absorbed %</label>
       <input type="number" class="form-control" id="sDa" #sDa [min]="0" [max]="100"
-        (keyup)="scenarioInputs[equipmentFields['Damage Absorbed']] = sDa.value"
-        [value]="scenarioInputs[equipmentFields['Damage Absorbed']]">
+        (keyup)="scenarioInputs['Damage Absorbed'] = +sDa.value"
+        [value]="scenarioInputs['Damage Absorbed']">
     </div>
   </div>
 
@@ -31,28 +31,28 @@
     <div class="col-lg-6 mb-3">
       <label for="pA">Armor</label>
       <input type="number" class="form-control" id="pA" #pA [min]="0"
-        (keyup)="playerInputs[equipmentFields.Armor] = pA.value"
-        [value]="playerInputs[equipmentFields.Armor]">
+        (keyup)="playerInputs.Armor = +pA.value"
+        [value]="playerInputs.Armor">
     </div>
     <div class="col-lg-6 mb-3">
       <label for="pAp">Armor %</label>
       <input type="number" class="form-control" id="pAp" #pAp [min]="0" [max]="100"
-        (keyup)="playerInputs[equipmentFields['Armor Percent']] = pAp.value"
-        [value]="playerInputs[equipmentFields['Armor Percent']]">
+        (keyup)="playerInputs['Armor Percent'] = +pAp.value"
+        [value]="playerInputs['Armor Percent']">
     </div>
   </div>
   <div class="form-row">
     <div class="col-lg-6 mb-3">
       <label for="pT">Toughness</label>
       <input type="number" class="form-control" id="pT" #pT [min]="0"
-        (keyup)="playerInputs[equipmentFields.Toughness] = pT.value"
-        [value]="playerInputs[equipmentFields.Toughness]">
+        (keyup)="playerInputs.Toughness = +pT.value"
+        [value]="playerInputs.Toughness">
     </div>
     <div class="col-lg-6 mb-3">
       <label for="pTp">Toughness %</label>
       <input type="number" class="form-control" id="pTp" #pTp [min]="0" [max]="100"
-        (keyup)="playerInputs[equipmentFields['Toughness Percent']] = pTp.value"
-        [value]="playerInputs[equipmentFields['Toughness Percent']]">
+        (keyup)="playerInputs['Toughness Percent'] = +pTp.value"
+        [value]="playerInputs['Toughness Percent']">
     </div>
   </div>
 
@@ -60,14 +60,14 @@
     <div class="col-lg-6 mb-3">
       <label for="pH">Health</label>
       <input type="number" class="form-control" id="pH" #pH [min]="1"
-        (keyup)="playerInputs[equipmentFields.Health] = pH.value"
-        [value]="playerInputs[equipmentFields.Health]">
+        (keyup)="playerInputs.Health = +pH.value"
+        [value]="playerInputs.Health">
     </div>
     <div class="col-lg-6 mb-3">
       <label for="pHp">Health %</label>
       <input type="number" class="form-control" id="pHp" #pHp [min]="0" [max]="100"
-        (keyup)="playerInputs[equipmentFields['Health Percent']] = pHp.value"
-        [value]="playerInputs[equipmentFields['Health Percent']]">
+        (keyup)="playerInputs['Health Percent'] = +pHp.value"
+        [value]="playerInputs['Health Percent']">
     </div>
   </div>
 
@@ -76,28 +76,28 @@
     <div class="col-lg-6 mb-3">
       <label for="mA">Armor</label>
       <input type="number" class="form-control" id="mA" #mA [min]="0"
-        (keyup)="mainhandInputs[equipmentFields.Armor] = mA.value"
-        [value]="mainhandInputs[equipmentFields.Armor]">
+        (keyup)="mainhandInputs.Armor = +mA.value"
+        [value]="mainhandInputs.Armor">
     </div>
     <div class="col-lg-6 mb-3">
       <label for="mAp">Armor %</label>
       <input type="number" class="form-control" id="mAp" #mAp [min]="0" [max]="100"
-        (keyup)="mainhandInputs[equipmentFields['Armor Percent']] = mAp.value"
-        [value]="mainhandInputs[equipmentFields['Armor Percent']]">
+        (keyup)="mainhandInputs['Armor Percent'] = +mAp.value"
+        [value]="mainhandInputs['Armor Percent']">
     </div>
   </div>
   <div class="form-row">
     <div class="col-lg-6 mb-3">
       <label for="mT">Toughness</label>
       <input type="number" class="form-control" id="mT" #mT [min]="0"
-        (keyup)="mainhandInputs[equipmentFields.Toughness] = mT.value"
-        [value]="mainhandInputs[equipmentFields.Toughness]">
+        (keyup)="mainhandInputs.Toughness = +mT.value"
+        [value]="mainhandInputs.Toughness">
     </div>
     <div class="col-lg-6 mb-3">
       <label for="mTp">Toughness %</label>
       <input type="number" class="form-control" id="mTp" #mTp [min]="0" [max]="100"
-        (keyup)="mainhandInputs[equipmentFields['Toughness Percent']] = mTp.value"
-        [value]="mainhandInputs[equipmentFields['Toughness Percent']]">
+        (keyup)="mainhandInputs['Toughness Percent'] = +mTp.value"
+        [value]="mainhandInputs['Toughness Percent']">
     </div>
   </div>
 
@@ -105,14 +105,14 @@
     <div class="col-lg-6 mb-3">
       <label for="mE">Evasion</label>
       <input type="number" class="form-control" id="mE" #mE [min]="0"
-        (keyup)="mainhandInputs[equipmentFields.Evasion] = mE.value"
-        [value]="mainhandInputs[equipmentFields.Evasion]">
+        (keyup)="mainhandInputs.Evasion = +mE.value"
+        [value]="mainhandInputs.Evasion">
     </div>
     <div class="col-lg-6 mb-3">
       <label for="mR">Regeneration</label>
       <input type="number" class="form-control" id="mR" #mR [min]="0"
-        (keyup)="mainhandInputs[equipmentFields.Regeneration] = mR.value"
-        [value]="mainhandInputs[equipmentFields.Regeneration]">
+        (keyup)="mainhandInputs.Regeneration = +mR.value"
+        [value]="mainhandInputs.Regeneration">
     </div>
   </div>
 
@@ -120,14 +120,14 @@
     <div class="col-lg-6 mb-3">
       <label for="mH">Health</label>
       <input type="number" class="form-control" id="mH" #pH [min]="0"
-        (keyup)="mainhandInputs[equipmentFields.Health] = pH.value"
-        [value]="mainhandInputs[equipmentFields.Health]">
+        (keyup)="mainhandInputs.Health = +pH.value"
+        [value]="mainhandInputs.Health">
     </div>
     <div class="col-lg-6 mb-3">
       <label for="mHp">Health %</label>
       <input type="number" class="form-control" id="mHp" #mHp [min]="0" [max]="100"
-        (keyup)="mainhandInputs[equipmentFields['Health Percent']] = mHp.value"
-        [value]="mainhandInputs[equipmentFields['Health Percent']]">
+        (keyup)="mainhandInputs['Health Percent'] = +mHp.value"
+        [value]="mainhandInputs['Health Percent']">
     </div>
   </div>
   <div>
