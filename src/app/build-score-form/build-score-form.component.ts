@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Build, BuildIndex } from '../interfaces';
+import { IBuild, BuildIndex } from '../interfaces';
 import { BuildService } from '../build.service';
 import { HttpClient } from '@angular/common/http';
 

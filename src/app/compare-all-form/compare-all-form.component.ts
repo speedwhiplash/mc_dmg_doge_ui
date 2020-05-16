@@ -9,7 +9,7 @@ import { BuildIndex, HandheldType, IBobInputs, IScenarioInputs, PlayerInputsType
   styleUrls: ['./compare-all-form.component.scss']
 })
 export class CompareAllFormComponent implements OnInit {
-  @Output('bestBuild') bestBuild = new EventEmitter<BuildIndex>();
+  @Output('bestBuilds$') bestBuilds$ = new EventEmitter<Record<number, BuildIndex[]>>();
   isLoading = false;
   mainhandInputs = <HandheldType>{};
   playerInputs = <PlayerInputsType>{};
@@ -44,9 +44,9 @@ export class CompareAllFormComponent implements OnInit {
     this.isLoading = true;
     const bob = this.assembleBob();
 
-    this.httpClient.post('/api/bob/defense', bob).subscribe((response: BuildIndex) => {
+    this.httpClient.post('/api/bob/defense', bob).subscribe((response: Record<number, BuildIndex[]>) => {
       this.isLoading = false;
-      this.bestBuild.emit(<any>response)
+      this.bestBuilds$.emit(response)
     });
   }
 

@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject } from 'rxjs';
 import { tap } from 'rxjs/operators';
 
-import { AllEquipment, Build, BuildIndex } from './interfaces';
+import { AllEquipment, IBuild, BuildIndex } from './interfaces';
 
 @Injectable({
   providedIn: 'root'
@@ -32,9 +32,9 @@ export class BuildService {
       .subscribe();
   }
 
-  getBuild(build: BuildIndex): Build {
+  getBuild(build: BuildIndex): IBuild {
     const equipment = this.equipment$.getValue();
-    return <Build>{
+    return <IBuild>{
       boots: {...equipment.boots[build.boots]},
       chestplate: {...equipment.chestplate[build.chestplate]},
       helmet: {...equipment.helmet[build.helmet]},

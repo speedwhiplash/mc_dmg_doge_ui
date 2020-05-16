@@ -6,12 +6,14 @@ export interface AllEquipment {
   offhand: Array<IOffhand>;
 }
 
-export interface Build {
-  boots: IBoots;
-  chestplate: IChestplate;
-  helmet: IHelmet;
-  leggings: ILeggings;
-  offhand: IOffhand;
+export interface IBuild {
+	boots: IBoots;
+	chestplate: IChestplate;
+	helmet: IHelmet;
+	leggings: ILeggings;
+	offhand: IOffhand;
+	mainhand: IHandheld;
+	player: IPlayerInputs;
 }
 
 export interface BuildIndex {
@@ -30,6 +32,13 @@ export enum Slots {
   offhand = 'Offhands'
 }
 
+export interface ITextFields {
+	Name: string;
+	Tier: Tiers;
+	Type: string;
+	Place: string;
+}
+
 export interface IScenarioInputs {
   Damage: number;
   'Hits Taken': number;
@@ -46,7 +55,10 @@ export enum PlayerFields {
 }
 
 export type PlayerInputsType = {
-  [index in PlayerFields]: number
+	[index in PlayerFields]: number;
+}
+
+export interface IPlayerInputs extends PlayerInputsType {
 }
 
 export enum DefenceFields {
@@ -70,8 +82,11 @@ export type HandheldType = {
   [index in HandheldFields]: number;
 }
 
-export interface DefenceInputsType extends HandheldType {
-  Protection: number;
+export interface IHandheld extends HandheldType, ITextFields {
+}
+
+export interface IDefenceInputs extends IHandheld {
+	Protection: number;
 }
 
 export enum Tiers {
@@ -90,26 +105,26 @@ export enum Tiers {
   'Epic' = 'Epic'
 }
 
-export interface IOffhand extends HandheldType {
+export interface IOffhand extends IHandheld {
 }
 
-export interface IArmor extends DefenceInputsType {
+export interface IArmor extends IDefenceInputs {
 }
 
-export interface IHelmet extends DefenceInputsType {
+export interface IHelmet extends IDefenceInputs {
 }
 
-export interface IChestplate extends DefenceInputsType {
+export interface IChestplate extends IDefenceInputs {
 }
 
-export interface ILeggings extends DefenceInputsType {
+export interface ILeggings extends IDefenceInputs {
 }
 
-export interface IBoots extends DefenceInputsType {
+export interface IBoots extends IDefenceInputs {
 }
 
 export interface IBobInputs {
-  scenario: IScenarioInputs;
-  player: PlayerInputsType;
-  mainhand: DefenceInputsType;
+	scenario: IScenarioInputs,
+	player: IPlayerInputs,
+	mainhand: IHandheld
 }

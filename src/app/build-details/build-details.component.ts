@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { takeWhile } from 'rxjs/operators';
 
-import { Build, BuildIndex } from '../interfaces';
+import { IBuild, BuildIndex } from '../interfaces';
 import { BuildService } from '../build.service';
 
 @Component({
@@ -11,8 +11,11 @@ import { BuildService } from '../build.service';
   styleUrls: ['./build-details.component.scss']
 })
 export class BuildDetailsComponent implements OnInit, OnDestroy {
-  builds: { [key: number]: Build[] };
-  build: Build;
+  builds: Record<number, BuildIndex[]>;
+  build: IBuild;
+  currentScore = 0;
+  currentIndex = 0;
+  currentBuild;
   private isAlive = true;
 
   constructor(
@@ -27,6 +30,18 @@ export class BuildDetailsComponent implements OnInit, OnDestroy {
     })
   }
 
+  get scores(): number[] {
+    return Object.keys(this.builds).map(score => +score).sort();
+  }
+
+  getBuild(score: number, index: number): IBuild {
+    if (this.builds[score] && this.builds[score][index]) {
+      return this.buildService.getBuild(this.builds[score][index]);
+    } else {
+      return null;
+    }
+  }
+
   refresh() {
     this.builds = {};
     this.build = this.buildService.getBuild({
@@ -38,8 +53,9 @@ export class BuildDetailsComponent implements OnInit, OnDestroy {
     });
   }
 
-  setBuildIndex(buildIndex: BuildIndex) {
-    this.build = this.buildService.getBuild(buildIndex);
+  setBuildIndexes(buildIndexes: Record<number, BuildIndex[]>) {
+    this.builds = buildIndexes;
+    this.currentScore = Object.keys(buildIndexes).map(score => +score).sort()[0];
   }
 
   ngOnDestroy(): void {

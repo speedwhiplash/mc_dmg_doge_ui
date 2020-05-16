@@ -17,8 +17,8 @@ export class CompareComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  setBuild(build: BuildIndex) {
-    this.buildDetails.setBuildIndex(build);
+  setBuilds(build: Record<number, BuildIndex[]>) {
+    this.buildDetails.setBuildIndexes(build);
   }
 
 }
