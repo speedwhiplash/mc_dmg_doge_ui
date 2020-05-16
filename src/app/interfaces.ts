@@ -24,6 +24,23 @@ export interface BuildIndex {
   offhand: number;
 }
 
+export interface DefenseScores {
+  armor: number;
+  toughness: number;
+  protection: number;
+  evasion: number;
+  regeneration: number;
+  health: number;
+  score: number;
+}
+
+export interface BuildScores {
+  [key: number]: {
+    build: BuildIndex;
+    scores: DefenseScores;
+  }[];
+}
+
 export enum Slots {
   boots = 'Boots',
   chestplate = 'Chestplates',

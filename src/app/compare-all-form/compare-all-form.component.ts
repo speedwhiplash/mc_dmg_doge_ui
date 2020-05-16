@@ -1,7 +1,7 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
-import { BuildIndex, HandheldType, IBobInputs, IScenarioInputs, PlayerInputsType } from '../interfaces';
+import { BuildIndex, BuildScores, DefenseScores, HandheldType, IBobInputs, IScenarioInputs, PlayerInputsType } from '../interfaces';
 
 @Component({
   selector: 'app-compare-all-form',
@@ -9,7 +9,7 @@ import { BuildIndex, HandheldType, IBobInputs, IScenarioInputs, PlayerInputsType
   styleUrls: ['./compare-all-form.component.scss']
 })
 export class CompareAllFormComponent implements OnInit {
-  @Output('bestBuilds$') bestBuilds$ = new EventEmitter<Record<number, BuildIndex[]>>();
+  @Output('bestBuilds$') bestBuilds$ = new EventEmitter<Record<number, BuildScores[]>>();
   isLoading = false;
   mainhandInputs = <HandheldType>{};
   playerInputs = <PlayerInputsType>{};
@@ -44,7 +44,7 @@ export class CompareAllFormComponent implements OnInit {
     this.isLoading = true;
     const bob = this.assembleBob();
 
-    this.httpClient.post('/api/bob/defense', bob).subscribe((response: Record<number, BuildIndex[]>) => {
+    this.httpClient.post('/api/bob/defense', bob).subscribe((response: Record<number, BuildScores[]>) => {
       this.isLoading = false;
       this.bestBuilds$.emit(response)
     });

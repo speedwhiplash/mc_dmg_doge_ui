@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject } from 'rxjs';
 import { tap } from 'rxjs/operators';
 
-import { AllEquipment, IBuild, BuildIndex } from './interfaces';
+import { AllEquipment, BuildIndex, IBuild } from './interfaces';
 
 @Injectable({
   providedIn: 'root'
