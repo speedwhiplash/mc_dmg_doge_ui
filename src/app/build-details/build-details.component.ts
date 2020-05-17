@@ -42,6 +42,32 @@ export class BuildDetailsComponent implements OnInit, OnDestroy {
     }
   }
 
+  getScores(score: number, index: number): IBuild {
+    if (this.builds[score] && this.builds[score][index]) {
+      return this.builds[score][index]['scores'];
+    } else {
+      return null;
+    }
+  }
+
+  nextIndex(event: MouseEvent): void {
+    if (this.currentIndex < this.builds[this.currentScore].length - 1) {
+      this.currentIndex++;
+    } else {
+      this.currentIndex = 0;
+    }
+    event.preventDefault();
+  }
+
+  previousIndex(event: MouseEvent): void {
+    if (this.currentIndex > 0) {
+      this.currentIndex--;
+    } else {
+      this.currentIndex = this.builds[this.currentScore].length - 1;
+    }
+    event.preventDefault();
+  }
+
   refresh() {
     this.builds = {};
     this.build = this.buildService.getBuild({

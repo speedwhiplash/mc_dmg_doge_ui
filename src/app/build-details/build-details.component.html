@@ -1,25 +1,58 @@
-<h2>Build
-  <small><select (change)="currentScore = +score.value" #score>
-    <option *ngFor="let key of scores" [value]="key">{{ key | percent:'2.2-2' }} [{{ builds[currentScore].length }}]</option>
-  </select></small>
-  <small><select (change)="currentIndex = +buildIdx.value" #buildIdx>
-    <option *ngFor="let build of builds[currentScore]; index as idx" [value]="idx">{{ idx }}</option>
-  </select></small>
-</h2>
+<form>
+  <div class="row">
+    <h2 class="col-sm-6">Build</h2>
+  </div>
+  <div class="form-row">
+    <div class="col-lg-4 mb-3">
+      <label>Selected Build</label>
+      <div class="input-group input-group-sm">
+        <select class="form-control" (change)="currentScore = +score.value; currentIndex = 0" #score>
+          <option *ngIf="scores.length == 0">None</option>
+          <option *ngFor="let key of scores; index as idx" [value]="key">{{ key | percent:'2.2-2' }}
+            [{{ builds[key].length }}]</option>
+        </select>
+        <div class="btn-group btn-group-sm">
+          <button type="button" class="btn btn-secondary" (click)="previousIndex($event)">&lt;</button>
+          <button type="button" class="btn btn-secondary" id="indexed-button">{{ currentIndex + 1 }}</button>
+          <button type="button" class="btn btn-secondary" (click)="nextIndex($event)">&gt;</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
 
 <ng-template [ngIf]="currentScore">
   <table class="table">
     <tr>
-      <th>Name</th>
-      <th>Type</th>
-      <th>Tier</th>
-      <th>Place</th>
+      <th width=40%>Name</th>
+      <th width=20%>Type</th>
+      <th width=20%>Tier</th>
+      <th width=20%>Place</th>
     </tr>
     <tr *ngFor="let slot of ['helmet','chestplate','leggings','boots','offhand']">
       <td>{{ getBuild(currentScore, currentIndex)[slot]['Name'] }}</td>
       <td>{{ getBuild(currentScore, currentIndex)[slot]['Type'] }}</td>
       <td>{{ getBuild(currentScore, currentIndex)[slot]['Tier'] }}</td>
       <td>{{ getBuild(currentScore, currentIndex)[slot]['Place'] }}</td>
+    </tr>
+  </table>
+
+  <table class="table" id="buildScores">
+    <tr>
+      <th width=16.6%>Armor</th>
+      <th width=16.6%>Toughness</th>
+      <th width=16.6%>Protection</th>
+      <th width=16.6%>Evasion</th>
+      <th width=16.6%>Regeneration</th>
+      <th>Health</th>
+    </tr>
+    <tr>
+      <td>{{ getScores(currentScore, currentIndex)['armor'] }}</td>
+      <td>{{ getScores(currentScore, currentIndex)['toughness'] }}</td>
+      <td>{{ getScores(currentScore, currentIndex)['protection'] }}</td>
+      <td>{{ getScores(currentScore, currentIndex)['evasion'] }}</td>
+      <td>{{ getScores(currentScore, currentIndex)['regeneration'] }}</td>
+      <td>{{ getScores(currentScore, currentIndex)['health'] }}</td>
     </tr>
   </table>
 </ng-template>
