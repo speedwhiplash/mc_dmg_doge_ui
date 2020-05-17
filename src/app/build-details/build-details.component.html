@@ -1,6 +1,9 @@
 <h2>Build
   <small><select (change)="currentScore = +score.value" #score>
-    <option *ngFor="let key of scores" [value]="key">{{ key | percent:'2.2-2' }}</option>
+    <option *ngFor="let key of scores" [value]="key">{{ key | percent:'2.2-2' }} [{{ builds[currentScore].length }}]</option>
+  </select></small>
+  <small><select (change)="currentIndex = +buildIdx.value" #buildIdx>
+    <option *ngFor="let build of builds[currentScore]; index as idx" [value]="idx">{{ idx }}</option>
   </select></small>
 </h2>
 
@@ -8,25 +11,15 @@
   <table class="table">
     <tr>
       <th>Name</th>
-      <th>Armor / %</th>
-      <th>Toughness / %</th>
-      <th>Protection</th>
-      <th>Evasion</th>
-      <th>Regen</th>
-      <th>Health / %</th>
-      <th>Place</th>
+      <th>Type</th>
       <th>Tier</th>
+      <th>Place</th>
     </tr>
-    <tr *ngFor="let slot of ['helmet','chestplate']">
-      <td>{{ getBuild(currentScore, 0)[slot]['Name'] }}</td>
-      <td>{{ getBuild(currentScore, 0)[slot]['Armor'] }} / {{ getBuild(currentScore, 0)[slot]['Armor Percent'] }}</td>
-      <td>{{ getBuild(currentScore, 0)[slot]['Toughness'] }} / {{ getBuild(currentScore, 0)[slot]['Toughness Percent'] }}</td>
-      <td>{{ getBuild(currentScore, 0)[slot]['Protection'] }}</td>
-      <td>{{ getBuild(currentScore, 0)[slot]['Evasion'] }}</td>
-      <td>{{ getBuild(currentScore, 0)[slot]['Regeneration'] }}</td>
-      <td>{{ getBuild(currentScore, 0)[slot]['Health'] }} / {{ getBuild(currentScore, 0)[slot]['Health Percent'] }}</td>
-      <td>{{ getBuild(currentScore, 0)[slot]['Place'] }}</td>
-      <td>{{ getBuild(currentScore, 0)[slot]['Tier'] }}</td>
+    <tr *ngFor="let slot of ['helmet','chestplate','leggings','boots','offhand']">
+      <td>{{ getBuild(currentScore, currentIndex)[slot]['Name'] }}</td>
+      <td>{{ getBuild(currentScore, currentIndex)[slot]['Type'] }}</td>
+      <td>{{ getBuild(currentScore, currentIndex)[slot]['Tier'] }}</td>
+      <td>{{ getBuild(currentScore, currentIndex)[slot]['Place'] }}</td>
     </tr>
   </table>
 </ng-template>
