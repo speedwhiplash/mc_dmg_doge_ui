@@ -1,7 +1,7 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
-import { BuildIndex, BuildScores, DefenseScores, HandheldType, IBobInputs, IScenarioInputs, PlayerInputsType } from '../interfaces';
+import { BuildScores, HandheldType, IBobInputs, IScenarioInputs, PlayerInputsType } from '../interfaces';
 
 @Component({
   selector: 'app-compare-all-form',
