@@ -1,0 +1,18 @@
+.table {
+    th {
+        padding: 0.25rem 0;
+    }
+    td {
+        padding: 0;
+    }
+    &#buildScores {
+        th,
+        td {
+            text-align: center;
+        }
+    }
+}
+
+#indexed-button {
+    width: 2rem;
+}
