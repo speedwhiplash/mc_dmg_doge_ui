@@ -51,7 +51,7 @@ export class BuildDetailsComponent implements OnInit, OnDestroy {
   }
 
   nextIndex(event: MouseEvent): void {
-    if (this.currentIndex < this.builds[this.currentScore].length - 1) {
+    if (this.currentIndex < (this.builds[this.currentScore] || []).length - 1) {
       this.currentIndex++;
     } else {
       this.currentIndex = 0;
@@ -63,7 +63,7 @@ export class BuildDetailsComponent implements OnInit, OnDestroy {
     if (this.currentIndex > 0) {
       this.currentIndex--;
     } else {
-      this.currentIndex = this.builds[this.currentScore].length - 1;
+      this.currentIndex = (this.builds[this.currentScore] || []).length - 1;
     }
     event.preventDefault();
   }

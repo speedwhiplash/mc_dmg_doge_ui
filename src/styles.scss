@@ -20,6 +20,15 @@ footer {
   height: 50px;
 }
 
+.no-margin {
+  margin: 0;
+}
+
+.margin-gutter {
+  margin-left: 15px;
+  margin-right: 15px;
+}
+
 /** Bootstrap / BootSwatch overrides */
 
 .col-form-label {

@@ -1,9 +1,21 @@
-<h1>Bob's Builds</h1>
-<div class="row">
-  <div class="col-sm">
-    <app-compare-all-form (bestBuilds$)="setBuilds($event)"></app-compare-all-form>
+<mat-sidenav-container>
+
+  <h1 class="margin-gutter">Bob's Builds</h1>
+  <div class="row no-margin">
+    <div class="col-sm-6">
+      <app-compare-all-form (bestBuilds$)="setBuilds($event)"></app-compare-all-form>
+    </div>
+    <div class="col-sm-6">
+      <app-build-details #buildDetails></app-build-details>
+    </div>
   </div>
-  <div class="col-sm">
-    <app-build-details #buildDetails></app-build-details>
-  </div>
-</div>
+  <mat-sidenav #alertLeftSidebar
+    class="standard-left-sidebar"
+    position="end"
+    mode="over"
+    disableClose="true"
+    [fixedInViewport]="true">
+    <app-select-equipment></app-select-equipment>
+  </mat-sidenav>
+
+</mat-sidenav-container>

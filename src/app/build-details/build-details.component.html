@@ -21,6 +21,10 @@
   </div>
 </form>
 
+<ng-template [ngIf]="!currentScore">
+  <p class="lead">Submit a Scenario to find a build score.</p>
+</ng-template>
+
 <ng-template [ngIf]="currentScore">
   <table class="table">
     <tr>
