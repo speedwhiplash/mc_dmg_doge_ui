@@ -34,6 +34,21 @@
     </div>
   </div>
 
+  <div class="form-row">
+    <div class="col-lg-4 mb-3">
+      <label for="sRegen">Health Regained</label>
+      <div class="input-group input-group-sm">
+        <input type="number" class="form-control" id="sRegen" #sRegen [min]="0"
+          (keyup)="scenarioInputs['Health Regained'] = +sRegen.value" [value]="scenarioInputs['Health Regained']">
+        <input type="number" class="form-control" id="sRegenp" #sRegenp [min]="0" [max]="100"
+          (keyup)="scenarioInputs['Health Regain Percent'] = +sRegenp.value" [value]="scenarioInputs['Health Regain Percent']">
+        <div class="input-group-append">
+          <span class="input-group-text">%</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  
   <h2>Player</h2>
   <div class="form-row">
     <div class="col-lg-4 mb-3">

@@ -19,6 +19,8 @@ export class CompareAllFormComponent implements OnInit {
     this.scenarioInputs.Damage = 30;
     this.scenarioInputs['Hits Taken'] = 1;
     this.scenarioInputs['Damage Absorbed'] = 100;
+    this.scenarioInputs['Health Regained'] = 0;
+    this.scenarioInputs['Health Regain Percent'] = 0;
 
     this.playerInputs.Armor = 0;
     this.playerInputs['Armor Percent'] = 100;
@@ -55,6 +57,8 @@ export class CompareAllFormComponent implements OnInit {
     bob.scenario.Damage = this.scenarioInputs.Damage;
     bob.scenario['Hits Taken'] = this.scenarioInputs['Hits Taken'];
     bob.scenario['Damage Absorbed'] = this.scenarioInputs['Damage Absorbed'];
+    bob.scenario['Health Regained'] = this.scenarioInputs['Health Regained'];
+    bob.scenario['Health Regain Percent'] = this.scenarioInputs['Health Regain Percent'];
 
     bob.player.Armor = this.playerInputs.Armor;
     bob.player['Armor Percent'] = this.playerInputs['Armor Percent'];

@@ -60,6 +60,8 @@ export interface IScenarioInputs {
   Damage: number;
   'Hits Taken': number;
   'Damage Absorbed': number;
+  'Health Regained': number;
+  'Health Regain Percent': number;
 }
 
 export enum PlayerFields {
