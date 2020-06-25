@@ -16,14 +16,17 @@ export class CompareAllFormComponent implements OnInit {
   scenarioInputs = <IScenarioInputs>{};
 
   constructor(private httpClient: HttpClient) {
-    this.scenarioInputs.Damage = 30;
+    this.scenarioInputs.Damage = 22;
     this.scenarioInputs['Hits Taken'] = 1;
     this.scenarioInputs['Damage Absorbed'] = 100;
     this.scenarioInputs['Health Regained'] = 0;
     this.scenarioInputs['Health Regain Percent'] = 0;
+    this.scenarioInputs['Crit Chance'] = 0;
 
     this.playerInputs.Armor = 0;
     this.playerInputs['Armor Percent'] = 100;
+    this.playerInputs['Attack Speed'] = 0;
+    this.playerInputs['Attack Speed Percent'] = 100;
     this.playerInputs.Health = 20;
     this.playerInputs['Health Percent'] = 100;
     this.playerInputs.Toughness = 0;
@@ -31,12 +34,16 @@ export class CompareAllFormComponent implements OnInit {
 
     this.mainhandInputs.Armor = 0;
     this.mainhandInputs['Armor Percent'] = 0;
+    this.mainhandInputs['Attack Speed'] = 0;
+    this.mainhandInputs['Attack Speed Percent'] = 0;
     this.mainhandInputs.Evasion = 0;
     this.mainhandInputs.Health = 0;
     this.mainhandInputs['Health Percent'] = 0;
+    this.mainhandInputs['Life Drain'] = 0;
     this.mainhandInputs.Regeneration = 0;
     this.mainhandInputs.Toughness = 0;
     this.mainhandInputs['Toughness Percent'] = 0;
+    
   }
 
   ngOnInit(): void {
@@ -59,19 +66,25 @@ export class CompareAllFormComponent implements OnInit {
     bob.scenario['Damage Absorbed'] = this.scenarioInputs['Damage Absorbed'];
     bob.scenario['Health Regained'] = this.scenarioInputs['Health Regained'];
     bob.scenario['Health Regain Percent'] = this.scenarioInputs['Health Regain Percent'];
+    bob.scenario['Crit Chance'] = this.scenarioInputs['Crit Chance'];
 
     bob.player.Armor = this.playerInputs.Armor;
     bob.player['Armor Percent'] = this.playerInputs['Armor Percent'];
+    bob.player['Attack Speed'] = this.playerInputs['Attack Speed'];
+    bob.player['Attack Speed Percent'] = this.playerInputs['Attack Speed Percent'];
     bob.player.Health = this.playerInputs.Health;
-    bob.player['Health Percent'] = this.playerInputs['Health Percent']
+    bob.player['Health Percent'] = this.playerInputs['Health Percent'];
     bob.player.Toughness = this.playerInputs.Toughness;
     bob.player['Toughness Percent'] = this.playerInputs['Toughness Percent'];
-
+    
     bob.mainhand.Armor = this.mainhandInputs.Armor;
     bob.mainhand['Armor Percent'] = this.mainhandInputs['Armor Percent'];
+    bob.mainhand['Attack Speed'] = this.mainhandInputs['Attack Speed'];
+    bob.mainhand['Attack Speed Percent'] = this.mainhandInputs['Attack Speed Percent'];
     bob.mainhand.Evasion = this.mainhandInputs.Evasion;
     bob.mainhand.Health = this.mainhandInputs.Health;
-    bob.mainhand['Health Percent'] = this.mainhandInputs['Health Percent']
+    bob.mainhand['Health Percent'] = this.mainhandInputs['Health Percent'];
+    bob.mainhand['Life Drain'] = this.mainhandInputs['Life Drain'];
     bob.mainhand.Regeneration = this.mainhandInputs.Regeneration;
     bob.mainhand.Toughness = this.mainhandInputs.Toughness;
     bob.mainhand['Toughness Percent'] = this.mainhandInputs['Toughness Percent'];

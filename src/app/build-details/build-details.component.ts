@@ -31,7 +31,7 @@ export class BuildDetailsComponent implements OnInit, OnDestroy {
   }
 
   get scores(): number[] {
-    return Object.keys(this.builds).map(score => +score).sort();
+    return Object.keys(this.builds).map(score => +score).sort((a, b) => a - b);
   }
 
   getBuild(score: number, index: number): IBuild {

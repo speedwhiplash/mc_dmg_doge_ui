@@ -1,9 +1,9 @@
 export interface AllEquipment {
-  boots: Array<IBoots>;
-  chestplate: Array<IChestplate>;
-  helmet: Array<IHelmet>;
-  leggings: Array<ILeggings>;
-  offhand: Array<IOffhand>;
+	boots: Array<IBoots>;
+	chestplate: Array<IChestplate>;
+	helmet: Array<IHelmet>;
+	leggings: Array<ILeggings>;
+	offhand: Array<IOffhand>;
 }
 
 export interface IBuild {
@@ -17,36 +17,36 @@ export interface IBuild {
 }
 
 export interface BuildIndex {
-  boots: number;
-  chestplate: number;
-  helmet: number;
-  leggings: number;
-  offhand: number;
+	boots: number;
+	chestplate: number;
+	helmet: number;
+	leggings: number;
+	offhand: number;
 }
 
 export interface DefenseScores {
-  armor: number;
-  toughness: number;
-  protection: number;
-  evasion: number;
-  regeneration: number;
-  health: number;
-  score: number;
+	armor: number;
+	toughness: number;
+	protection: number;
+	evasion: number;
+	regeneration: number;
+	health: number;
+	score: number;
 }
 
 export interface BuildScores {
-  [key: number]: {
-    build: BuildIndex;
-    scores: DefenseScores;
-  }[];
+	[key: number]: {
+		build: BuildIndex;
+		scores: DefenseScores;
+	}[];
 }
 
 export enum Slots {
-  boots = 'Boots',
-  chestplate = 'Chestplates',
-  helmet = 'Helmets',
-  leggings = 'Leggings',
-  offhand = 'Offhands'
+	boots = 'Boots',
+	chestplate = 'Chestplates',
+	helmet = 'Helmets',
+	leggings = 'Leggings',
+	offhand = 'Offhands'
 }
 
 export interface ITextFields {
@@ -57,48 +57,54 @@ export interface ITextFields {
 }
 
 export interface IScenarioInputs {
-  Damage: number;
-  'Hits Taken': number;
-  'Damage Absorbed': number;
-  'Health Regained': number;
-  'Health Regain Percent': number;
+	Damage: number;
+	'Hits Taken': number;
+	'Damage Absorbed': number;
+	'Health Regained': number;
+	'Health Regain Percent': number;
+	'Crit Chance' : number;   
 }
 
 export enum PlayerFields {
-  Armor = 'Armor',
-  'Armor Percent' = 'Armor Percent',
-  Health = 'Health',
-  'Health Percent' = 'Health Percent',
-  Toughness = 'Toughness',
+	Armor = 'Armor',
+	'Armor Percent' = 'Armor Percent',
+	Health = 'Health',
+	'Health Percent' = 'Health Percent',
+	Toughness = 'Toughness',
   'Toughness Percent' = 'Toughness Percent',
+  'Attack Speed' = 'Attack Speed',
+  'Attack Speed Percent' = 'Attack Speed Percent'
 }
 
 export type PlayerInputsType = {
-	[index in PlayerFields]: number;
+	[index in PlayerFields]: number
 }
 
 export interface IPlayerInputs extends PlayerInputsType {
 }
 
 export enum DefenceFields {
-  Protection = 'Protection',
+	Protection = 'Protection',
 }
 
 export enum HandheldFields {
-  Armor = 'Armor',
-  'Armor Percent' = 'Armor Percent',
-  Damage = 'Damage',
-  'Damage Absorbed' = 'Damage Absorbed',
-  Evasion = 'Evasion',
-  Health = 'Health',
-  'Health Percent' = 'Health Percent',
-  Regeneration = 'Regeneration',
-  Toughness = 'Toughness',
-  'Toughness Percent' = 'Toughness Percent',
+	Armor = 'Armor',
+	'Armor Percent' = 'Armor Percent',
+	'Attack Speed' = 'Attack Speed',
+	'Attack Speed Percent' = 'Attack Speed Percent',
+	Damage = 'Damage',
+	'Damage Absorbed' = 'Damage Absorbed',
+	Evasion = 'Evasion',
+	Health = 'Health',
+	'Health Percent' = 'Health Percent',
+	'Life Drain' = 'Life Drain',
+	Regeneration = 'Regeneration',
+	Toughness = 'Toughness',
+	'Toughness Percent' = 'Toughness Percent',
 }
 
 export type HandheldType = {
-  [index in HandheldFields]: number;
+	[index in HandheldFields]: number;
 }
 
 export interface IHandheld extends HandheldType, ITextFields {
@@ -109,19 +115,19 @@ export interface IDefenceInputs extends IHandheld {
 }
 
 export enum Tiers {
-  'Tier I' = 'Tier 1',
-  'Tier II' = 'Tier II',
-  'Tier III' = 'Tier III',
-  'Tier IV' = 'Tier IV',
-  'Tier V' = 'Tier V',
-  'Uncommon' = 'Uncommon',
-  'Unique' = 'Unique',
-  'Event Unique' = 'Event Unique',
-  'Patron Made' = 'Patron Made',
-  'Rare' = 'Rare',
-  'Relic' = 'Relic',
-  'Artifact' = 'Artifact',
-  'Epic' = 'Epic'
+	'Tier I' = 'Tier 1',
+	'Tier II' = 'Tier II',
+	'Tier III' = 'Tier III',
+	'Tier IV' = 'Tier IV',
+	'Tier V' = 'Tier V',
+	'Uncommon' = 'Uncommon',
+	'Unique' = 'Unique',
+	'Event Unique' = 'Event Unique',
+	'Patron Made' = 'Patron Made',
+	'Rare' = 'Rare',
+	'Relic' = 'Relic',
+	'Artifact' = 'Artifact',
+	'Epic' = 'Epic'
 }
 
 export interface IOffhand extends IHandheld {
