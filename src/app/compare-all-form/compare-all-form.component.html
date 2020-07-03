@@ -52,13 +52,13 @@
       <div class="input-group input-group-sm">
         <input type="number" class="form-control" id="sCrits" #sCrits [min]="0" [max]="100"
           (keyup)="scenarioInputs['Crit Chance'] = +sCrits.value" [value]="scenarioInputs['Crit Chance']">
-          <div class="input-group-append">
-            <span class="input-group-text">%</span>
-          </div>
+        <div class="input-group-append">
+          <span class="input-group-text">%</span>
+        </div>
       </div>
     </div>
   </div>
-  
+
   <h2>Player</h2>
   <div class="form-row">
     <div class="col-lg-4 mb-3">

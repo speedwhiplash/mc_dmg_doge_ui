@@ -1,10 +1,10 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { takeWhile } from 'rxjs/operators';
+import { MatAccordion } from '@angular/material/expansion';
+import { catchError, retry, switchMap, takeWhile } from 'rxjs/operators';
 
 import { BuildService } from '../build.service';
 import { Slots } from '../interfaces';
-import { MatAccordion } from '@angular/material/expansion';
 
 @Component({
   selector: 'app-equipment',
@@ -13,7 +13,7 @@ import { MatAccordion } from '@angular/material/expansion';
 })
 export class EquipmentComponent implements OnInit, OnDestroy {
   @ViewChild('equipmentTable') equipmentTable: MatAccordion;
-  equipment = this.buildService.equipment$;
+  equipment$ = this.buildService.equipment$;
   isExpanded = false;
   isLoading = false;
   slots = Object.keys(Slots);
@@ -36,10 +36,21 @@ export class EquipmentComponent implements OnInit, OnDestroy {
   update() {
     this.isLoading = true;
     this.httpClient.get('/api/update-stats')
-      .pipe(takeWhile(() => this.isAlive))
-      .subscribe(() => {
-        this.buildService.getEquipment().subscribe(() => this.isLoading = false);
-      })
+      .pipe(
+        retry(2),
+        takeWhile(() => this.isAlive),
+        catchError(error => {
+          this.isLoading = false;
+          return error;
+        }),
+        switchMap(() => this.buildService.getEquipment$()),
+        catchError(error => {
+          this.isLoading = false;
+          return error;
+        })
+      )
+      .subscribe(() => this.isLoading = false);
+
   }
 
   public ngOnDestroy(): void {

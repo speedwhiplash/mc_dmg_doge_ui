@@ -10,7 +10,7 @@
       <h2>Equipment</h2>
     </div>
     <div class="col-md-3">
-      <button class="btn-sm" (click)="update()">update cache</button>&nbsp;
+      <button class="btn-sm" (click)="update()">reload equipment</button>&nbsp;
       <button class="btn-sm" (click)="isExpanded = !isExpanded">toggle open</button>
     </div>
     <div class="form-group col-md-3 form-inline">
@@ -25,7 +25,7 @@
     <mat-expansion-panel *ngFor="let slot of slots; let i = index" [expanded]="isExpanded">
       <mat-expansion-panel-header>
         <mat-panel-title>{{slotNames[i]}}</mat-panel-title>
-        <mat-panel-description>{{(equipment | async)[slot]?.length}} items</mat-panel-description>
+        <mat-panel-description>{{(equipment$ | async)[slot]?.length}} items</mat-panel-description>
       </mat-expansion-panel-header>
       <table class="table">
         <tr>
@@ -39,7 +39,7 @@
           <th>Place</th>
           <th>Tier</th>
         </tr>
-        <tr *ngFor="let item of (equipment | async)[slot]">
+        <tr *ngFor="let item of (equipment$ | async)[slot]">
           <td>{{ item['Name'] }}</td>
           <td>{{ item['Armor'] }} / {{ item['Armor Percent'] }}</td>
           <td>{{ item['Toughness'] }} / {{ item['Toughness Percent'] }}</td>

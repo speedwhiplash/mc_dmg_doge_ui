@@ -25,11 +25,7 @@ export class BuildService {
   }
 
   constructor(private httpClient: HttpClient) {
-    this.getEquipment()
-      .pipe(
-        tap((equipment: AllEquipment) => this.equipment$.next(equipment))
-      )
-      .subscribe();
+    this.getEquipment$().subscribe();
   }
 
   getBuild(build: BuildIndex): IBuild {
@@ -43,7 +39,10 @@ export class BuildService {
     }
   }
 
-  getEquipment() {
+  getEquipment$() {
     return this.httpClient.get('/api/equipment')
+      .pipe(
+        tap((equipment: AllEquipment) => this.equipment$.next(equipment))
+      )
   }
 }
