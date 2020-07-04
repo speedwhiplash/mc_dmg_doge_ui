@@ -5,6 +5,8 @@ import { tap } from 'rxjs/operators';
 
 import { AllEquipment, BuildIndex, IBuild, Slots } from './interfaces';
 
+export const MAX_ALLOWED_COMPARE_ITEMS = 50;
+
 @Injectable({
   providedIn: 'root'
 })

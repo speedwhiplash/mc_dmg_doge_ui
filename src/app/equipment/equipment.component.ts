@@ -5,7 +5,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { catchError, retry, switchMap, takeWhile } from 'rxjs/operators';
 
-import { BuildService } from '../build.service';
+import { BuildService, MAX_ALLOWED_COMPARE_ITEMS } from '../build.service';
 import { Slots } from '../interfaces';
 
 @Component({
@@ -16,12 +16,31 @@ import { Slots } from '../interfaces';
 export class EquipmentComponent implements OnInit, OnDestroy {
   @ViewChild(MatAccordion) equipmentTable: MatAccordion;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
-  displayedColumns = ['selected', 'Name', 'Armor', 'Armor Percent', 'Toughness', 'Toughness Percent', 'Protection', 'Evasion', 'Regeneration', 'Life Drain', 'Health', 'Health Percent', 'Attack Speed', 'Attack Speed Percent', 'Type', 'Place', 'Tier'];
+  displayedColumns = [
+    'selected',
+    'Name',
+    'Armor',
+    'Armor Percent',
+    'Toughness',
+    'Toughness Percent',
+    'Protection',
+    'Evasion',
+    'Regeneration',
+    'Life Drain',
+    'Health',
+    'Health Percent',
+    'Attack Speed',
+    'Attack Speed Percent',
+    'Type',
+    'Place',
+    'Tier'
+  ];
   equipment$ = this.buildService.equipment$;
   isExpanded = true;
   isLoading = false;
+  maxItems = MAX_ALLOWED_COMPARE_ITEMS;
   slots = Object.keys(Slots);
-  slotNames = Object.keys(Slots).map(slot => Slots[slot])
+  slotNames = Object.keys(Slots).map(slot => Slots[slot]);
 
   private isAlive = true;
 
@@ -36,6 +55,13 @@ export class EquipmentComponent implements OnInit, OnDestroy {
 
   getDataSource(slot) {
     return new MatTableDataSource(this.buildService.equipment$.getValue()[slot]);
+  }
+
+  getColumns(slot) {
+    if (slot === 'offhand') {
+      return this.displayedColumns.filter(col => col !== 'Protection');
+    }
+    return this.displayedColumns;
   }
 
   isAllChecked(slot) {
