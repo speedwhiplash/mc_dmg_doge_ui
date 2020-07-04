@@ -13,9 +13,9 @@ import { timer } from 'rxjs';
   styleUrls: ['./equipment.component.scss']
 })
 export class EquipmentComponent implements OnInit, OnDestroy {
-  @ViewChild('equipmentTable') equipmentTable: MatAccordion;
+  @ViewChild(MatAccordion) equipmentTable: MatAccordion;
   equipment$ = this.buildService.equipment$;
-  isExpanded = false;
+  isExpanded = true;
   isLoading = false;
   slots = Object.keys(Slots);
   slotNames = Object.keys(Slots).map(slot => Slots[slot])
@@ -28,9 +28,13 @@ export class EquipmentComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    timer(100).subscribe(() => {
+      this.expandAll();
+    })
   }
 
   expandAll() {
+    this.equipmentTable.openAll()
   }
 
   isAllChecked(slot) {

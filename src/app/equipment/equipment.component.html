@@ -22,7 +22,7 @@
       </select>-->
     </div>
   </div>
-  <mat-accordion #equipmentTable [multi]="true">
+  <mat-accordion multi>
     <mat-expansion-panel *ngFor="let slot of slots; let i = index" [expanded]="isExpanded">
       <mat-expansion-panel-header>
         <mat-panel-title>{{slotNames[i]}}</mat-panel-title>
