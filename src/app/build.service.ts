@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject } from 'rxjs';
 import { tap } from 'rxjs/operators';
 
-import { AllEquipment, BuildIndex, IBuild } from './interfaces';
+import { AllEquipment, BuildIndex, IBuild, Slots } from './interfaces';
 
 @Injectable({
   providedIn: 'root'
@@ -32,11 +32,21 @@ export class BuildService {
   }
 
   constructor(private httpClient: HttpClient) {
-    this.getEquipment$().subscribe();
     const equipmentWhiteList = localStorage.getItem('equipmentWhiteList');
     if (equipmentWhiteList) {
       this.equipmentWhiteList = JSON.parse(equipmentWhiteList);
     }
+
+    this.getEquipment$().subscribe(equipment => {
+      for (let f in Slots) {
+        Object.keys(this.equipmentWhiteList[f]).forEach(name => {
+          if (!equipment[f].find(item => item.Name === name)) {
+            delete this.equipmentWhiteList[f][name];
+          }
+        })
+      }
+      localStorage.setItem('equipmentWhiteList', JSON.stringify(this.equipmentWhiteList));
+    });
   }
 
   getBuild(build: BuildIndex): IBuild {

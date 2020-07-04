@@ -1,11 +1,12 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { MatAccordion } from '@angular/material/expansion';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
 import { catchError, retry, switchMap, takeWhile } from 'rxjs/operators';
 
 import { BuildService } from '../build.service';
 import { Slots } from '../interfaces';
-import { timer } from 'rxjs';
 
 @Component({
   selector: 'app-equipment',
@@ -14,11 +15,14 @@ import { timer } from 'rxjs';
 })
 export class EquipmentComponent implements OnInit, OnDestroy {
   @ViewChild(MatAccordion) equipmentTable: MatAccordion;
+  @ViewChild(MatSort, {static: true}) sort: MatSort;
+  displayedColumns = ['selected', 'Name', /*'Armor', 'Toughness', 'Protection', 'Evasion', 'Regen', 'Health', 'Place', 'Tier'*/];
   equipment$ = this.buildService.equipment$;
   isExpanded = true;
   isLoading = false;
   slots = Object.keys(Slots);
   slotNames = Object.keys(Slots).map(slot => Slots[slot])
+
   private isAlive = true;
 
   constructor(
@@ -28,13 +32,10 @@ export class EquipmentComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    timer(100).subscribe(() => {
-      this.expandAll();
-    })
   }
 
-  expandAll() {
-    this.equipmentTable.openAll()
+  getDataSource(slot) {
+    return new MatTableDataSource(this.buildService.equipment$.getValue()[slot]);
   }
 
   isAllChecked(slot) {
@@ -49,14 +50,23 @@ export class EquipmentComponent implements OnInit, OnDestroy {
     return Object.keys(this.buildService.equipmentWhiteList[slot]).length;
   }
 
+  selectItem(slot, item, isSelected) {
+    if (isSelected) {
+      this.buildService.equipmentWhiteList[slot][item.Name] = true;
+    } else {
+      delete this.buildService.equipmentWhiteList[slot][item.Name];
+    }
+  }
+
   toggleItem(slot, item): void {
-    this.buildService.equipmentWhiteList[slot][item.Name] = !this.buildService.equipmentWhiteList[slot][item.Name];
+    const isSelected = this.buildService.equipmentWhiteList[slot][item.Name];
+    this.selectItem(slot, item, !isSelected);
     localStorage.setItem('equipmentWhiteList', JSON.stringify(this.buildService.equipmentWhiteList));
   }
 
   toggleSelectAll(slot): void {
-    const isAllChecked = this.isAllChecked(slot);
-    this.equipment$.getValue()[slot].forEach(item => this.buildService.equipmentWhiteList[slot][item.Name] = !isAllChecked);
+    const isAllSelected = this.isAllChecked(slot);
+    this.equipment$.getValue()[slot].forEach(item => this.selectItem(slot, item, !isAllSelected));
     localStorage.setItem('equipmentWhiteList', JSON.stringify(this.buildService.equipmentWhiteList));
   }
 

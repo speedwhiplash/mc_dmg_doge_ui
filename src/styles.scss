@@ -43,3 +43,19 @@ footer {
 .mat-expansion-panel-header-title {
   font-weight: bold;
 }
+
+table.mat-table {
+  th.mat-header-cell:first-of-type,
+  th.mat-header-cell:last-of-type {
+    padding: 0;
+  }
+
+  tr.mat-header-row,
+  tr.mat-row {
+    height: auto;
+
+    td.mat-cell {
+      padding: 0;
+    }
+  }
+}

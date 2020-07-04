@@ -31,35 +31,56 @@
           ({{ numberSelected(slot) }}) selected
         </mat-panel-description>
       </mat-expansion-panel-header>
-      <table class="table">
-        <tr>
-          <th>
+      <table class="table" mat-table [dataSource]="getDataSource(slot)" matSort>
+
+        <!-- ID Column -->
+        <ng-container matColumnDef="selected">
+          <th mat-header-cell *matHeaderCellDef class="text-center">
             <input type="checkbox" [value]="true" (click)="toggleSelectAll(slot)" [checked]="isAllChecked(slot)" />
           </th>
-          <th>Name</th>
-          <th>Armor / %</th>
-          <th>Toughness / %</th>
-          <th>Protection</th>
-          <th>Evasion</th>
-          <th>Regen</th>
-          <th>Health / %</th>
-          <th>Place</th>
-          <th>Tier</th>
-        </tr>
-        <tr *ngFor="let item of (equipment$ | async)[slot]">
-          <td>
+          <td mat-cell *matCellDef="let item" class="text-center">
             <input type="checkbox" [value]="true" (click)="toggleItem(slot, item)" [checked]="isSelected(slot, item)" />
           </td>
-          <td>{{ item['Name'] }}</td>
-          <td>{{ item['Armor'] }} / {{ item['Armor Percent'] }}</td>
-          <td>{{ item['Toughness'] }} / {{ item['Toughness Percent'] }}</td>
-          <td>{{ item['Protection'] }}</td>
-          <td>{{ item['Evasion'] }}</td>
-          <td>{{ item['Regeneration'] }}</td>
-          <td>{{ item['Health'] }} / {{ item['Health Percent'] }}</td>
-          <td>{{ item['Place'] }}</td>
-          <td>{{ item['Tier'] }}</td>
-        </tr>
+        </ng-container>
+
+        <!-- Name Column -->
+        <ng-container matColumnDef="Name">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Name</th>
+          <td mat-cell *matCellDef="let item">{{ item.Name }} </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+        <!--        <tr>
+                  <th>
+
+                  </th>
+                  <th>Name</th>
+                  <th>Armor / %</th>
+                  <th>Toughness / %</th>
+                  <th>Protection</th>
+                  <th>Evasion</th>
+                  <th>Regen</th>
+                  <th>Health / %</th>
+                  <th>Place</th>
+                  <th>Tier</th>
+                </tr>
+                <tr *ngFor="let item of (equipment$ | async)[slot]">
+                  <td>
+                    <input type="checkbox" [value]="true" (click)="toggleItem(slot, item)" [checked]="isSelected(slot, item)" />
+                  </td>
+                  <td>{{ item['Name'] }}</td>
+                  <td>{{ item['Armor'] }} / {{ item['Armor Percent'] }}</td>
+                  <td>{{ item['Toughness'] }} / {{ item['Toughness Percent'] }}</td>
+                  <td>{{ item['Protection'] }}</td>
+                  <td>{{ item['Evasion'] }}</td>
+                  <td>{{ item['Regeneration'] }}</td>
+                  <td>{{ item['Health'] }} / {{ item['Health Percent'] }}</td>
+                  <td>{{ item['Place'] }}</td>
+                  <td>{{ item['Tier'] }}</td>
+                </tr>
+        -->
       </table>
     </mat-expansion-panel>
   </mat-accordion>
