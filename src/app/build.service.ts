@@ -23,9 +23,20 @@ export class BuildService {
     leggings: 0,
     offhand: 0,
   }
+  equipmentWhiteList = {
+    boots: {},
+    chestplate: {},
+    helmet: {},
+    leggings: {},
+    offhand: {},
+  }
 
   constructor(private httpClient: HttpClient) {
     this.getEquipment$().subscribe();
+    const equipmentWhiteList = localStorage.getItem('equipmentWhiteList');
+    if (equipmentWhiteList) {
+      this.equipmentWhiteList = JSON.parse(equipmentWhiteList);
+    }
   }
 
   getBuild(build: BuildIndex): IBuild {

@@ -14,21 +14,28 @@
       <button class="btn-sm" (click)="isExpanded = !isExpanded">toggle open</button>
     </div>
     <div class="form-group col-md-3 form-inline">
-      <label for="showFields">Columns&nbsp;</label>
-      <select id="showFields" class="form-control">
+      {{ totalSelected() }} out of 20 max items selected
+      <!--<label for="showFields">Columns&nbsp;</label>
+      <select id="showFields" class="form-control form-control-sm">
         <option selected>Choose...</option>
         <option>da Fence</option>
-      </select>
+      </select>-->
     </div>
   </div>
   <mat-accordion #equipmentTable [multi]="true">
     <mat-expansion-panel *ngFor="let slot of slots; let i = index" [expanded]="isExpanded">
       <mat-expansion-panel-header>
         <mat-panel-title>{{slotNames[i]}}</mat-panel-title>
-        <mat-panel-description>{{(equipment$ | async)[slot]?.length}} items</mat-panel-description>
+        <mat-panel-description>
+          {{(equipment$ | async)[slot]?.length}} items
+          ({{ numberSelected(slot) }}) selected
+        </mat-panel-description>
       </mat-expansion-panel-header>
       <table class="table">
         <tr>
+          <th>
+            <input type="checkbox" [value]="true" (click)="toggleSelectAll(slot)" [checked]="isAllChecked(slot)" />
+          </th>
           <th>Name</th>
           <th>Armor / %</th>
           <th>Toughness / %</th>
@@ -40,6 +47,9 @@
           <th>Tier</th>
         </tr>
         <tr *ngFor="let item of (equipment$ | async)[slot]">
+          <td>
+            <input type="checkbox" [value]="true" (click)="toggleItem(slot, item)" [checked]="isSelected(slot, item)" />
+          </td>
           <td>{{ item['Name'] }}</td>
           <td>{{ item['Armor'] }} / {{ item['Armor Percent'] }}</td>
           <td>{{ item['Toughness'] }} / {{ item['Toughness Percent'] }}</td>

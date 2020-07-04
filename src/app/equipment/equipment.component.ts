@@ -5,6 +5,7 @@ import { catchError, retry, switchMap, takeWhile } from 'rxjs/operators';
 
 import { BuildService } from '../build.service';
 import { Slots } from '../interfaces';
+import { timer } from 'rxjs';
 
 @Component({
   selector: 'app-equipment',
@@ -30,7 +31,35 @@ export class EquipmentComponent implements OnInit, OnDestroy {
   }
 
   expandAll() {
-    this.equipmentTable.openAll()
+  }
+
+  isAllChecked(slot) {
+    return this.equipment$.getValue()[slot].length === Object.keys(this.buildService.equipmentWhiteList[slot]).length;
+  }
+
+  isSelected(slot, item) {
+    return !!this.buildService.equipmentWhiteList[slot][item.Name];
+  }
+
+  numberSelected(slot): number {
+    return Object.keys(this.buildService.equipmentWhiteList[slot]).length;
+  }
+
+  toggleItem(slot, item): void {
+    this.buildService.equipmentWhiteList[slot][item.Name] = !this.buildService.equipmentWhiteList[slot][item.Name];
+    localStorage.setItem('equipmentWhiteList', JSON.stringify(this.buildService.equipmentWhiteList));
+  }
+
+  toggleSelectAll(slot): void {
+    const isAllChecked = this.isAllChecked(slot);
+    this.equipment$.getValue()[slot].forEach(item => this.buildService.equipmentWhiteList[slot][item.Name] = !isAllChecked);
+    localStorage.setItem('equipmentWhiteList', JSON.stringify(this.buildService.equipmentWhiteList));
+  }
+
+  totalSelected() {
+    let total = 0;
+    this.slots.forEach(slot => total += this.numberSelected(slot));
+    return total;
   }
 
   update() {

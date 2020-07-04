@@ -3,7 +3,7 @@
     <span class="sr-only">Loading...</span>
   </div>
 </div>
-<form>
+<form (keyup.enter)="submit()">
   <div class="row">
     <h2 class="col-sm-6">Scenario</h2>
   </div>
@@ -193,7 +193,7 @@
     </div>
   </div>
 
-  <div>
+  <div class="text-right form-group">
     <button type="button" (click)="submit()" class="btn-secondary btn" [disabled]="isLoading">
       <span *ngIf="isLoading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
       Submit
