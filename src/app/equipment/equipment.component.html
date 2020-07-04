@@ -49,38 +49,99 @@
           <td mat-cell *matCellDef="let item">{{ item.Name }} </td>
         </ng-container>
 
+        <!-- Armor Column -->
+        <ng-container matColumnDef="Armor">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Armor</th>
+          <td mat-cell *matCellDef="let item">{{ item.Armor }} </td>
+        </ng-container>
+
+        <!-- Armor Percent Column -->
+        <ng-container matColumnDef="Armor Percent">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Armor Percent</th>
+          <td mat-cell *matCellDef="let item">{{ item['Armor Percent']}} </td>
+        </ng-container>
+
+        <!-- Toughness Column -->
+        <ng-container matColumnDef="Toughness">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Toughness</th>
+          <td mat-cell *matCellDef="let item">{{ item.Toughness }} </td>
+        </ng-container>
+
+        <!-- Toughness Percent Column -->
+        <ng-container matColumnDef="Toughness Percent">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Toughness Percent</th>
+          <td mat-cell *matCellDef="let item">{{ item['Toughness Percent']}} </td>
+        </ng-container>
+
+        <!-- Protection Column -->
+        <ng-container matColumnDef="Protection">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Protection</th>
+          <td mat-cell *matCellDef="let item">{{ item.Protection }} </td>
+        </ng-container>
+
+        <!-- Evasion Column -->
+        <ng-container matColumnDef="Evasion">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Evasion</th>
+          <td mat-cell *matCellDef="let item">{{ item.Evasion }} </td>
+        </ng-container>
+
+        <!-- Regeneration Column -->
+        <ng-container matColumnDef="Regeneration">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Regeneration</th>
+          <td mat-cell *matCellDef="let item">{{ item.Regeneration }} </td>
+        </ng-container>
+
+        <!-- Life Drain Column -->
+        <ng-container matColumnDef="Life Drain">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Life Drain</th>
+          <td mat-cell *matCellDef="let item">{{ item['Life Drain'] }} </td>
+        </ng-container>
+
+        <!-- Health Column -->
+        <ng-container matColumnDef="Health">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Health</th>
+          <td mat-cell *matCellDef="let item">{{ item.Health }} </td>
+        </ng-container>
+
+        <!-- Health Percent Column -->
+        <ng-container matColumnDef="Health Percent">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Health Percent</th>
+          <td mat-cell *matCellDef="let item">{{ item['Health Percent']}} </td>
+        </ng-container>
+
+        <!-- Attack Speed Column -->
+        <ng-container matColumnDef="Attack Speed">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Attack Speed</th>
+          <td mat-cell *matCellDef="let item">{{ item['Attack Speed'] }} </td>
+        </ng-container>
+
+        <!-- Attack Speed Percent Column -->
+        <ng-container matColumnDef="Attack Speed Percent">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Attack Speed Percent</th>
+          <td mat-cell *matCellDef="let item">{{ item['Attack Speed Percent']}} </td>
+        </ng-container>
+
+        <!-- Type Column -->
+        <ng-container matColumnDef="Type">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Type</th>
+          <td mat-cell *matCellDef="let item">{{ item.Type }} </td>
+        </ng-container>
+
+        <!-- Place Column -->
+        <ng-container matColumnDef="Place">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Place</th>
+          <td mat-cell *matCellDef="let item">{{ item.Place }} </td>
+        </ng-container>
+
+        <!-- Tier Column -->
+        <ng-container matColumnDef="Tier">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Tier</th>
+          <td mat-cell *matCellDef="let item">{{ item.Tier }} </td>
+        </ng-container>
+
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 
-        <!--        <tr>
-                  <th>
-
-                  </th>
-                  <th>Name</th>
-                  <th>Armor / %</th>
-                  <th>Toughness / %</th>
-                  <th>Protection</th>
-                  <th>Evasion</th>
-                  <th>Regen</th>
-                  <th>Health / %</th>
-                  <th>Place</th>
-                  <th>Tier</th>
-                </tr>
-                <tr *ngFor="let item of (equipment$ | async)[slot]">
-                  <td>
-                    <input type="checkbox" [value]="true" (click)="toggleItem(slot, item)" [checked]="isSelected(slot, item)" />
-                  </td>
-                  <td>{{ item['Name'] }}</td>
-                  <td>{{ item['Armor'] }} / {{ item['Armor Percent'] }}</td>
-                  <td>{{ item['Toughness'] }} / {{ item['Toughness Percent'] }}</td>
-                  <td>{{ item['Protection'] }}</td>
-                  <td>{{ item['Evasion'] }}</td>
-                  <td>{{ item['Regeneration'] }}</td>
-                  <td>{{ item['Health'] }} / {{ item['Health Percent'] }}</td>
-                  <td>{{ item['Place'] }}</td>
-                  <td>{{ item['Tier'] }}</td>
-                </tr>
-        -->
       </table>
     </mat-expansion-panel>
   </mat-accordion>

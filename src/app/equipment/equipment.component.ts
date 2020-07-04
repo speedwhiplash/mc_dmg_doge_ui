@@ -16,7 +16,7 @@ import { Slots } from '../interfaces';
 export class EquipmentComponent implements OnInit, OnDestroy {
   @ViewChild(MatAccordion) equipmentTable: MatAccordion;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
-  displayedColumns = ['selected', 'Name', /*'Armor', 'Toughness', 'Protection', 'Evasion', 'Regen', 'Health', 'Place', 'Tier'*/];
+  displayedColumns = ['selected', 'Name', 'Armor', 'Armor Percent', 'Toughness', 'Toughness Percent', 'Protection', 'Evasion', 'Regeneration', 'Life Drain', 'Health', 'Health Percent', 'Attack Speed', 'Attack Speed Percent', 'Type', 'Place', 'Tier'];
   equipment$ = this.buildService.equipment$;
   isExpanded = true;
   isLoading = false;
