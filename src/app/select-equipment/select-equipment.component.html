@@ -9,9 +9,9 @@
     </mat-panel-title>
     <mat-panel-description></mat-panel-description>
   </mat-expansion-panel-header>
-  <table class="table" mat-table [dataSource]="getDataSource(slotName)" matSort>
+  <table class="table" mat-table [dataSource]="dataSource" matSort>
 
-    <!-- ID Column -->
+    <!-- Select Column -->
     <ng-container matColumnDef="selected">
       <th mat-header-cell *matHeaderCellDef class="text-center">
         <input type="checkbox" [value]="true" (click)="toggleSelectAll(slotName)" [checked]="isAllChecked(slotName)" />
@@ -118,7 +118,7 @@
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="getColumns(slotName)"></tr>
-    <tr mat-row *matRowDef="let row; columns: getColumns(slotName);"></tr>
+    <tr mat-row *matRowDef="let item; columns: getColumns(slotName);"></tr>
 
   </table>
 </mat-expansion-panel>

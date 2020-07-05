@@ -14,6 +14,7 @@ export class SelectEquipmentComponent implements OnInit {
   @Input('equipmentSlot') equipmentSlot: IDefenceInputs[];
   @Input('slotName') slotName: string;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
+  dataSource: MatTableDataSource<IDefenceInputs>;
   displayedColumns = [
     'selected',
     'Name',
@@ -42,6 +43,8 @@ export class SelectEquipmentComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.dataSource = new MatTableDataSource(this.equipmentSlot);
+    this.dataSource.sort = this.sort;
   }
 
   getColumns(slot) {

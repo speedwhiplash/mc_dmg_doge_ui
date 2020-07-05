@@ -25,10 +25,12 @@
     </div>
   </div>
   <mat-accordion multi>
-    <app-select-equipment
-      *ngFor="let slot of slotNames; let i = index"
-      [equipmentSlot]="getEquipmentSlot(slot)"
-      [slotName]="slot"
-    ></app-select-equipment>
+    <ng-template [ngIf]="(equipment$ | async)['boots'].length > 0">
+      <app-select-equipment
+        *ngFor="let slot of slotNames; let i = index"
+        [equipmentSlot]="(getEquipmentSlot$(slot) | async)"
+        [slotName]="slot"
+      ></app-select-equipment>
+    </ng-template>
   </mat-accordion>
 </div>

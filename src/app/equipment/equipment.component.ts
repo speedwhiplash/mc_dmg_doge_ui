@@ -1,10 +1,11 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { MatAccordion } from '@angular/material/expansion';
-import { catchError, retry, switchMap, takeWhile } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { catchError, map, retry, switchMap, takeWhile } from 'rxjs/operators';
 
 import { BuildService, MAX_ALLOWED_COMPARE_ITEMS } from '../build.service';
-import { IBoots, Slots, Tiers } from '../interfaces';
+import { IDefenceInputs, Slots } from '../interfaces';
 
 @Component({
   selector: 'app-equipment',
@@ -33,7 +34,7 @@ export class EquipmentComponent implements OnInit, OnDestroy {
     this.clearAll();
 
     this.slotNames.forEach(slotName => {
-      this.getEquipmentSlot(slotName)
+      this.equipment$.getValue()[slotName]
         .filter(item => {
           return !item.Tier.includes('Tier') && !item.Tier.includes('Event Unique');
         })
@@ -49,8 +50,8 @@ export class EquipmentComponent implements OnInit, OnDestroy {
     });
   }
 
-  getEquipmentSlot(slot): IBoots[] {
-    return this.equipment$.getValue()[slot];
+  getEquipmentSlot$(slot): Observable<IDefenceInputs[]> {
+    return this.equipment$.pipe(map(things => things[slot]));
   }
 
   numberSelected(slot): number {
