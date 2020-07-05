@@ -35,15 +35,12 @@ export class EquipmentComponent implements OnInit, OnDestroy {
     this.slotNames.forEach(slotName => {
       this.getEquipmentSlot(slotName)
         .filter(item => {
-          return item.Tier === Tiers.Artifact ||
-            item.Tier === Tiers.Epic ||
-            item.Tier === Tiers.Rare ||
-            item.Tier === Tiers.Relic ||
-            item.Tier === Tiers.Uncommon ||
-            item.Tier === Tiers.Unique;
+          return !item.Tier.includes('Tier') && !item.Tier.includes('Event Unique');
         })
         .forEach(item => this.buildService.equipmentWhiteList[slotName][item.Name] = true);
     });
+
+    this.buildService.saveWhitelist();
   }
 
   clearAll() {

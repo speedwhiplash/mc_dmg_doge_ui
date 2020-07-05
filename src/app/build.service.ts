@@ -24,20 +24,17 @@ export class BuildService {
     helmet: 0,
     leggings: 0,
     offhand: 0,
-  }
+  };
   equipmentWhiteList = {
     boots: {},
     chestplate: {},
     helmet: {},
     leggings: {},
     offhand: {},
-  }
+  };
 
   constructor(private httpClient: HttpClient) {
-    const equipmentWhiteList = localStorage.getItem('equipmentWhiteList');
-    if (equipmentWhiteList) {
-      this.equipmentWhiteList = JSON.parse(equipmentWhiteList);
-    }
+    this.loadWhitelist();
 
     this.getEquipment$().subscribe(equipment => {
       for (let f in Slots) {
@@ -45,27 +42,38 @@ export class BuildService {
           if (!equipment[f].find(item => item.Name === name)) {
             delete this.equipmentWhiteList[f][name];
           }
-        })
+        });
       }
-      localStorage.setItem('equipmentWhiteList', JSON.stringify(this.equipmentWhiteList));
+      this.saveWhitelist();
     });
   }
 
   getBuild(build: BuildIndex): IBuild {
     const equipment = this.equipment$.getValue();
-    return <IBuild>{
+    return <IBuild> {
       boots: {...equipment.boots[build.boots]},
       chestplate: {...equipment.chestplate[build.chestplate]},
       helmet: {...equipment.helmet[build.helmet]},
       leggings: {...equipment.leggings[build.leggings]},
       offhand: {...equipment.offhand[build.offhand]}
-    }
+    };
   }
 
   getEquipment$() {
     return this.httpClient.get('/api/equipment')
       .pipe(
         tap((equipment: AllEquipment) => this.equipment$.next(equipment))
-      )
+      );
+  }
+
+  loadWhitelist() {
+    const equipmentWhiteList = localStorage.getItem('equipmentWhiteList');
+    if (equipmentWhiteList) {
+      this.equipmentWhiteList = JSON.parse(equipmentWhiteList);
+    }
+  }
+
+  saveWhitelist() {
+    localStorage.setItem('equipmentWhiteList', JSON.stringify(this.equipmentWhiteList));
   }
 }

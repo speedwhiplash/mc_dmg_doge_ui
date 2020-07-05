@@ -67,23 +67,23 @@ export class SelectEquipmentComponent implements OnInit {
     return Object.keys(this.buildService.equipmentWhiteList[slot]).length;
   }
 
-  selectItem(slot, item, isSelected) {
-    if (isSelected) {
-      this.buildService.equipmentWhiteList[slot][item.Name] = true;
-    } else {
-      delete this.buildService.equipmentWhiteList[slot][item.Name];
-    }
-  }
-
   toggleItem(slot, item): void {
     const isSelected = this.buildService.equipmentWhiteList[slot][item.Name];
     this.selectItem(slot, item, !isSelected);
-    localStorage.setItem('equipmentWhiteList', JSON.stringify(this.buildService.equipmentWhiteList));
+    this.buildService.saveWhitelist();
   }
 
   toggleSelectAll(slot): void {
     const isAllSelected = this.isAllChecked(slot);
     this.buildService.equipment$.getValue()[slot].forEach(item => this.selectItem(slot, item, !isAllSelected));
-    localStorage.setItem('equipmentWhiteList', JSON.stringify(this.buildService.equipmentWhiteList));
+    this.buildService.saveWhitelist();
+  }
+
+  private selectItem(slot, item, isSelected) {
+    if (isSelected) {
+      this.buildService.equipmentWhiteList[slot][item.Name] = true;
+    } else {
+      delete this.buildService.equipmentWhiteList[slot][item.Name];
+    }
   }
 }
