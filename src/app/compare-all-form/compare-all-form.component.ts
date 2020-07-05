@@ -1,7 +1,7 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
-import { BuildScores, HandheldType, IBobInputs, IScenarioInputs, PlayerInputsType } from '../interfaces';
+import { AllEquipment, BuildScores, HandheldType, IBobInputs, IScenarioInputs, PlayerInputsType } from '../interfaces';
 import { BuildService } from '../build.service';
 import { clone } from '../utils';
 
@@ -48,7 +48,6 @@ export class CompareAllFormComponent implements OnInit {
     this.mainhandInputs.Regeneration = 0;
     this.mainhandInputs.Toughness = 0;
     this.mainhandInputs['Toughness Percent'] = 0;
-
   }
 
   ngOnInit(): void {
@@ -60,7 +59,8 @@ export class CompareAllFormComponent implements OnInit {
 
     this.httpClient.post('/api/bob/defense', bob).subscribe((response: Record<number, BuildScores[]>) => {
       this.isLoading = false;
-      this.bestBuilds$.emit(response)
+      //TODO: Convert names into BuildIndexes
+      this.bestBuilds$.emit(this.transformNamesToIndexes(response, this.buildService.equipment$.getValue()))
     });
   }
 
@@ -96,5 +96,26 @@ export class CompareAllFormComponent implements OnInit {
 
     bob.whitelist = clone(this.buildService.equipmentWhiteList);
     return bob;
+  }
+
+  private transformNamesToIndexes(scores, equipment: AllEquipment) {
+    const scoreKeys = Object.keys(scores);
+    let buildScores: BuildScores = {};
+    scoreKeys.forEach(scoreKey => {
+      buildScores[scoreKey] = [];
+      scores[scoreKey].forEach(item => {
+        buildScores[scoreKey].push({
+          build: {
+            helmet: equipment.helmet.findIndex(helmet => helmet.Name === item.build.helmet),
+            chestplate: equipment.chestplate.findIndex(chestplate => chestplate.Name === item.build.chestplate),
+            leggings: equipment.leggings.findIndex(leggings => leggings.Name === item.build.leggings),
+            boots: equipment.boots.findIndex(boots => boots.Name === item.build.boots),
+            offhand: equipment.offhand.findIndex(offhand => offhand.Name === item.build.offhand)
+          },
+          scores: {...item.scores}
+        })
+      })
+    })
+    return buildScores;
   }
 }
