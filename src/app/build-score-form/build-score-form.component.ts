@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { IBuild, BuildIndex } from '../interfaces';
+import { BuildIndex } from '../interfaces';
 import { BuildService } from '../build.service';
-import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-build-score-form',
@@ -10,10 +9,10 @@ import { HttpClient } from '@angular/common/http';
 })
 export class BuildScoreFormComponent implements OnInit {
   build: BuildIndex;
-  equipment$ = this.serv.equipment$;
+  equipment$ = this.buildService.equipment$;
   score = 0;
 
-  constructor(private serv: BuildService, private httpClient:HttpClient) {
+  constructor(private buildService: BuildService) {
   }
 
   ngOnInit(): void {

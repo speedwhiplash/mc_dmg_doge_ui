@@ -49,6 +49,14 @@ export enum Slots {
 	offhand = 'Offhands'
 }
 
+export interface EquipmentSelections {
+  boots: {[key:string]: boolean},
+  chestplate: {[key:string]: boolean},
+  helmet: {[key:string]: boolean},
+  leggings: {[key:string]: boolean},
+  offhand: {[key:string]: boolean}
+}
+
 export interface ITextFields {
 	Name: string;
 	Tier: Tiers;
@@ -62,7 +70,7 @@ export interface IScenarioInputs {
 	'Damage Absorbed': number;
 	'Health Regained': number;
 	'Health Regain Percent': number;
-	'Crit Chance' : number;   
+	'Crit Chance' : number;
 }
 
 export enum PlayerFields {
@@ -151,5 +159,6 @@ export interface IBoots extends IDefenceInputs {
 export interface IBobInputs {
 	scenario: IScenarioInputs,
 	player: IPlayerInputs,
-	mainhand: IHandheld
+	mainhand: IHandheld,
+  whitelist: EquipmentSelections
 }

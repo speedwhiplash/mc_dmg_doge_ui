@@ -2,6 +2,8 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 import { BuildScores, HandheldType, IBobInputs, IScenarioInputs, PlayerInputsType } from '../interfaces';
+import { BuildService } from '../build.service';
+import { clone } from '../utils';
 
 @Component({
   selector: 'app-compare-all-form',
@@ -15,7 +17,10 @@ export class CompareAllFormComponent implements OnInit {
   playerInputs = <PlayerInputsType>{};
   scenarioInputs = <IScenarioInputs>{};
 
-  constructor(private httpClient: HttpClient) {
+  constructor(
+    private buildService: BuildService,
+    private httpClient: HttpClient
+  ) {
     this.scenarioInputs.Damage = 22;
     this.scenarioInputs['Hits Taken'] = 1;
     this.scenarioInputs['Damage Absorbed'] = 100;
@@ -43,7 +48,7 @@ export class CompareAllFormComponent implements OnInit {
     this.mainhandInputs.Regeneration = 0;
     this.mainhandInputs.Toughness = 0;
     this.mainhandInputs['Toughness Percent'] = 0;
-    
+
   }
 
   ngOnInit(): void {
@@ -76,7 +81,7 @@ export class CompareAllFormComponent implements OnInit {
     bob.player['Health Percent'] = this.playerInputs['Health Percent'];
     bob.player.Toughness = this.playerInputs.Toughness;
     bob.player['Toughness Percent'] = this.playerInputs['Toughness Percent'];
-    
+
     bob.mainhand.Armor = this.mainhandInputs.Armor;
     bob.mainhand['Armor Percent'] = this.mainhandInputs['Armor Percent'];
     bob.mainhand['Attack Speed'] = this.mainhandInputs['Attack Speed'];
@@ -89,6 +94,7 @@ export class CompareAllFormComponent implements OnInit {
     bob.mainhand.Toughness = this.mainhandInputs.Toughness;
     bob.mainhand['Toughness Percent'] = this.mainhandInputs['Toughness Percent'];
 
+    bob.whitelist = clone(this.buildService.equipmentWhiteList);
     return bob;
   }
 }

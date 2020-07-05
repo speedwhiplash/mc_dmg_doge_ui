@@ -7,9 +7,7 @@ import { AllEquipment, BuildIndex, IBuild, Slots } from './interfaces';
 
 export const MAX_ALLOWED_COMPARE_ITEMS = 80;
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable({providedIn: 'root'})
 export class BuildService {
   equipment$: BehaviorSubject<AllEquipment> = new BehaviorSubject({
     boots: [],

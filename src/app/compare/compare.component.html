@@ -1,6 +1,9 @@
 <mat-sidenav-container>
 
-  <h1 class="margin-gutter">Bob's Builds</h1>
+  <div class="row no-margin">
+    <div class="col-md-3"><h1>Bob's Builds</h1></div>
+    <div class="col-md-5">{{ totalSelected() }} out of {{ maxItems }} max <a [routerLink]="['/equipment']">items selected</a></div>
+  </div>
   <div class="row no-margin">
     <div class="col-sm-6">
       <app-compare-all-form (bestBuilds$)="setBuilds($event)"></app-compare-all-form>
@@ -9,6 +12,7 @@
       <app-build-details #buildDetails></app-build-details>
     </div>
   </div>
+  <!--
   <mat-sidenav #alertLeftSidebar
     class="standard-left-sidebar"
     position="end"
@@ -17,5 +21,5 @@
     [fixedInViewport]="true">
     <app-select-equipment></app-select-equipment>
   </mat-sidenav>
-
+-->
 </mat-sidenav-container>

@@ -1,5 +1,4 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { takeWhile } from 'rxjs/operators';
 
 import { BuildScores, IBuild } from '../interfaces';
@@ -15,19 +14,17 @@ export class BuildDetailsComponent implements OnInit, OnDestroy {
   build: IBuild;
   currentScore = 0;
   currentIndex = 0;
-  currentBuild;
   private isAlive = true;
 
   constructor(
-    private buildService: BuildService,
-    private httpClient: HttpClient
+    private buildService: BuildService
   ) {
   }
 
   ngOnInit(): void {
     this.buildService.equipment$.pipe(takeWhile(() => this.isAlive)).subscribe(() => {
-      this.refresh()
-    })
+      this.refresh();
+    });
   }
 
   get scores(): number[] {
