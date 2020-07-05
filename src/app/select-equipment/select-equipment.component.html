@@ -1,1 +1,124 @@
-<p>select-equipment works!</p>
+<mat-expansion-panel [expanded]="isExpanded">
+  <mat-expansion-panel-header>
+    <mat-panel-title>
+      <span> {{slotName}} </span>&nbsp;
+      <span class="description">
+        {{equipmentSlot.length}} items
+        ({{ numberSelected(slotName) }}) selected
+      </span>
+    </mat-panel-title>
+    <mat-panel-description></mat-panel-description>
+  </mat-expansion-panel-header>
+  <table class="table" mat-table [dataSource]="getDataSource(slotName)" matSort>
+
+    <!-- ID Column -->
+    <ng-container matColumnDef="selected">
+      <th mat-header-cell *matHeaderCellDef class="text-center">
+        <input type="checkbox" [value]="true" (click)="toggleSelectAll(slotName)" [checked]="isAllChecked(slotName)" />
+      </th>
+      <td mat-cell *matCellDef="let item" class="text-center">
+        <input type="checkbox" [value]="true" (click)="toggleItem(slotName, item)" [checked]="isSelected(slotName, item)" />
+      </td>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="Name">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Name</th>
+      <td mat-cell *matCellDef="let item">{{ item.Name }} </td>
+    </ng-container>
+
+    <!-- Armor Column -->
+    <ng-container matColumnDef="Armor">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Armor</th>
+      <td mat-cell *matCellDef="let item">{{ item.Armor }} </td>
+    </ng-container>
+
+    <!-- Armor Percent Column -->
+    <ng-container matColumnDef="Armor Percent">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Armor Percent</th>
+      <td mat-cell *matCellDef="let item">{{ item['Armor Percent']}} </td>
+    </ng-container>
+
+    <!-- Toughness Column -->
+    <ng-container matColumnDef="Toughness">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Toughness</th>
+      <td mat-cell *matCellDef="let item">{{ item.Toughness }} </td>
+    </ng-container>
+
+    <!-- Toughness Percent Column -->
+    <ng-container matColumnDef="Toughness Percent">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Toughness Percent</th>
+      <td mat-cell *matCellDef="let item">{{ item['Toughness Percent']}} </td>
+    </ng-container>
+
+    <!-- Protection Column -->
+    <ng-container matColumnDef="Protection">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Protection</th>
+      <td mat-cell *matCellDef="let item">{{ item.Protection }} </td>
+    </ng-container>
+
+    <!-- Evasion Column -->
+    <ng-container matColumnDef="Evasion">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Evasion</th>
+      <td mat-cell *matCellDef="let item">{{ item.Evasion }} </td>
+    </ng-container>
+
+    <!-- Regeneration Column -->
+    <ng-container matColumnDef="Regeneration">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Regeneration</th>
+      <td mat-cell *matCellDef="let item">{{ item.Regeneration }} </td>
+    </ng-container>
+
+    <!-- Life Drain Column -->
+    <ng-container matColumnDef="Life Drain">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Life Drain</th>
+      <td mat-cell *matCellDef="let item">{{ item['Life Drain'] }} </td>
+    </ng-container>
+
+    <!-- Health Column -->
+    <ng-container matColumnDef="Health">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Health</th>
+      <td mat-cell *matCellDef="let item">{{ item.Health }} </td>
+    </ng-container>
+
+    <!-- Health Percent Column -->
+    <ng-container matColumnDef="Health Percent">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Health Percent</th>
+      <td mat-cell *matCellDef="let item">{{ item['Health Percent']}} </td>
+    </ng-container>
+
+    <!-- Attack Speed Column -->
+    <ng-container matColumnDef="Attack Speed">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Attack Speed</th>
+      <td mat-cell *matCellDef="let item">{{ item['Attack Speed'] }} </td>
+    </ng-container>
+
+    <!-- Attack Speed Percent Column -->
+    <ng-container matColumnDef="Attack Speed Percent">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Attack Speed Percent</th>
+      <td mat-cell *matCellDef="let item">{{ item['Attack Speed Percent']}} </td>
+    </ng-container>
+
+    <!-- Type Column -->
+    <ng-container matColumnDef="Type">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Type</th>
+      <td mat-cell *matCellDef="let item">{{ item.Type }} </td>
+    </ng-container>
+
+    <!-- Place Column -->
+    <ng-container matColumnDef="Place">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Place</th>
+      <td mat-cell *matCellDef="let item">{{ item.Place }} </td>
+    </ng-container>
+
+    <!-- Tier Column -->
+    <ng-container matColumnDef="Tier">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Tier</th>
+      <td mat-cell *matCellDef="let item">{{ item.Tier }} </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="getColumns(slotName)"></tr>
+    <tr mat-row *matRowDef="let row; columns: getColumns(slotName);"></tr>
+
+  </table>
+</mat-expansion-panel>

@@ -42,6 +42,11 @@ footer {
 /** Material overrides */
 .mat-expansion-panel-header-title {
   font-weight: bold;
+
+  .description {
+    font-weight: normal;
+    margin-top: 1px;
+  }
 }
 
 table.mat-table {

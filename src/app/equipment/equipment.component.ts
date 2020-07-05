@@ -1,12 +1,10 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { MatAccordion } from '@angular/material/expansion';
-import { MatSort } from '@angular/material/sort';
-import { MatTableDataSource } from '@angular/material/table';
 import { catchError, retry, switchMap, takeWhile } from 'rxjs/operators';
 
 import { BuildService, MAX_ALLOWED_COMPARE_ITEMS } from '../build.service';
-import { Slots } from '../interfaces';
+import { IBoots, Slots, Tiers } from '../interfaces';
 
 @Component({
   selector: 'app-equipment',
@@ -15,33 +13,11 @@ import { Slots } from '../interfaces';
 })
 export class EquipmentComponent implements OnInit, OnDestroy {
   @ViewChild(MatAccordion) equipmentTable: MatAccordion;
-  @ViewChild(MatSort, {static: true}) sort: MatSort;
-  displayedColumns = [
-    'selected',
-    'Name',
-    'Armor',
-    'Armor Percent',
-    'Toughness',
-    'Toughness Percent',
-    'Protection',
-    'Evasion',
-    'Regeneration',
-    'Life Drain',
-    'Health',
-    'Health Percent',
-    'Attack Speed',
-    'Attack Speed Percent',
-    'Type',
-    'Place',
-    'Tier'
-  ];
   equipment$ = this.buildService.equipment$;
   isExpanded = true;
   isLoading = false;
   maxItems = MAX_ALLOWED_COMPARE_ITEMS;
-  slots = Object.keys(Slots);
-  slotNames = Object.keys(Slots).map(slot => Slots[slot]);
-
+  slotNames = Object.keys(Slots);
   private isAlive = true;
 
   constructor(
@@ -53,52 +29,40 @@ export class EquipmentComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
   }
 
-  getDataSource(slot) {
-    return new MatTableDataSource(this.buildService.equipment$.getValue()[slot]);
+  autoSelect() {
+    this.clearAll();
+
+    this.slotNames.forEach(slotName => {
+      this.getEquipmentSlot(slotName)
+        .filter(item => {
+          return item.Tier === Tiers.Artifact ||
+            item.Tier === Tiers.Epic ||
+            item.Tier === Tiers.Rare ||
+            item.Tier === Tiers.Relic ||
+            item.Tier === Tiers.Uncommon ||
+            item.Tier === Tiers.Unique;
+        })
+        .forEach(item => this.buildService.equipmentWhiteList[slotName][item.Name] = true);
+    });
   }
 
-  getColumns(slot) {
-    if (slot === 'offhand') {
-      return this.displayedColumns.filter(col => col !== 'Protection');
-    }
-    return this.displayedColumns;
+  clearAll() {
+    this.slotNames.forEach(slotName => {
+      this.buildService.equipmentWhiteList[slotName] = {};
+    });
   }
 
-  isAllChecked(slot) {
-    return this.equipment$.getValue()[slot].length === Object.keys(this.buildService.equipmentWhiteList[slot]).length;
-  }
-
-  isSelected(slot, item) {
-    return !!this.buildService.equipmentWhiteList[slot][item.Name];
+  getEquipmentSlot(slot): IBoots[] {
+    return this.equipment$.getValue()[slot];
   }
 
   numberSelected(slot): number {
     return Object.keys(this.buildService.equipmentWhiteList[slot]).length;
   }
 
-  selectItem(slot, item, isSelected) {
-    if (isSelected) {
-      this.buildService.equipmentWhiteList[slot][item.Name] = true;
-    } else {
-      delete this.buildService.equipmentWhiteList[slot][item.Name];
-    }
-  }
-
-  toggleItem(slot, item): void {
-    const isSelected = this.buildService.equipmentWhiteList[slot][item.Name];
-    this.selectItem(slot, item, !isSelected);
-    localStorage.setItem('equipmentWhiteList', JSON.stringify(this.buildService.equipmentWhiteList));
-  }
-
-  toggleSelectAll(slot): void {
-    const isAllSelected = this.isAllChecked(slot);
-    this.equipment$.getValue()[slot].forEach(item => this.selectItem(slot, item, !isAllSelected));
-    localStorage.setItem('equipmentWhiteList', JSON.stringify(this.buildService.equipmentWhiteList));
-  }
-
   totalSelected() {
     let total = 0;
-    this.slots.forEach(slot => total += this.numberSelected(slot));
+    this.slotNames.forEach(slot => total += this.numberSelected(slot));
     return total;
   }
 
@@ -119,7 +83,6 @@ export class EquipmentComponent implements OnInit, OnDestroy {
         })
       )
       .subscribe(() => this.isLoading = false);
-
   }
 
   public ngOnDestroy(): void {
