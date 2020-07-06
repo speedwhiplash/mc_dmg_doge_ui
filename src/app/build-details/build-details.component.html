@@ -43,12 +43,13 @@
 
   <table class="table" id="buildScores">
     <tr>
-      <th width=16.6%>Armor</th>
-      <th width=16.6%>Toughness</th>
-      <th width=16.6%>Protection</th>
-      <th width=16.6%>Evasion</th>
-      <th width=16.6%>Regeneration</th>
-      <th>Health</th>
+      <th width=14.2%>Armor</th>
+      <th width=14.2%>Toughness</th>
+      <th width=14.2%>Protection</th>
+      <th width=14.2%>Evasion</th>
+      <th width=14.2%>Regeneration</th>
+      <th width=14.2%>Health</th>
+      <th>Percent Speed</th>
     </tr>
     <tr>
       <td>{{ getScores(currentScore, currentIndex)['armor'] }}</td>
@@ -57,6 +58,7 @@
       <td>{{ getScores(currentScore, currentIndex)['evasion'] }}</td>
       <td>{{ getScores(currentScore, currentIndex)['regeneration'] }}</td>
       <td>{{ getScores(currentScore, currentIndex)['health'] }}</td>
+      <td>{{ (getScores(currentScore, currentIndex)['speed_percent'] - 1) > 0 ? '+' : '' }} {{ (getScores(currentScore, currentIndex)['speed_percent'] - 1) | percent:'2.2' }}</td>
     </tr>
   </table>
 </ng-template>

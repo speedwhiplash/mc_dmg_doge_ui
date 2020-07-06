@@ -28,8 +28,8 @@ export class SelectEquipmentComponent implements OnInit {
     'Life Drain',
     'Health',
     'Health Percent',
-    'Attack Speed',
-    'Attack Speed Percent',
+    'Speed',
+    'Speed Percent',
     'Type',
     'Place',
     'Tier'

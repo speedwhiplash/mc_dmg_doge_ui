@@ -30,73 +30,73 @@
     <!-- Armor Column -->
     <ng-container matColumnDef="Armor">
       <th mat-header-cell class="text-center" *matHeaderCellDef mat-sort-header>Armor</th>
-      <td mat-cell class="text-center" *matCellDef="let item">{{ item.Armor }} </td>
+      <td mat-cell class="text-center" *matCellDef="let item">{{ item.Armor === 0 ? '' : item.Armor }} </td>
     </ng-container>
 
     <!-- Armor Percent Column -->
     <ng-container matColumnDef="Armor Percent">
       <th mat-header-cell class="text-center" *matHeaderCellDef mat-sort-header>Armor Percent</th>
-      <td mat-cell class="text-center" *matCellDef="let item">{{ item['Armor Percent']}} </td>
+      <td mat-cell class="text-center" *matCellDef="let item">{{ item['Armor Percent'] === 0 ? '' : item['Armor Percent']}} </td>
     </ng-container>
 
     <!-- Toughness Column -->
     <ng-container matColumnDef="Toughness">
       <th mat-header-cell class="text-center"*matHeaderCellDef mat-sort-header>Toughness</th>
-      <td mat-cell class="text-center"*matCellDef="let item">{{ item.Toughness }} </td>
+      <td mat-cell class="text-center"*matCellDef="let item">{{ item.Toughness === 0 ? '' : item.Toughness }} </td>
     </ng-container>
 
     <!-- Toughness Percent Column -->
     <ng-container matColumnDef="Toughness Percent">
       <th mat-header-cell class="text-center"*matHeaderCellDef mat-sort-header>Toughness Percent</th>
-      <td mat-cell class="text-center"*matCellDef="let item">{{ item['Toughness Percent']}} </td>
+      <td mat-cell class="text-center"*matCellDef="let item">{{ item['Toughness Percent'] === 0 ? '' : item['Toughness Percent'] }} </td>
     </ng-container>
 
     <!-- Protection Column -->
     <ng-container matColumnDef="Protection">
       <th mat-header-cell class="text-center"*matHeaderCellDef mat-sort-header>Protection</th>
-      <td mat-cell class="text-center"*matCellDef="let item">{{ item.Protection }} </td>
+      <td mat-cell class="text-center"*matCellDef="let item">{{ item.Protection === 0 ? '' : item.Protection }} </td>
     </ng-container>
 
     <!-- Evasion Column -->
     <ng-container matColumnDef="Evasion">
       <th mat-header-cell class="text-center"*matHeaderCellDef mat-sort-header>Evasion</th>
-      <td mat-cell class="text-center"*matCellDef="let item">{{ item.Evasion }} </td>
+      <td mat-cell class="text-center"*matCellDef="let item">{{ item.Evasion === 0 ? '' : item.Evasion }} </td>
     </ng-container>
 
     <!-- Regeneration Column -->
     <ng-container matColumnDef="Regeneration">
       <th mat-header-cell class="text-center"*matHeaderCellDef mat-sort-header>Regeneration</th>
-      <td mat-cell class="text-center"*matCellDef="let item">{{ item.Regeneration }} </td>
+      <td mat-cell class="text-center"*matCellDef="let item">{{ item.Regeneration === 0 ? '' : item.Regeneration }} </td>
     </ng-container>
 
     <!-- Life Drain Column -->
     <ng-container matColumnDef="Life Drain">
       <th mat-header-cell class="text-center"*matHeaderCellDef mat-sort-header>Life Drain</th>
-      <td mat-cell class="text-center"*matCellDef="let item">{{ item['Life Drain'] }} </td>
+      <td mat-cell class="text-center"*matCellDef="let item">{{ item['Life Drain'] === 0 ? '' : item['Life Drain'] }} </td>
     </ng-container>
 
     <!-- Health Column -->
     <ng-container matColumnDef="Health">
       <th mat-header-cell class="text-center"*matHeaderCellDef mat-sort-header>Health</th>
-      <td mat-cell class="text-center"*matCellDef="let item">{{ item.Health }} </td>
+      <td mat-cell class="text-center"*matCellDef="let item">{{ item.Health === 0 ? '' : item.Health }} </td>
     </ng-container>
 
     <!-- Health Percent Column -->
     <ng-container matColumnDef="Health Percent">
       <th mat-header-cell class="text-center"*matHeaderCellDef mat-sort-header>Health Percent</th>
-      <td mat-cell class="text-center"*matCellDef="let item">{{ item['Health Percent']}} </td>
+      <td mat-cell class="text-center"*matCellDef="let item">{{ item['Health Percent'] === 0 ? '' : item['Health Percent'] }} </td>
     </ng-container>
 
-    <!-- Attack Speed Column -->
-    <ng-container matColumnDef="Attack Speed">
-      <th mat-header-cell class="text-center"*matHeaderCellDef mat-sort-header>Attack Speed</th>
-      <td mat-cell class="text-center"*matCellDef="let item">{{ item['Attack Speed'] }} </td>
+    <!-- Speed Column -->
+    <ng-container matColumnDef="Speed">
+      <th mat-header-cell class="text-center"*matHeaderCellDef mat-sort-header>Speed</th>
+      <td mat-cell class="text-center"*matCellDef="let item">{{ item['Speed'] === 0 ? '' : item['Speed'] }} </td>
     </ng-container>
 
-    <!-- Attack Speed Percent Column -->
-    <ng-container matColumnDef="Attack Speed Percent">
-      <th mat-header-cell class="text-center"*matHeaderCellDef mat-sort-header>Attack Speed Percent</th>
-      <td mat-cell class="text-center"*matCellDef="let item">{{ item['Attack Speed Percent']}} </td>
+    <!-- Speed Percent Column -->
+    <ng-container matColumnDef="Speed Percent">
+      <th mat-header-cell class="text-center"*matHeaderCellDef mat-sort-header>Speed Percent</th>
+      <td mat-cell class="text-center"*matCellDef="let item">{{ item['Speed Percent'] === 0 ? '' : item['Speed Percent'] }} </td>
     </ng-container>
 
     <!-- Type Column -->

@@ -57,6 +57,16 @@
         </div>
       </div>
     </div>
+    <div class="col-lg-4 mb-3">
+      <label for="sSpeed">Minimum Percent Speed</label>
+      <div class="input-group input-group-sm">
+        <input type="number" class="form-control" id="sSpeed" #sSpeed
+          (keyup)="scenarioInputs['Minimum Speed'] = +sSpeed.value" [value]="scenarioInputs['Minimum Speed']">
+        <div class="input-group-append">
+          <span class="input-group-text">%</span>
+        </div>
+      </div>
+    </div>
   </div>
 
   <h2>Player</h2>
@@ -107,6 +117,18 @@
           [value]="playerInputs['Attack Speed']">
         <input type="number" class="form-control" id="pAtkspp" #pAtkspp [min]="0" [max]="100"
           (keyup)="playerInputs['Attack Speed Percent'] = +pAtkspp.value" [value]="playerInputs['Attack Speed Percent']">
+        <div class="input-group-append">
+          <span class="input-group-text">%</span>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-4 mb-3">
+      <label for="pS">Speed</label>
+      <div class="input-group input-group-sm">
+        <input type="number" class="form-control" id="pS" #pS (keyup)="playerInputs.Speed = +pS.value"
+          [value]="playerInputs.Speed">
+        <input type="number" class="form-control" id="pSp" #pSp
+          (keyup)="playerInputs['Speed Percent'] = +pSp.value" [value]="playerInputs['Speed Percent']">
         <div class="input-group-append">
           <span class="input-group-text">%</span>
         </div>

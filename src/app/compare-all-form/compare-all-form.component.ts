@@ -27,6 +27,7 @@ export class CompareAllFormComponent implements OnInit {
     this.scenarioInputs['Health Regained'] = 0;
     this.scenarioInputs['Health Regain Percent'] = 0;
     this.scenarioInputs['Crit Chance'] = 0;
+    this.scenarioInputs['Minimum Speed'] = 100;
 
     this.playerInputs.Armor = 0;
     this.playerInputs['Armor Percent'] = 100;
@@ -36,6 +37,8 @@ export class CompareAllFormComponent implements OnInit {
     this.playerInputs['Health Percent'] = 100;
     this.playerInputs.Toughness = 0;
     this.playerInputs['Toughness Percent'] = 100;
+    this.playerInputs['Speed'] = 0.1;
+    this.playerInputs['Speed Percent'] = 100;
 
     this.mainhandInputs.Armor = 0;
     this.mainhandInputs['Armor Percent'] = 0;
@@ -72,6 +75,7 @@ export class CompareAllFormComponent implements OnInit {
     bob.scenario['Health Regained'] = this.scenarioInputs['Health Regained'];
     bob.scenario['Health Regain Percent'] = this.scenarioInputs['Health Regain Percent'];
     bob.scenario['Crit Chance'] = this.scenarioInputs['Crit Chance'];
+    bob.scenario['Minimum Speed'] = this.scenarioInputs['Minimum Speed'];
 
     bob.player.Armor = this.playerInputs.Armor;
     bob.player['Armor Percent'] = this.playerInputs['Armor Percent'];
@@ -81,6 +85,8 @@ export class CompareAllFormComponent implements OnInit {
     bob.player['Health Percent'] = this.playerInputs['Health Percent'];
     bob.player.Toughness = this.playerInputs.Toughness;
     bob.player['Toughness Percent'] = this.playerInputs['Toughness Percent'];
+    bob.player.Speed = this.playerInputs.Speed;
+    bob.player['Speed Percent'] = this.playerInputs['Speed Percent'];
 
     bob.mainhand.Armor = this.mainhandInputs.Armor;
     bob.mainhand['Armor Percent'] = this.mainhandInputs['Armor Percent'];
