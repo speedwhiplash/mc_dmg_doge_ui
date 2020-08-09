@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { AllEquipment, BuildScores, HandheldType, IBobInputs, IScenarioInputs, PlayerInputsType } from '../interfaces';
 import { BuildService } from '../build.service';
 import { clone } from '../utils';
+import { BoundAttribute } from '@angular/compiler/src/render3/r3_ast';
 
 @Component({
   selector: 'app-compare-all-form',
@@ -40,10 +41,12 @@ export class CompareAllFormComponent implements OnInit {
     this.playerInputs['Speed'] = 0.1;
     this.playerInputs['Speed Percent'] = 100;
 
+    this.mainhandInputs.Anemia = 0;
     this.mainhandInputs.Armor = 0;
     this.mainhandInputs['Armor Percent'] = 0;
     this.mainhandInputs['Attack Speed'] = 0;
     this.mainhandInputs['Attack Speed Percent'] = 0;
+    this.mainhandInputs.Corruption = 0;
     this.mainhandInputs.Evasion = 0;
     this.mainhandInputs.Health = 0;
     this.mainhandInputs['Health Percent'] = 0;
@@ -88,10 +91,12 @@ export class CompareAllFormComponent implements OnInit {
     bob.player.Speed = this.playerInputs.Speed;
     bob.player['Speed Percent'] = this.playerInputs['Speed Percent'];
 
+    bob.mainhand.Anemia = this.mainhandInputs.Anemia;
     bob.mainhand.Armor = this.mainhandInputs.Armor;
     bob.mainhand['Armor Percent'] = this.mainhandInputs['Armor Percent'];
     bob.mainhand['Attack Speed'] = this.mainhandInputs['Attack Speed'];
     bob.mainhand['Attack Speed Percent'] = this.mainhandInputs['Attack Speed Percent'];
+    bob.mainhand.Corruption = this.mainhandInputs.Corruption;
     bob.mainhand.Evasion = this.mainhandInputs.Evasion;
     bob.mainhand.Health = this.mainhandInputs.Health;
     bob.mainhand['Health Percent'] = this.mainhandInputs['Health Percent'];

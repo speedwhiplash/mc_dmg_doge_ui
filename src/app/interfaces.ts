@@ -99,10 +99,12 @@ export enum DefenceFields {
 }
 
 export enum HandheldFields {
+	Anemia = 'Anemia',
 	Armor = 'Armor',
 	'Armor Percent' = 'Armor Percent',
 	'Attack Speed' = 'Attack Speed',
 	'Attack Speed Percent' = 'Attack Speed Percent',
+	Corruption = 'Corruption',
 	Damage = 'Damage',
 	'Damage Absorbed' = 'Damage Absorbed',
 	Evasion = 'Evasion',
