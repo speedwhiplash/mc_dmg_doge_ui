@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 
 import { BuildDetailsComponent } from '../build-details/build-details.component';
-import { BuildScores, Slots } from '../interfaces';
+import { BuildAttributeScores, Slots } from '../interfaces';
 import { BuildService, MAX_ALLOWED_COMPARE_ITEMS } from '../build.service';
 
 @Component({
@@ -20,7 +20,7 @@ export class CompareComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  setBuilds(build: Record<number, BuildScores[]>) {
+  setBuilds(build: Record<number, BuildAttributeScores[]>) {
     this.buildDetails.setBuildIndexes(build);
   }
 
