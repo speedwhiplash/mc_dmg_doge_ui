@@ -51,11 +51,11 @@ export class BuildService {
   }
 
   detectServers() {
-    for (let i = 0, l = this.maxServers; i < l; i++) {
+    for (let i = 3000, l = this.maxServers; i < (3000 + l); i++) {
       this.httpClient.get(`multiapi${i}/status`)
         .subscribe((status: { status: string, port: number }) => {
           this.serverPortsEnabled.push(status.port);
-          console.log()
+          console.log();
         });
     }
   }
@@ -90,7 +90,24 @@ export class BuildService {
   }
 
   runScenario(bob: IBobInputs) {
+    this.runScenarioMulti(bob);
     return this.httpClient.post('/api/bob/defense', bob)
       .pipe(tap((bestBuilds: Record<number, BuildAttributeScores[]>) => this.bestBuilds$.next(bestBuilds)));
+  }
+
+  runScenarioMulti(bob: IBobInputs) {
+    this.serverPortsEnabled.forEach((workerId, idx) => {
+      let helmetName = Object.keys(bob.whitelist.helmet)[idx];
+      let helmet = {};
+      helmet[helmetName] = true;
+      let whitelist = {...bob.whitelist, helmet};
+      this.runScenarioMultiWorker({...bob, whitelist}, workerId).subscribe(result => {
+        console.log('runScenarioMulti', result)
+      });
+    });
+  }
+
+  runScenarioMultiWorker(bob: IBobInputs, workerId: number) {
+    return this.httpClient.post(`/multiapi${workerId}/bob/defense`, bob);
   }
 }

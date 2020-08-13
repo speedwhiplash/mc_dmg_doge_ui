@@ -11,8 +11,8 @@ function addHeaders (host, config) {
 const devHosts = {
   'api': 'localhost:3000',
 };
-for (let i = 0, l = 8; i < l; i++) {
-  devHosts['multiapi' + i] = 'localhost:300' + i;
+for (let i = 3000, l = 8; i < (3000 + l); i++) {
+  devHosts['multiapi' + i] = 'localhost:' + i;
 }
 
 const PROXY_CONFIG = (hosts) => {
@@ -23,7 +23,7 @@ const PROXY_CONFIG = (hosts) => {
     ),
   };
 
-  for (let i = 0, l = 8; i < l; i++) {
+  for (let i = 3000, l = 8; i < (3000 + l); i++) {
     let pathRewrite = {};
     pathRewrite['^/multiapi' + i + '/'] = '/';
     config['/multiapi' + i + '/*'] = addHeaders(hosts['multiapi' + i], {pathRewrite});
