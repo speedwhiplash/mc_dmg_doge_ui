@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject } from 'rxjs';
 import { tap } from 'rxjs/operators';
 
-import { AllEquipment, BuildIndex, IBuild, Slots } from './interfaces';
+import { AllEquipment, BuildAttributeScores, BuildIndex, IBobInputs, IBuild, Slots } from './interfaces';
 
 export const MAX_ALLOWED_COMPARE_ITEMS = 80;
 
@@ -30,9 +30,13 @@ export class BuildService {
     leggings: {},
     offhand: {},
   };
+  bestBuilds$ = new BehaviorSubject(<Record<number, BuildAttributeScores[]>> {});
+  maxServers = 8;
+  serverPortsEnabled: number[] = [];
 
   constructor(private httpClient: HttpClient) {
     this.loadWhitelist();
+    this.detectServers();
 
     this.getEquipment$().subscribe(equipment => {
       for (let f in Slots) {
@@ -44,6 +48,16 @@ export class BuildService {
       }
       this.saveWhitelist();
     });
+  }
+
+  detectServers() {
+    for (let i = 0, l = this.maxServers; i < l; i++) {
+      this.httpClient.get(`multiapi${i}/status`)
+        .subscribe((status: { status: string, port: number }) => {
+          this.serverPortsEnabled.push(status.port);
+          console.log()
+        });
+    }
   }
 
   getBuild(build: BuildIndex): IBuild {
@@ -73,5 +87,10 @@ export class BuildService {
 
   saveWhitelist() {
     localStorage.setItem('equipmentWhiteList', JSON.stringify(this.equipmentWhiteList));
+  }
+
+  runScenario(bob: IBobInputs) {
+    return this.httpClient.post('/api/bob/defense', bob)
+      .pipe(tap((bestBuilds: Record<number, BuildAttributeScores[]>) => this.bestBuilds$.next(bestBuilds)));
   }
 }

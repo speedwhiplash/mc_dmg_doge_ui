@@ -69,14 +69,22 @@ export interface ITextFields {
 	Place: string;
 }
 
-export interface IScenarioInputs {
-	Damage: number;
-	'Hits Taken': number;
-	'Damage Absorbed': number;
-	'Health Regained': number;
-	'Health Regain Percent': number;
-	'Crit Chance': number;
-	'Minimum Speed': number;
+export enum ScenarioFields {
+  'Damage' = 'Damage',
+  'Hits Taken'= 'Hits Taken',
+'Damage Absorbed'= 'Damage Absorbed',
+'Health Regained'= 'Health Regained',
+'Health Regain Percent'= 'Health Regain Percent',
+'Crit Chance'= 'Crit Chance',
+'Minimum Speed'= 'Minimum Speed'
+}
+
+
+export type IScenarioInputsType = {
+  [index in ScenarioFields]: number;
+}
+
+export interface IScenarioInputs extends IScenarioInputsType {
 }
 
 export enum PlayerFields {
