@@ -20,6 +20,7 @@ export class EquipmentComponent implements OnInit, OnDestroy {
   maxItems = MAX_ALLOWED_COMPARE_ITEMS;
   slotNames = Object.keys(Slots);
   private isAlive = true;
+  private itemSelections = require('./item-selections.json');
 
   constructor(
     private buildService: BuildService,
@@ -32,26 +33,12 @@ export class EquipmentComponent implements OnInit, OnDestroy {
 
   autoSelect() {
     this.clearAll();
-
-    this.slotNames.forEach(slotName => {
-      this.equipment$.getValue()[slotName]
-        .filter(item => {
-          return !item.Tier.includes('Tier')
-            && item.Tier !== 'Unique Event'
-            && !(item.Place.includes('Valley') && !item.Tier.includes('Epic'))
-            && item.Place !== 'Alchemy Labs'
-            && item.Place !== 'White'
-            && item.Place !== 'Orange'
-            && item.Place !== 'Magenta'
-            && item.Place !== 'Light Blue'
-            && item.Place !== 'Yellow'
-            && item.Place !== 'Sanctum'
-            && item.Place !== 'Azacor'
-            && item.Place !== 'Reverie'
-            && item.Place !== 'Dissonance';
-        })
-        .forEach(item => this.buildService.equipmentWhiteList[slotName][item.Name] = true);
-    });
+    
+    this._select('helmet', this.itemSelections.helmet);
+    this._select('chestplate', this.itemSelections.chestplate);
+    this._select('leggings', this.itemSelections.leggings);
+    this._select('boots', this.itemSelections.boots);
+    this._select('offhand', this.itemSelections.offhand);
 
     this.buildService.saveWhitelist();
   }
@@ -98,4 +85,10 @@ export class EquipmentComponent implements OnInit, OnDestroy {
   public ngOnDestroy(): void {
     this.isAlive = false;
   }
+
+  private _select(slotName, itemArray) {
+    this.equipment$.getValue()[slotName]
+      .filter(item => itemArray.includes(item.Name))
+      .forEach(item => this.buildService.equipmentWhiteList[slotName][item.Name] = true);
+    }
 }
