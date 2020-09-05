@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { takeWhile } from 'rxjs/operators';
 
-import { BuildScores, IBuild } from '../interfaces';
+import { BuildAttributeScores, IBuild } from '../interfaces';
 import { BuildService } from '../build.service';
 
 @Component({
@@ -10,7 +10,7 @@ import { BuildService } from '../build.service';
   styleUrls: ['./build-details.component.scss']
 })
 export class BuildDetailsComponent implements OnInit, OnDestroy {
-  builds: Record<number, BuildScores[]>;
+  builds: Record<number, BuildAttributeScores[]>;
   build: IBuild;
   currentScore = 0;
   currentIndex = 0;
@@ -76,7 +76,7 @@ export class BuildDetailsComponent implements OnInit, OnDestroy {
     });
   }
 
-  setBuildIndexes(buildIndexes: Record<number, BuildScores[]>) {
+  setBuildIndexes(buildIndexes: Record<number, BuildAttributeScores[]>) {
     this.builds = buildIndexes;
     this.currentScore = Object.keys(buildIndexes).map(score => +score).sort()[0];
   }

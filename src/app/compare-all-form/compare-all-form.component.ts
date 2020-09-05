@@ -1,10 +1,9 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
-import { AllEquipment, BuildScores, HandheldType, IBobInputs, IScenarioInputs, PlayerInputsType } from '../interfaces';
+import { AllEquipment, BuildAttributeScores, HandheldType, IBobInputs, IScenarioInputs, PlayerInputsType } from '../interfaces';
 import { BuildService } from '../build.service';
 import { clone } from '../utils';
-import { BoundAttribute } from '@angular/compiler/src/render3/r3_ast';
 
 @Component({
   selector: 'app-compare-all-form',
@@ -12,11 +11,11 @@ import { BoundAttribute } from '@angular/compiler/src/render3/r3_ast';
   styleUrls: ['./compare-all-form.component.scss']
 })
 export class CompareAllFormComponent implements OnInit {
-  @Output('bestBuilds$') bestBuilds$ = new EventEmitter<Record<number, BuildScores[]>>();
+  @Output('bestBuilds$') bestBuilds$ = new EventEmitter<Record<number, BuildAttributeScores[]>>();
   isLoading = false;
-  mainhandInputs = <HandheldType>{};
-  playerInputs = <PlayerInputsType>{};
-  scenarioInputs = <IScenarioInputs>{};
+  mainhandInputs = <HandheldType> {};
+  playerInputs = <PlayerInputsType> {};
+  scenarioInputs = <IScenarioInputs> {};
 
   constructor(
     private buildService: BuildService,
@@ -63,10 +62,10 @@ export class CompareAllFormComponent implements OnInit {
     this.isLoading = true;
     const bob = this.assembleBob();
 
-    this.httpClient.post('/api/bob/defense', bob).subscribe((response: Record<number, BuildScores[]>) => {
+    this.httpClient.post('/api/bob/defense', bob).subscribe((response: Record<number, BuildAttributeScores[]>) => {
       this.isLoading = false;
       //TODO: Convert names into BuildIndexes
-      this.bestBuilds$.emit(this.transformNamesToIndexes(response, this.buildService.equipment$.getValue()))
+      this.bestBuilds$.emit(this.transformNamesToIndexes(response, this.buildService.equipment$.getValue()));
     });
   }
 
@@ -111,7 +110,7 @@ export class CompareAllFormComponent implements OnInit {
 
   private transformNamesToIndexes(scores, equipment: AllEquipment) {
     const scoreKeys = Object.keys(scores);
-    let buildScores: BuildScores = {};
+    let buildScores: BuildAttributeScores = {};
     scoreKeys.forEach(scoreKey => {
       buildScores[scoreKey] = [];
       scores[scoreKey].forEach(item => {
@@ -124,9 +123,9 @@ export class CompareAllFormComponent implements OnInit {
             offhand: equipment.offhand.findIndex(offhand => offhand.Name === item.build.offhand)
           },
           scores: {...item.scores}
-        })
-      })
-    })
+        });
+      });
+    });
     return buildScores;
   }
 }
