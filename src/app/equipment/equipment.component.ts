@@ -4,7 +4,7 @@ import { MatAccordion } from '@angular/material/expansion';
 import { Observable } from 'rxjs';
 import { catchError, map, retry, switchMap, takeWhile } from 'rxjs/operators';
 
-import { BuildService, MAX_ALLOWED_COMPARE_ITEMS } from '../build.service';
+import { BuildService } from '../build.service';
 import { IDefenceInputs, Slots } from '../interfaces';
 
 @Component({
@@ -17,7 +17,6 @@ export class EquipmentComponent implements OnInit, OnDestroy {
   equipment$ = this.buildService.equipment$;
   isExpanded = true;
   isLoading = false;
-  maxItems = MAX_ALLOWED_COMPARE_ITEMS;
   slotNames = Object.keys(Slots);
   private isAlive = true;
   private itemSelections = require('./item-selections.json');
@@ -33,7 +32,7 @@ export class EquipmentComponent implements OnInit, OnDestroy {
 
   autoSelect() {
     this.clearAll();
-    
+
     this._select('helmet', this.itemSelections.helmet);
     this._select('chestplate', this.itemSelections.chestplate);
     this._select('leggings', this.itemSelections.leggings);

@@ -221,7 +221,7 @@
       </div>
     </div>
     <div class="col-lg-4 mb-3">
-      <label for="mC">Corrruption</label>
+      <label for="mC">Corruption</label>
       <div class="input-group input-group-sm">
         <input type="number" class="form-control" id="mC" #mC [min]="0"
           (keyup)="mainhandInputs.Corruption = +mC.value" [value]="mainhandInputs.Corruption">
@@ -233,6 +233,7 @@
     <button type="button" (click)="submit()" class="btn-secondary btn" [disabled]="isLoading">
       <span *ngIf="isLoading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
       Submit
+      <span *ngIf="isLoading" role="status" aria-hidden="true">({{ calculationsRemaining$ | async }})</span>
     </button>
   </div>
 </form>

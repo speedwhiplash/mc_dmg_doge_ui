@@ -22,6 +22,7 @@ import { clone } from '../utils';
 })
 export class CompareAllFormComponent implements OnInit {
   @Output('bestBuilds$') bestBuilds$ = new EventEmitter<Record<number, BuildAttributeScores[]>>();
+  calculationsRemaining$ = this.buildService.calculationsRemaining$;
   isLoading = false;
   mainhandInputs = <HandheldType> (JSON.parse(localStorage.getItem('mainhand')) || {});
   playerInputs = <PlayerInputsType> (JSON.parse(localStorage.getItem('player')) || {});
@@ -69,7 +70,7 @@ export class CompareAllFormComponent implements OnInit {
       this.mainhandInputs['Toughness Percent'] = 0;
     }
 
-    this.buildService.isCalculating$.subscribe(isCalculating => this.isLoading = isCalculating);
+    this.buildService.calculationsRemaining$.subscribe(remaining => this.isLoading = remaining > 0);
   }
 
   ngOnInit(): void {
@@ -94,13 +95,11 @@ export class CompareAllFormComponent implements OnInit {
       }
     });
 
-    this.buildService.runScenarioMulti(bob, bestSlot);
+    this.buildService.bestBuilds$.subscribe(bestBuild =>
+      this.bestBuilds$.emit(this.transformNamesToIndexes(bestBuild, this.buildService.equipment$.getValue()))
+    );
 
-      // .subscribe((response: Record<number, BuildAttributeScores[]>) => {
-      //   this.isLoading = false;
-        //TODO: Convert names into BuildIndexes
-        // this.bestBuilds$.emit(this.transformNamesToIndexes(response, this.buildService.equipment$.getValue()));
-      // });
+    this.buildService.runScenarioMulti(bob, bestSlot);
   }
 
   private assembleBob() {

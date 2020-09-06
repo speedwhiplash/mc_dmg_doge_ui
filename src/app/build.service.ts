@@ -5,12 +5,12 @@ import { tap } from 'rxjs/operators';
 
 import { AllEquipment, BuildAttributeScores, BuildIndex, DictionaryNum, IBobInputs, IBuild, Slots } from './interfaces';
 
-export const MAX_ALLOWED_COMPARE_ITEMS = 80;
-
 interface ServerStatusEvent {
   port: number;
   isReady: boolean;
 }
+
+const MAX_SERVERS = 4;
 
 @Injectable({providedIn: 'root'})
 export class BuildService {
@@ -36,9 +36,8 @@ export class BuildService {
     offhand: {},
   };
   bestBuilds$ = new BehaviorSubject(<Record<number, BuildAttributeScores[]>> {});
-  isCalculating$ = new BehaviorSubject(false);
+  calculationsRemaining$ = new BehaviorSubject(0);
   private scoreQueue: IBobInputs[] = [];
-  private maxServers = 4;
   private serverStatuses: DictionaryNum<boolean> = {};
   private serverStatusEvent = new EventEmitter<ServerStatusEvent>(true);
 
@@ -67,7 +66,7 @@ export class BuildService {
   }
 
   detectServers() {
-    for (let i = 3000, l = this.maxServers; i < (3000 + l); i++) {
+    for (let i = 3000, l = MAX_SERVERS; i < (3000 + l); i++) {
       this.httpClient.get(`multiapi${i}/status`)
         .subscribe((status: { status: number, port: number }) => {
           this.serverStatusEvent.emit({port: +status.port, isReady: status.status === 200});
@@ -104,12 +103,14 @@ export class BuildService {
     localStorage.setItem('equipmentWhiteList', JSON.stringify(this.equipmentWhiteList));
   }
 
+  // Returns single result directly to caller as well as this.bestBuilds$
   runScenario(bob: IBobInputs) {
     return this.httpClient.post('/api/bob/defense', bob)
       .pipe(tap((bestBuilds: Record<number, BuildAttributeScores[]>) => this.bestBuilds$.next(bestBuilds)));
   }
 
   runScenarioMulti(bob: IBobInputs, equipmentSlot: string) {
+    this.bestBuilds$.next([]);
     const items = Object.keys(bob.whitelist[equipmentSlot]);
     items.forEach(itemName => {
       let oneItem = {};
@@ -119,23 +120,42 @@ export class BuildService {
       this.scoreQueue.push({...bob, whitelist});
     });
 
+    this.calculationsRemaining$.next(+this.scoreQueue.length);
     this.startQueue();
   }
 
   private mergeBestBuilds(bestBuilds: Record<number, BuildAttributeScores[]>) {
     console.log('mergeBestBuilds', bestBuilds);
-    //TODO: merge bestBuilds with this.bestBuilds$
+
+    let allBestBuilds = this.bestBuilds$.getValue();
+    let scores = Object.keys(allBestBuilds).sort();
+    let worstScore = scores[scores.length - 1] || 9;
+    Object.keys(bestBuilds).forEach(score => {
+      if (score <= worstScore) {
+        bestBuilds[score].forEach(bas => {
+          allBestBuilds[score] = [...(allBestBuilds[score] || []), {build: bas.build, scores: bas.scores}];
+        })
+
+        let scores = Object.keys(allBestBuilds).map(score => +score).sort();
+        if (scores.length > 15) {
+          delete allBestBuilds[scores[15]];
+        }
+      }
+    });
+    this.bestBuilds$.next(allBestBuilds);
   }
 
   private nextInQueue(port: number) {
     if (this.scoreQueue.length === 0) {
-      this.isCalculating$.next(false);
       return;
     }
     this.serverStatusEvent.emit({port, isReady: false});
     this.runScenarioMultiWorker(this.scoreQueue.pop(), port)
       .subscribe((bestBuilds: Record<number, BuildAttributeScores[]>) => {
         this.serverStatusEvent.emit({port, isReady: true});
+        timer(0).subscribe(() =>
+          this.calculationsRemaining$.next(this.scoreQueue.length + Object.keys(this.serverStatuses).filter(sport => !this.serverStatuses[sport]).length)
+        );
         this.mergeBestBuilds(bestBuilds);
       });
     timer(1).subscribe(() => this.startQueue());
@@ -148,7 +168,6 @@ export class BuildService {
   private startQueue() {
     const availableServer = +Object.keys(this.serverStatuses).find(port => this.serverStatuses[+port] === true);
     if (availableServer) {
-      this.isCalculating$.next(true);
       this.nextInQueue(availableServer);
     }
   }
