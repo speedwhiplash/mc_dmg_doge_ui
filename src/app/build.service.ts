@@ -1,11 +1,16 @@
-import { Injectable } from '@angular/core';
+import { EventEmitter, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, timer } from 'rxjs';
 import { tap } from 'rxjs/operators';
 
-import { AllEquipment, BuildAttributeScores, BuildIndex, IBobInputs, IBuild, Slots } from './interfaces';
+import { AllEquipment, BuildAttributeScores, BuildIndex, DictionaryNum, IBobInputs, IBuild, Slots } from './interfaces';
 
 export const MAX_ALLOWED_COMPARE_ITEMS = 80;
+
+interface ServerStatusEvent {
+  port: number;
+  isReady: boolean;
+}
 
 @Injectable({providedIn: 'root'})
 export class BuildService {
@@ -31,8 +36,11 @@ export class BuildService {
     offhand: {},
   };
   bestBuilds$ = new BehaviorSubject(<Record<number, BuildAttributeScores[]>> {});
-  maxServers = 8;
-  serverPortsEnabled: number[] = [];
+  isCalculating$ = new BehaviorSubject(false);
+  private scoreQueue: IBobInputs[] = [];
+  private maxServers = 4;
+  private serverStatuses: DictionaryNum<boolean> = {};
+  private serverStatusEvent = new EventEmitter<ServerStatusEvent>(true);
 
   constructor(private httpClient: HttpClient) {
     this.loadWhitelist();
@@ -48,14 +56,21 @@ export class BuildService {
       }
       this.saveWhitelist();
     });
+
+    this.serverStatusEvent.subscribe((upd: ServerStatusEvent) => {
+      this.serverStatuses[upd.port] = upd.isReady;
+      if (upd.isReady) {
+        this.nextInQueue(upd.port);
+      }
+
+    });
   }
 
   detectServers() {
     for (let i = 3000, l = this.maxServers; i < (3000 + l); i++) {
       this.httpClient.get(`multiapi${i}/status`)
-        .subscribe((status: { status: string, port: number }) => {
-          this.serverPortsEnabled.push(status.port);
-          console.log();
+        .subscribe((status: { status: number, port: number }) => {
+          this.serverStatusEvent.emit({port: +status.port, isReady: status.status === 200});
         });
     }
   }
@@ -90,24 +105,51 @@ export class BuildService {
   }
 
   runScenario(bob: IBobInputs) {
-    this.runScenarioMulti(bob);
     return this.httpClient.post('/api/bob/defense', bob)
       .pipe(tap((bestBuilds: Record<number, BuildAttributeScores[]>) => this.bestBuilds$.next(bestBuilds)));
   }
 
-  runScenarioMulti(bob: IBobInputs) {
-    this.serverPortsEnabled.forEach((workerId, idx) => {
-      let helmetName = Object.keys(bob.whitelist.helmet)[idx];
-      let helmet = {};
-      helmet[helmetName] = true;
-      let whitelist = {...bob.whitelist, helmet};
-      this.runScenarioMultiWorker({...bob, whitelist}, workerId).subscribe(result => {
-        console.log('runScenarioMulti', result)
-      });
+  runScenarioMulti(bob: IBobInputs, equipmentSlot: string) {
+    const items = Object.keys(bob.whitelist[equipmentSlot]);
+    items.forEach(itemName => {
+      let oneItem = {};
+      oneItem[itemName] = true;
+      let whitelist = {...bob.whitelist};
+      whitelist[equipmentSlot] = oneItem;
+      this.scoreQueue.push({...bob, whitelist});
     });
+
+    this.startQueue();
   }
 
-  runScenarioMultiWorker(bob: IBobInputs, workerId: number) {
+  private mergeBestBuilds(bestBuilds: Record<number, BuildAttributeScores[]>) {
+    console.log('mergeBestBuilds', bestBuilds);
+    //TODO: merge bestBuilds with this.bestBuilds$
+  }
+
+  private nextInQueue(port: number) {
+    if (this.scoreQueue.length === 0) {
+      this.isCalculating$.next(false);
+      return;
+    }
+    this.serverStatusEvent.emit({port, isReady: false});
+    this.runScenarioMultiWorker(this.scoreQueue.pop(), port)
+      .subscribe((bestBuilds: Record<number, BuildAttributeScores[]>) => {
+        this.serverStatusEvent.emit({port, isReady: true});
+        this.mergeBestBuilds(bestBuilds);
+      });
+    timer(1).subscribe(() => this.startQueue());
+  }
+
+  private runScenarioMultiWorker(bob: IBobInputs, workerId: number) {
     return this.httpClient.post(`/multiapi${workerId}/bob/defense`, bob);
+  }
+
+  private startQueue() {
+    const availableServer = +Object.keys(this.serverStatuses).find(port => this.serverStatuses[+port] === true);
+    if (availableServer) {
+      this.isCalculating$.next(true);
+      this.nextInQueue(availableServer);
+    }
   }
 }

@@ -28,8 +28,7 @@ export class CompareAllFormComponent implements OnInit {
   scenarioInputs = <IScenarioInputs> (JSON.parse(localStorage.getItem('scenario')) || {});
 
   constructor(
-    private buildService: BuildService,
-    private httpClient: HttpClient
+    private buildService: BuildService
   ) {
     if (Object.keys(this.scenarioInputs).length === 0) {
       this.scenarioInputs.Damage = 22;
@@ -69,6 +68,8 @@ export class CompareAllFormComponent implements OnInit {
       this.mainhandInputs.Toughness = 0;
       this.mainhandInputs['Toughness Percent'] = 0;
     }
+
+    this.buildService.isCalculating$.subscribe(isCalculating => this.isLoading = isCalculating);
   }
 
   ngOnInit(): void {
@@ -82,12 +83,24 @@ export class CompareAllFormComponent implements OnInit {
     localStorage.setItem('player', JSON.stringify(bob.player));
     localStorage.setItem('mainhand', JSON.stringify(bob.mainhand));
 
-    this.buildService.runScenario(bob)
-      .subscribe((response: Record<number, BuildAttributeScores[]>) => {
-        this.isLoading = false;
+    const itemSlots = Object.keys(bob.whitelist);
+    let bestSlot = '';
+    let maxItems = 0;
+    itemSlots.forEach(itemName => {
+      const itemsCount = Object.keys(bob.whitelist[itemName]).length;
+      if (itemsCount > maxItems) {
+        bestSlot = itemName;
+        maxItems = itemsCount;
+      }
+    });
+
+    this.buildService.runScenarioMulti(bob, bestSlot);
+
+      // .subscribe((response: Record<number, BuildAttributeScores[]>) => {
+      //   this.isLoading = false;
         //TODO: Convert names into BuildIndexes
-        this.bestBuilds$.emit(this.transformNamesToIndexes(response, this.buildService.equipment$.getValue()));
-      });
+        // this.bestBuilds$.emit(this.transformNamesToIndexes(response, this.buildService.equipment$.getValue()));
+      // });
   }
 
   private assembleBob() {
