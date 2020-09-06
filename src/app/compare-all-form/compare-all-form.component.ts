@@ -22,14 +22,14 @@ import { clone } from '../utils';
 })
 export class CompareAllFormComponent implements OnInit {
   @Output('bestBuilds$') bestBuilds$ = new EventEmitter<Record<number, BuildAttributeScores[]>>();
+  calculationsRemaining$ = this.buildService.calculationsRemaining$;
   isLoading = false;
   mainhandInputs = <HandheldType> (JSON.parse(localStorage.getItem('mainhand')) || {});
   playerInputs = <PlayerInputsType> (JSON.parse(localStorage.getItem('player')) || {});
   scenarioInputs = <IScenarioInputs> (JSON.parse(localStorage.getItem('scenario')) || {});
 
   constructor(
-    private buildService: BuildService,
-    private httpClient: HttpClient
+    private buildService: BuildService
   ) {
     if (Object.keys(this.scenarioInputs).length === 0) {
       this.scenarioInputs.Damage = 22;
@@ -69,6 +69,8 @@ export class CompareAllFormComponent implements OnInit {
       this.mainhandInputs.Toughness = 0;
       this.mainhandInputs['Toughness Percent'] = 0;
     }
+
+    this.buildService.calculationsRemaining$.subscribe(remaining => this.isLoading = remaining > 0);
   }
 
   ngOnInit(): void {
@@ -82,12 +84,22 @@ export class CompareAllFormComponent implements OnInit {
     localStorage.setItem('player', JSON.stringify(bob.player));
     localStorage.setItem('mainhand', JSON.stringify(bob.mainhand));
 
-    this.buildService.runScenario(bob)
-      .subscribe((response: Record<number, BuildAttributeScores[]>) => {
-        this.isLoading = false;
-        //TODO: Convert names into BuildIndexes
-        this.bestBuilds$.emit(this.transformNamesToIndexes(response, this.buildService.equipment$.getValue()));
-      });
+    const itemSlots = Object.keys(bob.whitelist);
+    let bestSlot = '';
+    let maxItems = 0;
+    itemSlots.forEach(itemName => {
+      const itemsCount = Object.keys(bob.whitelist[itemName]).length;
+      if (itemsCount > maxItems) {
+        bestSlot = itemName;
+        maxItems = itemsCount;
+      }
+    });
+
+    this.buildService.bestBuilds$.subscribe(bestBuild =>
+      this.bestBuilds$.emit(this.transformNamesToIndexes(bestBuild, this.buildService.equipment$.getValue()))
+    );
+
+    this.buildService.runScenarioMulti(bob, bestSlot);
   }
 
   private assembleBob() {

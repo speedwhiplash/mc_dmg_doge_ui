@@ -2,6 +2,10 @@ export interface Dictionary<T> {
   [key: string]: T;
 }
 
+export interface DictionaryNum<T> {
+  [key: number]: T;
+}
+
 export interface AllEquipment {
 	boots: Array<IBoots>;
 	chestplate: Array<IChestplate>;

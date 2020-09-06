@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 
 import { BuildDetailsComponent } from '../build-details/build-details.component';
 import { BuildAttributeScores, Slots } from '../interfaces';
-import { BuildService, MAX_ALLOWED_COMPARE_ITEMS } from '../build.service';
+import { BuildService } from '../build.service';
 
 @Component({
   selector: 'app-compare',
@@ -11,7 +11,6 @@ import { BuildService, MAX_ALLOWED_COMPARE_ITEMS } from '../build.service';
 })
 export class CompareComponent implements OnInit {
   @ViewChild('buildDetails') buildDetails: BuildDetailsComponent;
-  maxItems = MAX_ALLOWED_COMPARE_ITEMS;
   slotNames = Object.keys(Slots);
 
   constructor(private buildService: BuildService) {
