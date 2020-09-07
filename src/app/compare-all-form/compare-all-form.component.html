@@ -1,230 +1,237 @@
-<div *ngIf="isLoading" class="d-flex justify-content-center">
-  <div class="spinner-border" role="status">
-    <span class="sr-only">Loading...</span>
-  </div>
-</div>
-<form (keyup.enter)="submit()">
-  <div class="row">
-    <h2 class="col-sm-6">Scenario</h2>
-  </div>
-  <div class="form-row">
-    <div class="col-lg-4 mb-3">
-      <label for="sDamage">Damage</label>
-      <div class="input-group input-group-sm">
-        <input type="number" class="form-control" id="sDamage" #sDamage [min]="0"
-          (keyup)="scenarioInputs.Damage = +sDamage.value" [value]="scenarioInputs.Damage">
-      </div>
-    </div>
-    <div class="col-lg-4 mb-3">
-      <label for="sHits">Hits Taken</label>
-      <div class="input-group input-group-sm">
-        <input type="number" class="form-control" id="sHits" #sHits [min]="1"
-          (keyup)="scenarioInputs['Hits Taken'] = +sHits.value" [value]="scenarioInputs['Hits Taken']">
-      </div>
-    </div>
-    <div class="col-lg-4 mb-3">
-      <label for="sDa">Damage Absorbed</label>
-      <div class="input-group input-group-sm">
-        <input type="number" class="form-control" id="sDa" #sDa [min]="0" [max]="100"
-          (keyup)="scenarioInputs['Damage Absorbed'] = +sDa.value" [value]="scenarioInputs['Damage Absorbed']">
-        <div class="input-group-append">
-          <span class="input-group-text">%</span>
-        </div>
-      </div>
-    </div>
+<form (keyup.enter)="submit()" novalidate>
+  <h2>Scenario</h2>
+  <div class="table" style="width:100%">
+    <span class="table-cell">Damage taken/hit: {{scenarioInputs.Damage}}</span>
+    <span class="table-cell">hits/3 seconds: {{scenarioInputs['Hits Taken']}}</span>
+    <span class="table-cell">
+        <button type="button" (click)="isScenarioFormVisible = !isScenarioFormVisible">edit</button>
+      </span>
   </div>
 
-  <div class="form-row">
-    <div class="col-lg-4 mb-3">
-      <label for="sRegen">Health Regained</label>
-      <div class="input-group input-group-sm">
-        <input type="number" class="form-control" id="sRegen" #sRegen [min]="0"
-          (keyup)="scenarioInputs['Health Regained'] = +sRegen.value" [value]="scenarioInputs['Health Regained']">
-        <input type="number" class="form-control" id="sRegenp" #sRegenp [min]="0" [max]="100"
-          (keyup)="scenarioInputs['Health Regain Percent'] = +sRegenp.value" [value]="scenarioInputs['Health Regain Percent']">
-        <div class="input-group-append">
-          <span class="input-group-text">%</span>
+  <div *ngIf="isScenarioFormVisible">
+    <div class="form-row">
+      <div class="col-lg-4 mb-3">
+        <label for="sDamage">Damage</label>
+        <div class="input-group input-group-sm">
+          <input type="number" class="form-control" id="sDamage" #sDamage [min]="0"
+            (keyup)="scenarioInputs.Damage = +sDamage.value" [value]="scenarioInputs.Damage">
+        </div>
+      </div>
+      <div class="col-lg-4 mb-3">
+        <label for="sHits">Hits Taken</label>
+        <div class="input-group input-group-sm">
+          <input type="number" class="form-control" id="sHits" #sHits [min]="1"
+            (keyup)="scenarioInputs['Hits Taken'] = +sHits.value" [value]="scenarioInputs['Hits Taken']">
+        </div>
+      </div>
+      <div class="col-lg-4 mb-3">
+        <label for="sDa">Damage Absorbed</label>
+        <div class="input-group input-group-sm">
+          <input type="number" class="form-control" id="sDa" #sDa [min]="0" [max]="100"
+            (keyup)="scenarioInputs['Damage Absorbed'] = +sDa.value" [value]="scenarioInputs['Damage Absorbed']">
+          <div class="input-group-append">
+            <span class="input-group-text">%</span>
+          </div>
         </div>
       </div>
     </div>
-    <div class="col-lg-4 mb-3">
-      <label for="sCrits">Estimated Crit Chance</label>
-      <div class="input-group input-group-sm">
-        <input type="number" class="form-control" id="sCrits" #sCrits [min]="0" [max]="100"
-          (keyup)="scenarioInputs['Crit Chance'] = +sCrits.value" [value]="scenarioInputs['Crit Chance']">
-        <div class="input-group-append">
-          <span class="input-group-text">%</span>
+
+    <div class="form-row">
+      <div class="col-lg-4 mb-3">
+        <label for="sRegen">Health Regained</label>
+        <div class="input-group input-group-sm">
+          <input type="number" class="form-control" id="sRegen" #sRegen [min]="0"
+            (keyup)="scenarioInputs['Health Regained'] = +sRegen.value" [value]="scenarioInputs['Health Regained']">
+          <input type="number" class="form-control" id="sRegenp" #sRegenp [min]="0" [max]="100"
+            (keyup)="scenarioInputs['Health Regain Percent'] = +sRegenp.value" [value]="scenarioInputs['Health Regain Percent']">
+          <div class="input-group-append">
+            <span class="input-group-text">%</span>
+          </div>
         </div>
       </div>
-    </div>
-    <div class="col-lg-4 mb-3">
-      <label for="sSpeed">Minimum Percent Speed</label>
-      <div class="input-group input-group-sm">
-        <input type="number" class="form-control" id="sSpeed" #sSpeed
-          (keyup)="scenarioInputs['Minimum Speed'] = +sSpeed.value" [value]="scenarioInputs['Minimum Speed']">
-        <div class="input-group-append">
-          <span class="input-group-text">%</span>
+      <div class="col-lg-4 mb-3">
+        <label for="sCrits">Estimated Crit Chance</label>
+        <div class="input-group input-group-sm">
+          <input type="number" class="form-control" id="sCrits" #sCrits [min]="0" [max]="100"
+            (keyup)="scenarioInputs['Crit Chance'] = +sCrits.value" [value]="scenarioInputs['Crit Chance']">
+          <div class="input-group-append">
+            <span class="input-group-text">%</span>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-4 mb-3">
+        <label for="sSpeed">Minimum Percent Speed</label>
+        <div class="input-group input-group-sm">
+          <input type="number" class="form-control" id="sSpeed" #sSpeed
+            (keyup)="scenarioInputs['Minimum Speed'] = +sSpeed.value" [value]="scenarioInputs['Minimum Speed']">
+          <div class="input-group-append">
+            <span class="input-group-text">%</span>
+          </div>
         </div>
       </div>
     </div>
   </div>
 
   <h2>Player</h2>
-  <div class="form-row">
-    <div class="col-lg-4 mb-3">
-      <label for="pA">Armor</label>
-      <div class="input-group input-group-sm">
-        <input type="number" class="form-control" id="pA" #pA [min]="0" (keyup)="playerInputs.Armor = +pA.value"
-          [value]="playerInputs.Armor">
-        <input type="number" class="form-control" id="pAp" #pAp [min]="0" [max]="100"
-          (keyup)="playerInputs['Armor Percent'] = +pAp.value" [value]="playerInputs['Armor Percent']">
-        <div class="input-group-append">
-          <span class="input-group-text">%</span>
+  <div *ngIf="isScenarioFormVisible">
+    <div class="form-row">
+      <div class="col-lg-4 mb-3">
+        <label for="pA">Armor</label>
+        <div class="input-group input-group-sm">
+          <input type="number" class="form-control" id="pA" #pA [min]="0" (keyup)="playerInputs.Armor = +pA.value"
+            [value]="playerInputs.Armor">
+          <input type="number" class="form-control" id="pAp" #pAp [min]="0" [max]="100"
+            (keyup)="playerInputs['Armor Percent'] = +pAp.value" [value]="playerInputs['Armor Percent']">
+          <div class="input-group-append">
+            <span class="input-group-text">%</span>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-4 mb-3">
+        <label for="pT">Toughness</label>
+        <div class="input-group input-group-sm">
+          <input type="number" class="form-control" id="pT" #pT [min]="0" (keyup)="playerInputs.Toughness = +pT.value"
+            [value]="playerInputs.Toughness">
+          <input type="number" class="form-control" id="pTp" #pTp [min]="0" [max]="100"
+            (keyup)="playerInputs['Toughness Percent'] = +pTp.value" [value]="playerInputs['Toughness Percent']">
+          <div class="input-group-append">
+            <span class="input-group-text">%</span>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-4 mb-3">
+        <label for="pH">Health</label>
+        <div class="input-group input-group-sm">
+          <input type="number" class="form-control" id="pH" #pH [min]="1" (keyup)="playerInputs.Health = +pH.value"
+            [value]="playerInputs.Health">
+          <input type="number" class="form-control" id="pHp" #pHp [min]="0" [max]="100"
+            (keyup)="playerInputs['Health Percent'] = +pHp.value" [value]="playerInputs['Health Percent']">
+          <div class="input-group-append">
+            <span class="input-group-text">%</span>
+          </div>
         </div>
       </div>
     </div>
-    <div class="col-lg-4 mb-3">
-      <label for="pT">Toughness</label>
-      <div class="input-group input-group-sm">
-        <input type="number" class="form-control" id="pT" #pT [min]="0" (keyup)="playerInputs.Toughness = +pT.value"
-          [value]="playerInputs.Toughness">
-        <input type="number" class="form-control" id="pTp" #pTp [min]="0" [max]="100"
-          (keyup)="playerInputs['Toughness Percent'] = +pTp.value" [value]="playerInputs['Toughness Percent']">
-        <div class="input-group-append">
-          <span class="input-group-text">%</span>
-        </div>
-      </div>
-    </div>
-    <div class="col-lg-4 mb-3">
-      <label for="pH">Health</label>
-      <div class="input-group input-group-sm">
-        <input type="number" class="form-control" id="pH" #pH [min]="1" (keyup)="playerInputs.Health = +pH.value"
-          [value]="playerInputs.Health">
-        <input type="number" class="form-control" id="pHp" #pHp [min]="0" [max]="100"
-          (keyup)="playerInputs['Health Percent'] = +pHp.value" [value]="playerInputs['Health Percent']">
-        <div class="input-group-append">
-          <span class="input-group-text">%</span>
-        </div>
-      </div>
-    </div>
-  </div>
 
-  <div class="form-row">
-    <div class="col-lg-4 mb-3">
-      <label for="pAtksp">Bonus Attack Speed</label>
-      <div class="input-group input-group-sm">
-        <input type="number" class="form-control" id="pAtksp" #pAtksp [min]="0" (keyup)="playerInputs['Attack Speed'] = +pAtksp.value"
-          [value]="playerInputs['Attack Speed']">
-        <input type="number" class="form-control" id="pAtkspp" #pAtkspp [min]="0" [max]="100"
-          (keyup)="playerInputs['Attack Speed Percent'] = +pAtkspp.value" [value]="playerInputs['Attack Speed Percent']">
-        <div class="input-group-append">
-          <span class="input-group-text">%</span>
+    <div class="form-row">
+      <div class="col-lg-4 mb-3">
+        <label for="pAtksp">Bonus Attack Speed</label>
+        <div class="input-group input-group-sm">
+          <input type="number" class="form-control" id="pAtksp" #pAtksp [min]="0" (keyup)="playerInputs['Attack Speed'] = +pAtksp.value"
+            [value]="playerInputs['Attack Speed']">
+          <input type="number" class="form-control" id="pAtkspp" #pAtkspp [min]="0" [max]="100"
+            (keyup)="playerInputs['Attack Speed Percent'] = +pAtkspp.value" [value]="playerInputs['Attack Speed Percent']">
+          <div class="input-group-append">
+            <span class="input-group-text">%</span>
+          </div>
         </div>
       </div>
-    </div>
-    <div class="col-lg-4 mb-3">
-      <label for="pS">Speed</label>
-      <div class="input-group input-group-sm">
-        <input type="number" class="form-control" id="pS" #pS (keyup)="playerInputs.Speed = +pS.value"
-          [value]="playerInputs.Speed">
-        <input type="number" class="form-control" id="pSp" #pSp
-          (keyup)="playerInputs['Speed Percent'] = +pSp.value" [value]="playerInputs['Speed Percent']">
-        <div class="input-group-append">
-          <span class="input-group-text">%</span>
+      <div class="col-lg-4 mb-3">
+        <label for="pS">Speed</label>
+        <div class="input-group input-group-sm">
+          <input type="number" class="form-control" id="pS" #pS (keyup)="playerInputs.Speed = +pS.value"
+            [value]="playerInputs.Speed">
+          <input type="number" class="form-control" id="pSp" #pSp
+            (keyup)="playerInputs['Speed Percent'] = +pSp.value" [value]="playerInputs['Speed Percent']">
+          <div class="input-group-append">
+            <span class="input-group-text">%</span>
+          </div>
         </div>
       </div>
     </div>
   </div>
 
   <h2>Main Hand Item</h2>
-  <div class="form-row">
-    <div class="col-lg-4 mb-3">
-      <label for="mA">Armor</label>
-      <div class="input-group input-group-sm">
-        <input type="number" class="form-control" id="mA" #mA [min]="0" (keyup)="mainhandInputs.Armor = +mA.value"
-          [value]="mainhandInputs.Armor">
-        <input type="number" class="form-control" id="mAp" #mAp [min]="0" [max]="100"
-          (keyup)="mainhandInputs['Armor Percent'] = +mAp.value" [value]="mainhandInputs['Armor Percent']">
-        <div class="input-group-append">
-          <span class="input-group-text">%</span>
+  <div *ngIf="isScenarioFormVisible">
+    <div class="form-row">
+      <div class="col-lg-4 mb-3">
+        <label for="mA">Armor</label>
+        <div class="input-group input-group-sm">
+          <input type="number" class="form-control" id="mA" #mA [min]="0" (keyup)="mainhandInputs.Armor = +mA.value"
+            [value]="mainhandInputs.Armor">
+          <input type="number" class="form-control" id="mAp" #mAp [min]="0" [max]="100"
+            (keyup)="mainhandInputs['Armor Percent'] = +mAp.value" [value]="mainhandInputs['Armor Percent']">
+          <div class="input-group-append">
+            <span class="input-group-text">%</span>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-4 mb-3">
+        <label for="mT">Toughness</label>
+        <div class="input-group input-group-sm">
+          <input type="number" class="form-control" id="mT" #mT [min]="0" (keyup)="mainhandInputs.Toughness = +mT.value"
+            [value]="mainhandInputs.Toughness">
+          <input type="number" class="form-control" id="mTp" #mTp [min]="0" [max]="100"
+            (keyup)="mainhandInputs['Toughness Percent'] = +mTp.value" [value]="mainhandInputs['Toughness Percent']">
+          <div class="input-group-append">
+            <span class="input-group-text">%</span>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-4 mb-3">
+        <label for="mH">Health</label>
+        <div class="input-group input-group-sm">
+          <input type="number" class="form-control" id="mH" #mH [min]="0" (keyup)="mainhandInputs.Health = +mH.value"
+            [value]="mainhandInputs.Health">
+          <input type="number" class="form-control" id="mHp" #mHp [min]="0" [max]="100"
+            (keyup)="mainhandInputs['Health Percent'] = +mHp.value" [value]="mainhandInputs['Health Percent']">
+          <div class="input-group-append">
+            <span class="input-group-text">%</span>
+          </div>
         </div>
       </div>
     </div>
-    <div class="col-lg-4 mb-3">
-      <label for="mT">Toughness</label>
-      <div class="input-group input-group-sm">
-        <input type="number" class="form-control" id="mT" #mT [min]="0" (keyup)="mainhandInputs.Toughness = +mT.value"
-          [value]="mainhandInputs.Toughness">
-        <input type="number" class="form-control" id="mTp" #mTp [min]="0" [max]="100"
-          (keyup)="mainhandInputs['Toughness Percent'] = +mTp.value" [value]="mainhandInputs['Toughness Percent']">
-        <div class="input-group-append">
-          <span class="input-group-text">%</span>
-        </div>
-      </div>
-    </div>
-    <div class="col-lg-4 mb-3">
-      <label for="mH">Health</label>
-      <div class="input-group input-group-sm">
-        <input type="number" class="form-control" id="mH" #mH [min]="0" (keyup)="mainhandInputs.Health = +mH.value"
-          [value]="mainhandInputs.Health">
-        <input type="number" class="form-control" id="mHp" #mHp [min]="0" [max]="100"
-          (keyup)="mainhandInputs['Health Percent'] = +mHp.value" [value]="mainhandInputs['Health Percent']">
-        <div class="input-group-append">
-          <span class="input-group-text">%</span>
-        </div>
-      </div>
-    </div>
-  </div>
 
-  <div class="form-row">
-    <div class="col-lg-4 mb-3">
-      <label for="mE">Evasion</label>
-      <div class="input-group input-group-sm">
-        <input type="number" class="form-control" id="mE" #mE [min]="0" (keyup)="mainhandInputs.Evasion = +mE.value"
-          [value]="mainhandInputs.Evasion">
+    <div class="form-row">
+      <div class="col-lg-4 mb-3">
+        <label for="mE">Evasion</label>
+        <div class="input-group input-group-sm">
+          <input type="number" class="form-control" id="mE" #mE [min]="0" (keyup)="mainhandInputs.Evasion = +mE.value"
+            [value]="mainhandInputs.Evasion">
+        </div>
       </div>
-    </div>
-    <div class="col-lg-4 mb-3">
-      <label for="mR">Regeneration</label>
-      <div class="input-group input-group-sm">
-        <input type="number" class="form-control" id="mR" #mR [min]="0"
-          (keyup)="mainhandInputs.Regeneration = +mR.value" [value]="mainhandInputs.Regeneration">
+      <div class="col-lg-4 mb-3">
+        <label for="mR">Regeneration</label>
+        <div class="input-group input-group-sm">
+          <input type="number" class="form-control" id="mR" #mR [min]="0"
+            (keyup)="mainhandInputs.Regeneration = +mR.value" [value]="mainhandInputs.Regeneration">
+        </div>
       </div>
-    </div>
-    <div class="col-lg-4 mb-3">
-      <label for="mLd">Life Drain</label>
-      <div class="input-group input-group-sm">
-        <input type="number" class="form-control" id="mLd" #mLd [min]="0"
-          (keyup)="mainhandInputs['Life Drain'] = +mLd.value" [value]="mainhandInputs['Life Drain']">
-      </div>
-    </div>
-  </div>
-
-  <div class="form-row">
-    <div class="col-lg-4 mb-3">
-      <label for="mAtksp">Attack Speed</label>
-      <div class="input-group input-group-sm">
-        <input type="number" class="form-control" id="mAtksp" #mAtksp [min]="0" (keyup)="mainhandInputs['Attack Speed'] = +mAtksp.value"
-          [value]="mainhandInputs['Attack Speed']">
-        <input type="number" class="form-control" id="mAtkspp" #mAtkspp [min]="0" [max]="100"
-          (keyup)="mainhandInputs['Attack Speed Percent'] = +mAtkspp.value" [value]="mainhandInputs['Attack Speed Percent']">
-        <div class="input-group-append">
-          <span class="input-group-text">%</span>
+      <div class="col-lg-4 mb-3">
+        <label for="mLd">Life Drain</label>
+        <div class="input-group input-group-sm">
+          <input type="number" class="form-control" id="mLd" #mLd [min]="0"
+            (keyup)="mainhandInputs['Life Drain'] = +mLd.value" [value]="mainhandInputs['Life Drain']">
         </div>
       </div>
     </div>
-    <div class="col-lg-4 mb-3">
-      <label for="mAn">Anemia</label>
-      <div class="input-group input-group-sm">
-        <input type="number" class="form-control" id="mAn" #mAn [min]="0"
-          (keyup)="mainhandInputs.Anemia = +mAn.value" [value]="mainhandInputs.Anemia">
+
+    <div class="form-row">
+      <div class="col-lg-4 mb-3">
+        <label for="mAtksp">Attack Speed</label>
+        <div class="input-group input-group-sm">
+          <input type="number" class="form-control" id="mAtksp" #mAtksp [min]="0" (keyup)="mainhandInputs['Attack Speed'] = +mAtksp.value"
+            [value]="mainhandInputs['Attack Speed']">
+          <input type="number" class="form-control" id="mAtkspp" #mAtkspp [min]="0" [max]="100"
+            (keyup)="mainhandInputs['Attack Speed Percent'] = +mAtkspp.value" [value]="mainhandInputs['Attack Speed Percent']">
+          <div class="input-group-append">
+            <span class="input-group-text">%</span>
+          </div>
+        </div>
       </div>
-    </div>
-    <div class="col-lg-4 mb-3">
-      <label for="mC">Corruption</label>
-      <div class="input-group input-group-sm">
-        <input type="number" class="form-control" id="mC" #mC [min]="0"
-          (keyup)="mainhandInputs.Corruption = +mC.value" [value]="mainhandInputs.Corruption">
+      <div class="col-lg-4 mb-3">
+        <label for="mAn">Anemia</label>
+        <div class="input-group input-group-sm">
+          <input type="number" class="form-control" id="mAn" #mAn [min]="0"
+            (keyup)="mainhandInputs.Anemia = +mAn.value" [value]="mainhandInputs.Anemia">
+        </div>
+      </div>
+      <div class="col-lg-4 mb-3">
+        <label for="mC">Corruption</label>
+        <div class="input-group input-group-sm">
+          <input type="number" class="form-control" id="mC" #mC [min]="0"
+            (keyup)="mainhandInputs.Corruption = +mC.value" [value]="mainhandInputs.Corruption">
+        </div>
       </div>
     </div>
   </div>

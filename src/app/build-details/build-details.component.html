@@ -1,6 +1,9 @@
 <form>
   <div class="row">
-    <h2 class="col-sm-6">Build</h2>
+    <h2 class="col-sm-6">
+      Build
+      <span *ngIf="isLoading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+    </h2>
   </div>
 </form>
 
@@ -9,7 +12,7 @@
 </ng-template>
 
 <div *ngFor="let score of scores;">
-  <div *ngFor="let build of builds[score]; index as currentIndex">  
+  <div *ngFor="let build of builds[score]; index as currentIndex">
     <table class="table">
       <tr>
         <th width=40%>Name</th>

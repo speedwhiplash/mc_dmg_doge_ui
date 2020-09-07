@@ -51,10 +51,10 @@ export interface BuildAttributeScores {
 }
 
 export enum Slots {
-	boots = 'Boots',
-	chestplate = 'Chestplates',
 	helmet = 'Helmets',
+	chestplate = 'Chestplates',
 	leggings = 'Leggings',
+	boots = 'Boots',
 	offhand = 'Offhands'
 }
 
@@ -76,11 +76,11 @@ export interface ITextFields {
 export enum ScenarioFields {
   'Damage' = 'Damage',
   'Hits Taken'= 'Hits Taken',
-'Damage Absorbed'= 'Damage Absorbed',
-'Health Regained'= 'Health Regained',
-'Health Regain Percent'= 'Health Regain Percent',
-'Crit Chance'= 'Crit Chance',
-'Minimum Speed'= 'Minimum Speed'
+  'Damage Absorbed'= 'Damage Absorbed',
+  'Health Regained'= 'Health Regained',
+  'Health Regain Percent'= 'Health Regain Percent',
+  'Crit Chance'= 'Crit Chance',
+  'Minimum Speed'= 'Minimum Speed'
 }
 
 

@@ -14,11 +14,13 @@ export class BuildDetailsComponent implements OnInit, OnDestroy {
   build: IBuild;
   currentScore = 0;
   currentIndex = 0;
+  isLoading = false;
   private isAlive = true;
 
   constructor(
     private buildService: BuildService
   ) {
+    this.buildService.calculationsRemaining$.subscribe(remaining => this.isLoading = remaining > 0);
   }
 
   ngOnInit(): void {

@@ -1,5 +1,4 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 
 import {
   AllEquipment,
@@ -27,6 +26,7 @@ export class CompareAllFormComponent implements OnInit {
   mainhandInputs = <HandheldType> (JSON.parse(localStorage.getItem('mainhand')) || {});
   playerInputs = <PlayerInputsType> (JSON.parse(localStorage.getItem('player')) || {});
   scenarioInputs = <IScenarioInputs> (JSON.parse(localStorage.getItem('scenario')) || {});
+  isScenarioFormVisible = false;
 
   constructor(
     private buildService: BuildService

@@ -5,17 +5,16 @@
 </div>
 
 <div *ngIf="!isLoading" class="col-sm">
-  <div class="row">
-    <div class="col-md-3">
-      <h2>Equipment</h2>
+  <div>
+    <h2>Select Equipment to Test</h2>
+    <div class="actions">
+      <a href (click)="update($event)">reload equipment</a>&nbsp;
+      <a href (click)="autoSelect($event)">auto select</a>&nbsp;
+      <a href (click)="clearAll($event)">clear all</a>&nbsp;
+      <a href="javascript:void(0)" (click)="isExpanded = !isExpanded;">expand</a>&nbsp;
+      <button class="btn-sm" (click)="togglePanelEvent.emit(true)">toggle show all</button>&nbsp;
     </div>
-    <div class="col-md-5">
-      <button class="btn-sm" (click)="update()">reload equipment</button>&nbsp;
-      <button class="btn-sm" (click)="isExpanded = !isExpanded">toggle open</button>&nbsp;
-      <button class="btn-sm" (click)="autoSelect()">auto select</button>&nbsp;
-      <button class="btn-sm" (click)="clearAll()">clear all</button>&nbsp;
-    </div>
-    <div class="form-group col-md-3 form-inline">
+    <div class="form-group form-inline">
       {{ totalSelected() }} items selected
       <!--<label for="showFields">Columns&nbsp;</label>
       <select id="showFields" class="form-control form-control-sm">
@@ -24,13 +23,15 @@
       </select>-->
     </div>
   </div>
-  <mat-accordion multi>
+
+<!--  <mat-accordion multi>-->
     <ng-template [ngIf]="(equipment$ | async)['boots'].length > 0">
       <app-select-equipment
-        *ngFor="let slot of slotNames; let i = index"
+        *ngFor="let slot of slotNames"
         [equipmentSlot]="(getEquipmentSlot$(slot) | async)"
         [slotName]="slot"
+        [isExpanded]="isExpanded"
       ></app-select-equipment>
     </ng-template>
-  </mat-accordion>
+<!--  </mat-accordion>-->
 </div>

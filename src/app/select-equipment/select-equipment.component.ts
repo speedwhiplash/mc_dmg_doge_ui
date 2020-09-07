@@ -3,7 +3,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 
 import { BuildService } from '../build.service';
-import { IDefenceInputs } from '../interfaces';
+import { IDefenceInputs, Slots } from '../interfaces';
 
 @Component({
   selector: 'app-select-equipment',
@@ -13,6 +13,7 @@ import { IDefenceInputs } from '../interfaces';
 export class SelectEquipmentComponent implements OnInit {
   @Input('equipmentSlot') equipmentSlot: IDefenceInputs[];
   @Input('slotName') slotName: string;
+  @Input('isExpanded') isExpanded = true;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
   dataSource: MatTableDataSource<IDefenceInputs>;
   displayedColumns = [
@@ -34,7 +35,8 @@ export class SelectEquipmentComponent implements OnInit {
     'Place',
     'Tier'
   ];
-  isExpanded = true;
+  slotNames = Slots;
+
   private isAlive = true;
 
   constructor(

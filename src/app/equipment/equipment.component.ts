@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { MatAccordion } from '@angular/material/expansion';
 import { Observable } from 'rxjs';
@@ -14,8 +14,9 @@ import { IDefenceInputs, Slots } from '../interfaces';
 })
 export class EquipmentComponent implements OnInit, OnDestroy {
   @ViewChild(MatAccordion) equipmentTable: MatAccordion;
+  @Input('isExpanded') isExpanded = false;
+  @Output('togglePanel') togglePanelEvent = new EventEmitter();
   equipment$ = this.buildService.equipment$;
-  isExpanded = true;
   isLoading = false;
   slotNames = Object.keys(Slots);
   private isAlive = true;
@@ -30,7 +31,7 @@ export class EquipmentComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
   }
 
-  autoSelect() {
+  autoSelect(event: MouseEvent) {
     this.clearAll();
 
     this._select('helmet', this.itemSelections.helmet);
@@ -40,12 +41,14 @@ export class EquipmentComponent implements OnInit, OnDestroy {
     this._select('offhand', this.itemSelections.offhand);
 
     this.buildService.saveWhitelist();
+    event?.preventDefault();
   }
 
-  clearAll() {
+  clearAll(event?: MouseEvent) {
     this.slotNames.forEach(slotName => {
       this.buildService.equipmentWhiteList[slotName] = {};
     });
+    event?.preventDefault();
   }
 
   getEquipmentSlot$(slot): Observable<IDefenceInputs[]> {
@@ -62,7 +65,7 @@ export class EquipmentComponent implements OnInit, OnDestroy {
     return total;
   }
 
-  update() {
+  update(event: MouseEvent) {
     this.isLoading = true;
     this.httpClient.get('/api/update-stats')
       .pipe(
@@ -79,6 +82,8 @@ export class EquipmentComponent implements OnInit, OnDestroy {
         })
       )
       .subscribe(() => this.isLoading = false);
+
+    event?.preventDefault();
   }
 
   public ngOnDestroy(): void {
@@ -89,5 +94,5 @@ export class EquipmentComponent implements OnInit, OnDestroy {
     this.equipment$.getValue()[slotName]
       .filter(item => itemArray.includes(item.Name))
       .forEach(item => this.buildService.equipmentWhiteList[slotName][item.Name] = true);
-    }
+  }
 }

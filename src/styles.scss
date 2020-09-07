@@ -61,6 +61,19 @@ table.mat-table {
 
     td.mat-cell {
       padding: 0 1px;
+      white-space: nowrap;
     }
   }
+}
+
+.table {
+  display: table;
+}
+
+.table-cell {
+  display: table-cell;
+}
+
+.actions a {
+  text-decoration: underline;
 }
