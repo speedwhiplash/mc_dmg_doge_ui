@@ -6,6 +6,8 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
@@ -36,7 +38,9 @@ import { SelectEquipmentComponent } from './select-equipment/select-equipment.co
     MatExpansionModule,
     MatSidenavModule,
     MatTableModule,
-    MatSortModule
+    MatTooltipModule,
+    MatSortModule,
+    NgbModule
   ],
   providers: [],
   bootstrap: [AppComponent]

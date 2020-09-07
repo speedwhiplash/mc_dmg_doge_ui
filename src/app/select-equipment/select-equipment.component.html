@@ -11,10 +11,17 @@
       </td>
     </ng-container>
 
+
     <!-- Name Column -->
     <ng-container matColumnDef="Name">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>{{slotNames[slotName]}} <b>{{numberSelected(slotName)}}</b>/{{equipmentSlot.length}}</th>
-      <td mat-cell *matCellDef="let item">{{ item.Name }} </td>
+      <td mat-cell *matCellDef="let item">
+        <ng-template #detailedPopoverBody>{{item | json}}</ng-template>
+        <span [ngbPopover]="detailedPopoverBody"
+          container="body"
+          [autoClose]="'outside'"
+          popoverTitle="{{ item.Name }}">{{ item.Name }}</span>
+      </td>
     </ng-container>
 
     <!-- Armor Column -->

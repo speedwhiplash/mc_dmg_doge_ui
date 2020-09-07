@@ -8,12 +8,12 @@
   <div>
     <h2>Equipment</h2>
     <span class="actions">
-      <a href (click)="update($event)" title="Update equipment list from server"><span class="material-icons">sync</span></a>&nbsp;
-      <a href (click)="autoSelect($event)" title="Auto-select equipment"><span class="material-icons">select_all</span></a>&nbsp;
-      <a href (click)="clearAll($event)" title="Clear all selections"><span class="material-icons">clear</span></a>&nbsp;
-      <a href="javascript:void(0)" title="Hide equipment details" *ngIf="isExpanded" (click)="isExpanded = false;"><span class="material-icons">expand_more</span></a>
-      <a href="javascript:void(0)" title="Show equipment details" *ngIf="!isExpanded" (click)="isExpanded = true;"><span class="material-icons">expand_less</span></a>
-      &nbsp;<button class="btn-sm" title="Toggle full equipment view" (click)="togglePanelEvent.emit(true)"><span class="material-icons">table_view</span></button>&nbsp;
+      <a href (click)="update($event)" matTooltip="Update equipment list from server"><span class="material-icons">sync</span></a>&nbsp;
+      <a href (click)="autoSelect($event)" matTooltip="Auto-select equipment"><span class="material-icons">select_all</span></a>&nbsp;
+      <a href (click)="clearAll($event)" matTooltip="Clear all selections"><span class="material-icons">clear</span></a>&nbsp;
+      <a href="javascript:void(0)" matTooltip="Hide equipment details" *ngIf="isExpanded" (click)="isExpanded = false;"><span class="material-icons">expand_more</span></a>
+      <a href="javascript:void(0)" matTooltip="Show equipment details" *ngIf="!isExpanded" (click)="isExpanded = true;"><span class="material-icons">expand_less</span></a>
+      &nbsp;<button class="btn-sm" matTooltip="Toggle full equipment view" (click)="togglePanelEvent.emit(true)"><span class="material-icons">table_view</span></button>&nbsp;
       <span>{{ totalSelected() }} items selected</span>
     </span>
   </div>
