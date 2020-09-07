@@ -7,6 +7,8 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
 import { ClipboardModule } from '@angular/cdk/clipboard';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
@@ -39,7 +41,9 @@ import { PercentPipe } from '@angular/common';
     MatExpansionModule,
     MatSidenavModule,
     MatTableModule,
-    MatSortModule
+    MatTooltipModule,
+    MatSortModule,
+    NgbModule
   ],
   providers: [PercentPipe],
   bootstrap: [AppComponent]
