@@ -15,7 +15,27 @@ import { IDefenceInputs, Slots } from '../interfaces';
 export class EquipmentComponent implements OnInit, OnDestroy {
   @ViewChild(MatAccordion) equipmentTable: MatAccordion;
   @Input('isExpanded') isExpanded = false;
+  @Input() allDetails = true;
   @Output('togglePanel') togglePanelEvent = new EventEmitter();
+  displayedColumns = [
+    'selected',
+    'Name',
+    'Armor',
+    // 'Armor Percent',
+    // 'Toughness',
+    // 'Toughness Percent',
+    'Protection',
+    'Evasion',
+    'Regeneration',
+    'Life Drain',
+    'Health',
+    'Health Percent',
+    'Speed',
+    'Speed Percent',
+    'Type',
+    'Place',
+    'Tier'
+  ];
   equipment$ = this.buildService.equipment$;
   isLoading = false;
   slotNames = Object.keys(Slots);
@@ -49,6 +69,10 @@ export class EquipmentComponent implements OnInit, OnDestroy {
       this.buildService.equipmentWhiteList[slotName] = {};
     });
     event?.preventDefault();
+  }
+
+  getColumns() {
+    return this.allDetails ? this.displayedColumns : ['selected', 'Name'];
   }
 
   getEquipmentSlot$(slot): Observable<IDefenceInputs[]> {

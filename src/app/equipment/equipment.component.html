@@ -6,13 +6,14 @@
 
 <div *ngIf="!isLoading" class="col-sm">
   <div>
-    <h2>Select Equipment to Test</h2>
+    <h2>Equipment</h2>
     <div class="actions">
-      <a href (click)="update($event)">reload equipment</a>&nbsp;
-      <a href (click)="autoSelect($event)">auto select</a>&nbsp;
-      <a href (click)="clearAll($event)">clear all</a>&nbsp;
-      <a href="javascript:void(0)" (click)="isExpanded = !isExpanded;">expand</a>&nbsp;
-      <button class="btn-sm" (click)="togglePanelEvent.emit(true)">toggle show all</button>&nbsp;
+      <a href (click)="update($event)"><span class="material-icons">sync</span></a>&nbsp;
+      <a href (click)="autoSelect($event)"><span class="material-icons">select_all</span></a>&nbsp;
+      <a href (click)="clearAll($event)"><span class="material-icons">clear</span></a>&nbsp;
+      <a href="javascript:void(0)" *ngIf="isExpanded" (click)="isExpanded = false;"><span class="material-icons">expand_more</span></a>
+      <a href="javascript:void(0)" *ngIf="!isExpanded" (click)="isExpanded = true;"><span class="material-icons">expand_less</span></a>
+      &nbsp;<button class="btn-sm" (click)="togglePanelEvent.emit(true)"><span class="material-icons">table_view</span></button>&nbsp;
     </div>
     <div class="form-group form-inline">
       {{ totalSelected() }} items selected
@@ -24,14 +25,13 @@
     </div>
   </div>
 
-<!--  <mat-accordion multi>-->
-    <ng-template [ngIf]="(equipment$ | async)['boots'].length > 0">
-      <app-select-equipment
-        *ngFor="let slot of slotNames"
-        [equipmentSlot]="(getEquipmentSlot$(slot) | async)"
-        [slotName]="slot"
-        [isExpanded]="isExpanded"
-      ></app-select-equipment>
-    </ng-template>
-<!--  </mat-accordion>-->
+  <ng-template [ngIf]="(equipment$ | async)['boots'].length > 0">
+    <app-select-equipment
+      *ngFor="let slot of slotNames"
+      [equipmentSlot]="(getEquipmentSlot$(slot) | async)"
+      [slotName]="slot"
+      [isExpanded]="isExpanded"
+      [displayedColumns]="getColumns()"
+    ></app-select-equipment>
+  </ng-template>
 </div>

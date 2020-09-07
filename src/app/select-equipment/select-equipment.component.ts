@@ -14,27 +14,9 @@ export class SelectEquipmentComponent implements OnInit {
   @Input('equipmentSlot') equipmentSlot: IDefenceInputs[];
   @Input('slotName') slotName: string;
   @Input('isExpanded') isExpanded = true;
+  @Input() displayedColumns;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
   dataSource: MatTableDataSource<IDefenceInputs>;
-  displayedColumns = [
-    'selected',
-    'Name',
-    'Armor',
-    'Armor Percent',
-    'Toughness',
-    'Toughness Percent',
-    'Protection',
-    'Evasion',
-    'Regeneration',
-    'Life Drain',
-    'Health',
-    'Health Percent',
-    'Speed',
-    'Speed Percent',
-    'Type',
-    'Place',
-    'Tier'
-  ];
   slotNames = Slots;
 
   private isAlive = true;
