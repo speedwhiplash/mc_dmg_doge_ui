@@ -130,5 +130,8 @@
       }
     }
   },
-  "defaultProject": "mc-dmg-dogui"
+  "defaultProject": "mc-dmg-dogui",
+  "cli": {
+    "analytics": "86de0e04-7143-482b-bf4e-4ae34f1236af"
+  }
 }

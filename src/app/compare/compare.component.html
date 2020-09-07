@@ -1,16 +1,16 @@
 <mat-sidenav-container>
   <div class="row no-margin">
-    <div class="col-sm-2" style="overflow-x: scroll; padding:0">
+    <div class="col-sm-2" style="padding:0">
       <app-equipment
         [allDetails]="false"
         [isExpanded]="true"
         (togglePanel)="toggleEquipmentPanel($event)">
       </app-equipment>
     </div>
-    <div class="col-sm-5">
+    <div class="col-sm-3">
       <app-compare-all-form (bestBuilds$)="setBuilds($event)"></app-compare-all-form>
     </div>
-    <div class="col-sm-5">
+    <div class="col-sm-7">
       <app-build-details #buildDetails></app-build-details>
     </div>
   </div>
