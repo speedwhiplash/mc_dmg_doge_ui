@@ -3,7 +3,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 
 import { BuildService } from '../build.service';
-import { IDefenceInputs, Slots } from '../interfaces';
+import { HandheldFields, IDefenceInputs, Slots } from '../interfaces';
 
 @Component({
   selector: 'app-select-equipment',
@@ -17,6 +17,7 @@ export class SelectEquipmentComponent implements OnInit {
   @Input() displayedColumns;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
   dataSource: MatTableDataSource<IDefenceInputs>;
+  handheldFields = Object.keys(HandheldFields);
   slotNames = Slots;
 
   private isAlive = true;
