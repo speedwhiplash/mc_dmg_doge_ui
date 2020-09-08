@@ -11,46 +11,29 @@
   <p class="lead">Submit a Scenario to find a build score.</p>
 </ng-template>
 
-<div *ngFor="let score of scores;">
+<div class="build-score-row" *ngFor="let score of scores;">
   <div *ngFor="let build of builds[score]; index as currentIndex">
-    <table class="table">
-      <tr>
-        <th width=40%>Name</th>
-        <th width=20%>Type</th>
-        <th width=20%>Tier</th>
-        <th width=20%>Place</th>
-      </tr>
-      <tr *ngFor="let slot of ['helmet','chestplate','leggings','boots','offhand']">
-        <td>{{ getBuild(score, currentIndex)[slot]['Name'] }}</td>
-        <td>{{ getBuild(score, currentIndex)[slot]['Type'] }}</td>
-        <td>{{ getBuild(score, currentIndex)[slot]['Tier'] }}</td>
-        <td>{{ getBuild(score, currentIndex)[slot]['Place'] }}</td>
-      </tr>
-    </table>
+    <div class="build-score-row-copy">
+      <span class="material-icons" [cdkCopyToClipboard]="getDiscordFormat(score, currentIndex)">content_copy</span>
+    </div>
 
-    <table class="table" id="buildScores">
-      <tr>
-        <th width=12.5%>Health Lost</th>
-        <th width=12.5%>Armor</th>
-        <th width=12.5%>Toughness</th>
-        <th width=12.5%>Protection</th>
-        <th width=12.5%>Evasion</th>
-        <th width=12.5%>Regeneration</th>
-        <th width=12.5%>Health</th>
-        <th>Percent Speed</th>
-      </tr>
-      <tr>
-        <td>{{ score | percent:'2.2'}}</td>
-        <td>{{ getScores(score, currentIndex)['armor'] }}</td>
-        <td>{{ getScores(score, currentIndex)['toughness'] }}</td>
-        <td>{{ getScores(score, currentIndex)['protection'] }}</td>
-        <td>{{ getScores(score, currentIndex)['evasion'] }}</td>
-        <td>{{ getScores(score, currentIndex)['regeneration'] }}</td>
-        <td>{{ getScores(score, currentIndex)['health'] }}</td>
-        <td>
-          {{ (getScores(score, currentIndex)['speed_percent'] - 1) > 0 ? '+' : '' }}{{ (getScores(score, currentIndex)['speed_percent'] - 1) | percent:'2.2' }}
-        </td>
-      </tr>
-    </table>
+    <div class="build-score-row-content">
+      <div class="build-row">
+        <span *ngFor="let slot of ['helmet','chestplate','leggings','boots','offhand']">
+          {{ getBuild(score, currentIndex)[slot]['Name'] }}</span>
+      </div>
+
+      <div class="score-row">
+        <span><b>{{ score | percent:'2.2'}}</b> Health Lost</span>
+        <span *ngFor="let stat of ['armor','toughness','protection','evasion','regeneration', 'health']">
+          {{ getScores(score, currentIndex)[stat] }} {{ getStatName(stat) }}
+        </span>
+        <span>
+          {{ (getScores(score, currentIndex)['speed_percent'] - 1) >= 0 ? '+' : '' }}{{ (getScores(score, currentIndex)['speed_percent'] - 1) | percent:'2.2' }}
+          Speed
+        </span>
+      </div>
+    </div>
+
   </div>
 </div>

@@ -1,18 +1,71 @@
 .table {
-    th {
-        padding: 0.25rem 0;
-    }
+  th {
+    padding: 0.25rem 0;
+  }
+
+  td {
+    padding: 0;
+  }
+
+  &#buildScores {
+    th,
     td {
-        padding: 0;
+      text-align: center;
     }
-    &#buildScores {
-        th,
-        td {
-            text-align: center;
-        }
-    }
+  }
 }
 
 #indexed-button {
-    width: 2rem;
+  width: 2rem;
+}
+
+.build-score-row {
+  padding: 2px 0;
+
+  &:nth-child(even) {
+    background: #222;
+  }
+
+  > div {
+    padding: 2px 0;
+    display: table;
+    width: 100%;
+  }
+}
+
+.build-score-row-copy, .build-score-row-content {
+  display: table-cell;
+  vertical-align: middle;
+}
+
+.build-score-row-copy {
+  cursor: pointer;
+  padding-left: 10px;
+}
+
+.build-row, .score-row {
+  display: table;
+  width: 100%;
+
+  span {
+    display: table-cell;
+    white-space: nowrap;
+    padding: 0 4px;
+  }
+
+  span:last-child {
+    border-right: none;
+  }
+}
+
+.build-row span {
+  width: 20%;
+}
+
+.score-row span {
+  width: 12%;
+
+  &:first-child {
+    width: 16%;
+  }
 }

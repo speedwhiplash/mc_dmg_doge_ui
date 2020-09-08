@@ -6,6 +6,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
+import { ClipboardModule } from '@angular/cdk/clipboard';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
@@ -18,6 +19,7 @@ import { CompareComponent } from './compare/compare.component';
 import { EquipmentComponent } from './equipment/equipment.component';
 import { HeaderComponent } from './header/header.component';
 import { SelectEquipmentComponent } from './select-equipment/select-equipment.component';
+import { PercentPipe } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -34,6 +36,7 @@ import { SelectEquipmentComponent } from './select-equipment/select-equipment.co
     AppRoutingModule,
     BrowserAnimationsModule,
     BrowserModule,
+    ClipboardModule,
     HttpClientModule,
     MatExpansionModule,
     MatSidenavModule,
@@ -42,7 +45,7 @@ import { SelectEquipmentComponent } from './select-equipment/select-equipment.co
     MatSortModule,
     NgbModule
   ],
-  providers: [],
+  providers: [PercentPipe],
   bootstrap: [AppComponent]
 })
 export class AppModule {

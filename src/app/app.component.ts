@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import noUiSlider from 'nouislider';
+import 'nouislider/distribute/nouislider.css';
 
 @Component({
   selector: 'app-root',

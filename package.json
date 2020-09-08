@@ -28,6 +28,7 @@
     "bootswatch": "4.4.1",
     "deep-clone": "^3.0.3",
     "material-components-web": "6.0.0",
+    "nouislider": "^14.6.1",
     "rxjs": "6.5.5",
     "tslib": "1.11.2",
     "zone.js": "0.10.3"
