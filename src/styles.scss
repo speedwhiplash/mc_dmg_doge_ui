@@ -12,6 +12,10 @@ $dark-warn: mat-palette($mat-deep-orange);
 $dark-theme: mat-dark-theme($dark-primary, $dark-accent, $dark-warn);
 @include angular-material-theme($dark-theme);
 
+h3 {
+  display: inline-block;
+}
+
 app-equipment {
   display: block;
 }
@@ -30,16 +34,33 @@ footer {
 }
 
 /** Bootstrap / BootSwatch overrides */
+app-root {
+  .col-form-label {
+    padding-top: 0.25rem;
+  }
 
-.col-form-label {
-  padding-top: 0.25rem;
-}
+  .table th {
+    white-space: nowrap;
+  }
 
-.table th {
-  white-space: nowrap;
+  .btn {
+    padding: 0.25rem 0.3rem;
+  }
+
+  .input-group-sm > .form-control, .input-group-sm > .custom-select, .input-group-sm > .input-group-prepend > .input-group-text, .input-group-sm > .input-group-append > .input-group-text, .input-group-sm > .input-group-prepend > .btn, .input-group-sm > .input-group-append > .btn {
+    padding: 0 0.5rem;
+  }
+
+  .input-group-sm > .form-control:not(textarea), .input-group-sm > .custom-select {
+    height: calc(1rem + 0.5rem + 2px);
+  }
 }
 
 /** Material overrides */
+.material-icons {
+  font-size: 20px;
+}
+
 .mat-expansion-panel-header-title {
   font-weight: bold;
 

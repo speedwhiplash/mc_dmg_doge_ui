@@ -1,3 +1,18 @@
 .form-inline label {
-    padding-right: 0.5rem;
+  padding-right: 0.5rem;
+}
+
+.build-form-heading {
+  > * {
+    margin: 0 10px;
+
+    &:first-child {
+      margin-left: 0;
+    }
+  }
+
+  .btn-sm {
+    padding: 0 5px;
+    margin-bottom: 5px;
+  }
 }

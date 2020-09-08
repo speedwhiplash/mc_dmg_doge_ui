@@ -1,11 +1,9 @@
 <form (keyup.enter)="submit()" novalidate>
-  <h2>Scenario</h2>
-  <div class="table" style="width:100%">
-    <span class="table-cell">Damage taken/hit: {{scenarioInputs.Damage}}</span>
-    <span class="table-cell">hits/3 seconds: {{scenarioInputs['Hits Taken']}}</span>
-    <span class="table-cell">
-        <button type="button" (click)="isScenarioFormVisible = !isScenarioFormVisible">edit</button>
-      </span>
+  <div class="build-form-heading">
+    <h3>Scenario</h3>
+    <button type="button" class="btn btn-secondary btn-sm" (click)="isScenarioFormVisible = !isScenarioFormVisible">edit</button>
+    <span>Damage taken/hit: {{scenarioInputs.Damage}}</span>
+    <span>hits/3 seconds: {{scenarioInputs['Hits Taken']}}</span>
   </div>
 
   <div *ngIf="isScenarioFormVisible">
@@ -72,7 +70,10 @@
     </div>
   </div>
 
-  <h2>Player</h2>
+  <div class="build-form-heading">
+    <h3>Player</h3>
+    <button type="button" class="btn btn-secondary btn-sm" (click)="isScenarioFormVisible = !isScenarioFormVisible">edit</button>
+  </div>
   <div *ngIf="isScenarioFormVisible">
     <div class="form-row">
       <div class="col-lg-4 mb-3">
@@ -141,7 +142,10 @@
     </div>
   </div>
 
-  <h2>Main Hand Item</h2>
+  <div class="build-form-heading">
+    <h3>Main Hand Item</h3>
+    <button type="button" class="btn btn-secondary btn-sm" (click)="isScenarioFormVisible = !isScenarioFormVisible">edit</button>
+  </div>
   <div *ngIf="isScenarioFormVisible">
     <div class="form-row">
       <div class="col-lg-4 mb-3">
