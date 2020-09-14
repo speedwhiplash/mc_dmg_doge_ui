@@ -125,8 +125,6 @@ export class BuildService {
   }
 
   private mergeBestBuilds(bestBuilds: Record<number, BuildAttributeScores[]>) {
-    console.log('mergeBestBuilds', bestBuilds);
-
     let allBestBuilds = this.bestBuilds$.getValue();
     let scores = Object.keys(allBestBuilds).sort();
     let worstScore = scores[scores.length - 1] || 9;

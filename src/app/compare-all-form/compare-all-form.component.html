@@ -48,7 +48,7 @@
         </div>
       </div>
       <div class="col-lg-4 mb-3">
-        <label for="sCrits">Estimated Crit Chance</label>
+        <label for="sCrits">Crit Chance</label>
         <div class="input-group input-group-sm">
           <input type="number" class="form-control" id="sCrits" #sCrits [min]="0" [max]="100"
             (keyup)="scenarioInputs['Crit Chance'] = +sCrits.value" [value]="scenarioInputs['Crit Chance']">
@@ -58,7 +58,7 @@
         </div>
       </div>
       <div class="col-lg-4 mb-3">
-        <label for="sSpeed">Minimum Percent Speed</label>
+        <label for="sSpeed">Minimum Speed</label>
         <div class="input-group input-group-sm">
           <input type="number" class="form-control" id="sSpeed" #sSpeed
             (keyup)="scenarioInputs['Minimum Speed'] = +sSpeed.value" [value]="scenarioInputs['Minimum Speed']">
@@ -116,7 +116,7 @@
 
     <div class="form-row">
       <div class="col-lg-4 mb-3">
-        <label for="pAtksp">Bonus Attack Speed</label>
+        <label for="pAtksp">Attack Speed</label>
         <div class="input-group input-group-sm">
           <input type="number" class="form-control" id="pAtksp" #pAtksp [min]="0" (keyup)="playerInputs['Attack Speed'] = +pAtksp.value"
             [value]="playerInputs['Attack Speed']">

@@ -61,7 +61,7 @@ export class BuildDetailsComponent implements OnInit, OnDestroy {
     content += ['armor', 'toughness', 'protection', 'evasion', 'regeneration', 'health'].map(stat => {
       return `${this.getScores(score, currentIndex)[stat]} ${this.getStatName(stat)}`
     }).join(' / ');
-    content += `/ ${this.getSpeedScore(score, currentIndex)}`;
+    content += ` / ${this.getSpeedScore(score, currentIndex)}`;
     return content + '```';
   }
 
