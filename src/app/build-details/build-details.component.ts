@@ -62,7 +62,7 @@ export class BuildDetailsComponent implements OnInit, OnDestroy {
       return `${this.getScores(score, currentIndex)[stat]} ${this.getStatName(stat)}`
     }).join(' / ');
     content += ` / ${this.getSpeedScore(score, currentIndex)}`;
-    return content + '```';
+    return content + ' Speed```';
   }
 
   getScores(score: number, index: number): IBuild {
