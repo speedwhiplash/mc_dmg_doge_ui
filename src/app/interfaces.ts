@@ -132,7 +132,8 @@ export enum HandheldFields {
 	Toughness = 'Toughness',
 	'Toughness Percent' = 'Toughness Percent',
 	'Speed' = 'Speed',
-	'Speed Percent' = 'Speed Percent'
+	'Speed Percent' = 'Speed Percent',
+	Sustenance = 'Sustenance'
 }
 
 export type HandheldType = {
