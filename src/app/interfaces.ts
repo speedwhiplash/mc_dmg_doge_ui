@@ -131,6 +131,7 @@ export enum HandheldFields {
 	Regeneration = 'Regeneration',
 	Toughness = 'Toughness',
 	'Toughness Percent' = 'Toughness Percent',
+	'Second Wind' = 'Second Wind',
 	'Speed' = 'Speed',
 	'Speed Percent' = 'Speed Percent',
 	Sustenance = 'Sustenance'
